@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMA STAT</title>
+    <!-- Include Tailwind CSS from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="/js/eventHandlers.js"></script>
+    <script src="/js/functions.js"></script>
+    <script src="/js/simulation.js"></script>
+    <script src="/js/class/simulation.js"></script>
+    <script src="/js/class/strike.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body style="background-color: #DBDBDB;">
+    <!-- Navbar -->
+    <nav style="background-color: rgb(42, 39, 39);">
+        <div class="container mx-auto px-4 py-2">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a class="text-white text-lg font-semibold" href="http://localhost:3000/">MMA Statistics</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a class="text-gray-300 hover:text-white text-xl font-semibold" href="#"
+                        id="btn_goto_organisation">Organisations</a>
+                    <a class="text-gray-300 hover:text-white text-xl font-semibold" href="#"
+                        id="btn_goto_events">Events</a>
+                    <a class="text-gray-300 hover:text-white text-xl font-semibold" href="#"
+                        id="btn_goto_fighters">Fighters</a>
+                    <a class="text-gray-300 hover:text-white text-xl font-semibold" href="#"
+                        id="btn_goto_statictics">Statistics</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <nav class="bg-gray-200 py-2 px-4">
+        <ol id="breadscrum" class="list-reset flex text-gray-500">
+
+        </ol>
+    </nav>
+    <div class="main_container">

@@ -1,0 +1,89 @@
+<%- include('partials/header') %>
+<div class="container mx-auto p-8">
+    <div class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
+        <p class="text-gray-800 font-medium form_title">Add Organisation</p>
+        <p class="hidden" id="organisation_id"></p>
+        <div class="">
+            <label class="block text-sm text-gray-00" for="name">Name</label>
+            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" id="organisation_name"
+                name="name" placeholder="Enter Organisation Name" aria-label="Name">
+        </div>
+        <div class="mt-4">
+            <label class="block text-sm text-gray-00" for="headquarters">Headquarters</label>
+            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" id="organisation_headquarters"
+                name="headquarters" placeholder="Enter Headquarters" aria-label="Headquarters">
+        </div>
+        <div class="mt-4">
+            <label class="block text-sm text-gray-00" for="founded_year">Founded Year</label>
+            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="number"
+                id="organisation_founded_year" name="founded_year" placeholder="Enter Founded Year"
+                aria-label="Founded Year">
+        </div>
+        <div class="mt-6">
+            <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
+                id="btn_add_organisation">Add Organisation</button>
+            <button class="hidden px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
+                id="btn_edit_organisation">Edit Organisation</button>
+        </div>
+    </div>
+</div>
+<div class="container mx-auto p-8">
+
+    <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                    <h1 class="text-3xl font-bold text-gray-900">Organisations</h1>
+                    <table class="min-w-full">
+                        <thead class="bg-gray-100 border-b">
+                            <tr>
+                                <!-- <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    ID
+                                </th> -->
+                                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    Name
+                                </th>
+                                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    Headquarters
+                                </th>
+                                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    Founded Year
+                                </th>
+                                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-gray-100 border-b">
+                            <% organisations.forEach(organisation=> { %>
+                                <tr class="pointer" onclick="detailOrganisation('<%= organisation.organisation_id %>')">
+                                    <!-- <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                        <%= organisation.organisation_id %>
+                                    </td> -->
+                                    <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                        <%= organisation.name %>
+                                    </td>
+                                    <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                        <%= organisation.headquarters %>
+                                    </td>
+                                    <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                        <%= organisation.founded_year %>
+                                    </td>
+                                    <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                        <button
+                                            class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
+                                            onclick="editOrganisation('<%= organisation.organisation_id %>')">Edit</button>
+                                        <button
+                                            class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
+                                            onclick="deleteOrganisation('<%= organisation.organisation_id %>')">Delete</button>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('partials/footer') %>

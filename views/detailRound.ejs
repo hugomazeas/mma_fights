@@ -1,0 +1,180 @@
+<%- include('partials/header') %>
+
+    <div class="container mx-auto p-8">
+        <div class="flex">
+            <div style="width: 50%;" class="m-4 p-10 bg-white rounded shadow-xl">
+                <h2 class="text-xl">Fight Details</h2>
+                <div class="mb-4">
+                    <p class="text-2xl font-bold text-gray-600">
+                        <%= fight.fighter1_first_name %>
+                            <%= fight.fighter1_last_name %> VS <%= fight.fighter2_first_name %>
+                                    <%= fight.fighter2_last_name %>
+                    </p>
+                    <p class="text-gray-600">Division <%= fight.division %>
+                    </p>
+                    <p class="text-gray-600">Winner: <%= fight.winner_first_name %>
+                            <%= fight.winner_last_name %>
+                    </p>
+                    <p class="text-gray-600">Card Type: <%= fight.card_type %>
+                    </p>
+                    <p class="text-gray-600">Round: <%= round.round_number %>
+                    </p>
+                </div>
+            </div>
+            <div class="half-width m-4 p-10 bg-white rounded shadow-xl">
+                <p class="text-2xl font-bold mb-4">Round info</p>
+                <p class="hidden" id="organisation_id"></p>
+                <div class="">
+                    <div class="mt-4 flex">
+                        <label class="block text-sm text-gray-00 mr-4" for="full_round">Full Round:</label>
+                        <input type="checkbox" id="full_round" name="full_round"
+                            class="form-checkbox h-5 w-5 text-gray-600" <% if (round.round_duration===300) { %>checked<%
+                            } %>>
+                    </div>
+                    <label class="block text-sm text-gray-00" for="name">Duration (seconds):</label>
+                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="number"
+                        id="organisation_name" min="0" max="300" name="name" aria-label="Name"
+                        value="<%= round.round_duration %>">
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm text-gray-00" for="headquarters">Fighter 1 Ground control:</label>
+                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="number"
+                        id="organisation_name" min="0" max="300" name="name" aria-label="Name"
+                        value="<%= round.fighter1_ground_control %>">
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm text-gray-00" for="founded_year">Fighter 2 Ground control:</label>
+                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="number"
+                        id="organisation_name" min="0" max="300" name="name" aria-label="Name"
+                        value="<%= round.fighter2_ground_control %>">
+                </div>
+                <div class="mt-6">
+                    <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
+                        id="btn_add_fight">Update Round</button>
+                    <button class="hidden px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
+                        id="btn_edit_organisation">Edit Organisation</button>
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="half-width strike_card_section" style="border-right: 1px solid black;">
+                <div class="strike_card">
+                    <h1 class="text-2xl text-center font-bold" id="fighter1_name">Fighter 1</h1>
+                    <div class="flex justify-center items-center">
+                        <div>
+                            <div class="hit_card_item"><strong>Head:</strong><br><span id="fighter1_hits_head"></span>
+                            </div>
+                            <div class="hit_card_item"><strong>Body:</strong><br><span id="fighter1_hits_body"></span>
+                            </div>
+                            <div class="hit_card_item"><strong>Leg:</strong><br><span id="fighter1_hits_leg"></span>
+                            </div>
+                        </div>
+                        <img src="/img/30473.png" alt="UFC Logo" style="height: 75%;">
+                        <div>
+                            <div class="strike_card_item"><strong>Elbow:</strong><br><span
+                                    id="fighter1_strikes_elbow"></span></div>
+                            <div class="strike_card_item"><strong>Punch:</strong><br><span
+                                    id="fighter1_strikes_punch"></span></div>
+                            <div class="strike_card_item"><strong>Knee:</strong><br><span
+                                    id="fighter1_strikes_knee"></span>
+                            </div>
+                            <div class="strike_card_item"><strong>Kick:</strong><br><span
+                                    id="fighter1_strikes_kick"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="px-4 sm:px-0">
+                        <h3 class="text-base font-semibold leading-7 text-gray-900">More info:</h3>
+                    </div>
+                    <div class="mt-6 border-t border-gray-100">
+                        <dl class="divide-y divide-gray-100">
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Total Strikes</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">4</dd>
+                            </div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Significant Strikes</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">5</dd>
+                            </div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Total Strikes</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">35</dd>
+                            </div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Takedowns attemps</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">4</dd>
+                            </div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Knockdowns</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">3</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="half-width strike_card_section">
+                <div class="strike_card">
+                    <h1 class="text-2xl text-center font-bold" id="fighter2_name">Fighter 1</h1>
+                    <div class="flex justify-center items-center">
+                        <div>
+                            <div class="hit_card_item"><strong>Head:</strong><br><span id="fighter2_hits_head"></span>
+                            </div>
+                            <div class="hit_card_item"><strong>Body:</strong><br><span id="fighter2_hits_body"></span>
+                            </div>
+                            <div class="hit_card_item"><strong>Leg:</strong><br><span id="fighter2_hits_leg"></span>
+                            </div>
+                        </div>
+                        <img src="/img/30473.png" alt="UFC Logo" style="height: 75%;">
+                        <div>
+                            <div class="strike_card_item"><strong>Elbow:</strong><br><span
+                                    id="fighter2_strikes_elbow"></span></div>
+                            <div class="strike_card_item"><strong>Punch:</strong><br><span
+                                    id="fighter2_strikes_punch"></span></div>
+                            <div class="strike_card_item"><strong>Knee:</strong><br><span
+                                    id="fighter2_strikes_knee"></span>
+                            </div>
+                            <div class="strike_card_item"><strong>Kick:</strong><br><span
+                                    id="fighter2_strikes_kick"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info_card">
+                    
+                    <div class="px-4 sm:px-0">
+                        <h3 class="text-base font-semibold leading-7 text-gray-900">More info:</h3>
+                    </div>
+                    <div class="mt-6 border-t border-gray-100">
+                        <dl class="divide-y divide-gray-100">
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Total Strikes</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">4</dd>
+                            </div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Significant Strikes</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">5</dd>
+                            </div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Total Strikes</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">35</dd>
+                            </div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Takedowns attemps</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">4</dd>
+                            </div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Knockdowns</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">3</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+
+    </div>
+    <%- include('partials/footer') %>
