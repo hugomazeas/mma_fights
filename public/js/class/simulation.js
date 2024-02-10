@@ -1,4 +1,3 @@
-
 class Simulation {
     #strikes = [];
     #running;
@@ -20,19 +19,20 @@ class Simulation {
     stop() {
         this.#running = false;
     }
-    new_strike(striker, action, target, sig_strike, fight_status) {
-        let striker_id;
-        let target_id;
-        if (striker == 1) {
-            striker_id = this.#fighter1_id;
-            target_id = this.#fighter2_id;
+    isRunning() {
+        return this.#running;
+    }
+    new_strike(strike) {
+        if (strike.striker == 1) {
+            strike.striker_id = this.#fighter1_id;
+            strike.target_id = this.#fighter2_id;
         } else {
-            striker_id = this.#fighter2_id;
-            target_id = this.#fighter1_id;
+            strike.striker_id = this.#fighter2_id;
+            strike.target_id = this.#fighter1_id;
         }
-        let strike = new Strike(striker_id, target_id, action, target, sig_strike, fight_status, this.#round_id);
+        let final_strike = new Strike(strike.striker_id, strike.target_id, strike.action, strike.target, strike.sig_strike, strike.fight_status, this.#round_id);
         if (this.#running) {
-            this.#strikes.push(strike);
+            this.#strikes.push(final_strike);
         } else {
             console.log('Simulation not running');
         }

@@ -1,7 +1,7 @@
 
 class Strike {
     static actions = ['punch', 'knee', 'elbow', 'kick', 'takedown', 'other'];
-    static targets = ['head', 'body', 'leg', 'other'];
+    static targets = ['head', 'body', 'leg', 'takedown', 'other'];
     static fight_status = ['standing', 'clinch', 'ground', 'other'];
 
     #action;

@@ -70,11 +70,11 @@
                     data-fighter1-id="<%= fight.fighter1_id %>">Fighter 1</h1>
                 <div class="justify-center items-center">
                     <div class="flex fight_status_section hidden justify-center">
-                        <div class="fight_status pointer fight_status_active" id="fighter1_status_standing"
+                        <div class="fight_status pointer fight_status_fighter1 fight_status_active" id="fighter1_status_standing"
                             data-fight-status="standing" style="border-radius: 15px 0 0 15px;">Standing</div>
-                        <div class="fight_status pointer" id="fighter1_status_clinch" data-fight-status="clinch">Clinch
+                        <div class="fight_status pointer fight_status_fighter1 " id="fighter1_status_clinch" data-fight-status="clinch">Clinch
                         </div>
-                        <div class="fight_status pointer" id="fighter1_status_ground" data-fight-status="ground"
+                        <div class="fight_status pointer fight_status_fighter1 " id="fighter1_status_ground" data-fight-status="ground"
                             style="border-radius: 0 15px 15px 0;">Ground</div>
                     </div>
                     <div class="flex justify-center">
@@ -87,19 +87,19 @@
                             </div>
                         </div>
                         <div class="miscellaneous_strikes hidden">
-                            <div class="strike_card_item strike_card_item_takedown" data-strike-type="takedown">
+                            <div class="strike_card_item strike_card_item_takedown strike_card_item_striker1" data-strike-type="takedown">
                                 <strong>Takedown</strong>
                             </div>
                             <div class="strike_possible_destination takedown_result hidden" style="height: 20%;"
                                 data-hit-name="takedown" data-striker-id="<%= fight.fighter1_id %>"
                                 data-target-id="<%= fight.fighter2_id %>" data-fight-id="<%= fight.fight_id %>"
-                                data-event-id="<%= fight.event_id %>" data-strike-sig="true">
+                                data-event-id="<%= fight.event_id %>" data-strike-sig="true" data-fighter-number="1">
                                 <strong>Successful</strong>
                             </div>
                             <div class="strike_possible_destination takedown_result hidden" style="height: 20%;"
                                 data-hit-name="takedown" data-striker-id="<%= fight.fighter1_id %>"
                                 data-target-id="<%= fight.fighter2_id %>" data-fight-id="<%= fight.fight_id %>"
-                                data-event-id="<%= fight.event_id %>" data-strike-sig="false">
+                                data-event-id="<%= fight.event_id %>" data-strike-sig="false" data-fighter-number="1">
                                 <strong>Failed</strong>
                             </div>
                         </div>
@@ -184,11 +184,11 @@
                     data-fighter2-id="<%= fight.fighter2_id %>">Fighter 2</h1>
                 <div class="justify-center items-center">
                     <div class="flex fight_status_section hidden justify-center">
-                        <div class="fight_status pointer fight_status_active" id="fighter1_status_standing"
+                        <div class="fight_status pointer  fight_status_fighter2 fight_status_active" id="fighter2_status_standing"
                             data-fight-status="standing" style="border-radius: 15px 0 0 15px;">Standing</div>
-                        <div class="fight_status pointer" id="fighter1_status_clinch" data-fight-status="clinch">Clinch
+                        <div class="fight_status pointer fight_status_fighter2 " id="fighter2_status_clinch" data-fight-status="clinch">Clinch
                         </div>
-                        <div class="fight_status pointer" id="fighter1_status_ground" data-fight-status="ground"
+                        <div class="fight_status pointer fight_status_fighter2 " id="fighter2_status_ground" data-fight-status="ground"
                             style="border-radius: 0 15px 15px 0;">Ground</div>
                     </div>
                     <div class="flex justify-center">
@@ -201,19 +201,19 @@
                             </div>
                         </div>
                         <div class="miscellaneous_strikes hidden">
-                            <div class="strike_card_item strike_card_item_takedown" data-strike-type="takedown">
+                            <div class="strike_card_item strike_card_item_takedown strike_card_item_striker2" data-strike-type="takedown">
                                 <strong>Takedown</strong>
                             </div>
                             <div class="strike_possible_destination takedown_result hidden" style="height: 20%;"
                                 data-hit-name="takedown" data-striker-id="<%= fight.fighter2_id %>"
                                 data-target-id="<%= fight.fighter1_id %>" data-fight-id="<%= fight.fight_id %>"
-                                data-event-id="<%= fight.event_id %>" data-strike-sig="true">
+                                data-event-id="<%= fight.event_id %>" data-strike-sig="true" data-fighter-number="2">
                                 <strong>Successful</strong>
                             </div>
                             <div class="strike_possible_destination takedown_result hidden" style="height: 20%;"
                                 data-hit-name="takedown" data-striker-id="<%= fight.fighter2_id %>"
                                 data-target-id="<%= fight.fighter1_id %>" data-fight-id="<%= fight.fight_id %>"
-                                data-event-id="<%= fight.event_id %>" data-strike-sig="false">
+                                data-event-id="<%= fight.event_id %>" data-strike-sig="false" data-fighter-number="2">
                                 <strong>Failed</strong>
                             </div>
                         </div>
@@ -236,19 +236,19 @@
                             <div class="strike_possible_destination" style="height: 20%;" data-hit-name="head"
                                 data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
                                 data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                data-strike-sig="true">
+                                data-strike-sig="true" data-fighter-number="2">
                                 <strong>Head</strong><br><span id="fighter2_strikes_elbow"></span>
                             </div>
                             <div class="strike_possible_destination" style="height: 40%;" data-hit-name="body"
                                 data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
                                 data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                data-strike-sig="true">
+                                data-strike-sig="true" data-fighter-number="2">
                                 <strong>Body</strong><br><span id="fighter2_strikes_punch"></span>
                             </div>
                             <div class="strike_possible_destination" style="height: 40%;" data-hit-name="leg"
                                 data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
                                 data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                data-strike-sig="true">
+                                data-strike-sig="true" data-fighter-number="2">
                                 <strong>Leg</strong><br><span id="fighter2_strikes_knee"></span>
                             </div>
                         </div>
