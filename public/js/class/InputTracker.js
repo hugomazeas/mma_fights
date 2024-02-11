@@ -22,7 +22,8 @@ class InputTracker {
                     $("#fighter" + fighter_number + "_status_ground").addClass("fight_status_active");
                     break;
                 case 'Shift':
-                    $(".strike_card_item_striker" + fighter_number).trigger("click");
+                    $(".takedown_result").addClass("hidden");
+                    $("#takedown_result_fighter" + fighter_number).removeClass("hidden");
                     break;
                 case '1':
                     _this.setTrackingFighterNumber(1);

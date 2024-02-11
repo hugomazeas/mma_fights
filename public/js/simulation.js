@@ -7,6 +7,8 @@ $(document).ready(function () {
             let strike = fetch_hit_attributs();
             current_simulation.new_strike(strike);
             console.log(current_simulation.strikes);
+
+            $(".takedown_result").addClass("hidden");
             $(".strike_card_item").removeClass("strike_possible_destination_active");
             $(".strike_map_fighter" + fighter_number).css("opacity", "0");
             $(".strike_card_item_takedown").css("opacity", "0");
@@ -14,17 +16,6 @@ $(document).ready(function () {
             console.log("Simulation not active");
         }
     });
-    // $(document).on('click', '.ground_time_start_stop_button', function () {
-    //     if ($(this).hasClass("ground_time_start")) {
-    //         $(this).removeClass("ground_time_start");
-    //         $(this).addClass("ground_time_stop");
-    //         $(this).text("Stop");
-    //     } else {
-    //         $(this).removeClass("ground_time_stop");
-    //         $(this).addClass("ground_time_start");
-    //         $(this).text("Start");
-    //     }
-    // });
     $(document).on('click', '.strike_card_item', function () {
         if (current_simulation.isRunning()) {
             $(".strike_card_item").removeClass("strike_possible_destination_active");
@@ -39,7 +30,7 @@ $(document).ready(function () {
         $(".takedown_result").toggleClass("hidden");
     });
     $(document).on('click', '.takedown_result', function () {
-        $(".takedown_result").addClass("hidden");
+        $(this).toggleClass("hidden");
     });
     $(document).on("click", ".fight_status", function () {
         $(this).parent().find(".fight_status").removeClass("fight_status_active");
