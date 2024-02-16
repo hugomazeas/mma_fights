@@ -150,3 +150,8 @@ input:checked ~ .dot {
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
 }
+.fighter_body_image{
+    transition: all 0.15s ease-in-out;
+    padding: 1%;
+    margin: 1%;
+}

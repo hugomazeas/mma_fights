@@ -19,7 +19,7 @@ class Simulation {
     stop() {
         this.#running = false;
     }
-    isRunning() {
+    is_running() {
         return this.#running;
     }
     new_strike(strike) {
