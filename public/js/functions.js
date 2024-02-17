@@ -124,8 +124,6 @@ async function display_strike(org_id, event_id, fight_id, round_number) {
 
     let fighter1_takedown = fighter1_strikes.filter((strike) => strike.strike_code == "TAKEDOWN");
     let fighter2_takedown = fighter2_strikes.filter((strike) => strike.strike_code == "TAKEDOWN");
-    console.log(fighter1_takedown.filter((item) => item["sig_strike"] == true).length);
-    console.log(fighter1_takedown.filter((item) => item["sig_strike"] == false).length)
     let fighter1_takedown_accuracy = (fighter1_takedown.filter((item) => item["sig_strike"] == true).length / fighter1_takedown.length).toFixed(2) * 100;
     let fighter2_takedown_accuracy = (fighter2_takedown.filter((item) => item["sig_strike"] == true).length / fighter2_takedown.length).toFixed(2) * 100;
 

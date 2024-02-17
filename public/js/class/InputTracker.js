@@ -16,6 +16,7 @@ class InputTracker {
     #select_body_strike = "x";
     #select_leg_strike = "c";
 
+    #possible_keys = [];
     constructor() {
         this.setTrackingFighterNumber(1);
     }
@@ -26,6 +27,7 @@ class InputTracker {
             let key = e.key;
             let fighter_number = _this.getTrackingFighterNumber();
             close_destination_map();
+            
             switch (key) {
                 case _this.#stranding_key:
                     $(".fight_status_fighter" + fighter_number).removeClass("fight_status_active");
@@ -40,6 +42,7 @@ class InputTracker {
                     $("#fighter" + fighter_number + "_status_ground").addClass("fight_status_active");
                     break;
                 case _this.#takedown_key:
+                    e.preventDefault();
                     $(".takedown_result").addClass("hidden");
                     $("#takedown_result_fighter" + fighter_number).removeClass("hidden");
                     break;
@@ -79,7 +82,7 @@ class InputTracker {
                     add_new_strike.call(this);
                     break;
                 case _this.#takedown_result_fail:
-                    add_new_strike();
+                    add_new_strike.call(this);
                     break;
                 case _this.#select_body_strike:
                     add_new_strike.call(this);
@@ -100,9 +103,11 @@ class InputTracker {
         this.#tracking_fighter_number = fighter_number;
 
         let other_fighter = fighter_number == 1 ? 2 : 1;
-        $("#fighter" + fighter_number + "_img").css("opacity", "100%");
+        
         $("#fighter" + other_fighter + "_img").css("opacity", "20%");
         $("#fighter" + other_fighter + "_img").css("border", "none");
+
+        $("#fighter" + fighter_number + "_img").css("opacity", "100%");
         $("#fighter" + fighter_number + "_img").css("border", "5px solid green")
     }
     getTrackingFighterNumber() {

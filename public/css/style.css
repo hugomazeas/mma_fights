@@ -22,7 +22,7 @@
     text-align: center;
 }
 
-.strike_card_item {
+.strike_card_item, .strike_card_item_takedown {
     cursor: pointer;
     font-size: 130%;
     padding-top: 2rem;
@@ -58,7 +58,7 @@
 .strike_destination{
     transition: all 0.25s ease-in-out;
 }
-.info_card_item {
+.info_card_item{
     font-size: 120%;
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -154,4 +154,7 @@ input:checked ~ .dot {
     transition: all 0.15s ease-in-out;
     padding: 1%;
     margin: 1%;
+}
+.fight_round_details{
+    transition: all 0.3s ease-in-out;
 }
