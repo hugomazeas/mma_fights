@@ -72,7 +72,7 @@
                         <div class="fight_status pointer fight_status_fighter1 " id="fighter1_status_ground"
                             data-fight-status="ground" style="border-radius: 0 15px 15px 0;">Ground</div>
                     </div>
-                    <div class="flex justify-center">
+                    <div class="flex justify-left">
                         <div class="fighter_hits_info">
                             <div class="hit_card_item"><strong>Head:</strong><br><span id="fighter1_hits_head"></span>
                             </div>
@@ -81,66 +81,141 @@
                             <div class="hit_card_item"><strong>Leg:</strong><br><span id="fighter1_hits_leg"></span>
                             </div>
                         </div>
-                        <div class="miscellaneous_strikes hidden">
-                            <div class="strike_card_item_takedown strike_card_item_striker1"
-                                data-strike-type="takedown" data-fighter-number="1">
-                                <strong>Takedown</strong>
-                                
-                            </div>
-
-                            <div class="takedown_result hidden" id="takedown_result_fighter1">
-                                <div class="strike_possible_destination" style="height: 20%;" data-strike-target="takedown"
-                                    data-striker-id="<%= fight.fighter1_id %>" data-target-id="<%= fight.fighter2_id %>"
-                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                    data-strike-sig="true" data-strike-target="takedown" data-fighter-number="1">
-                                    <strong>Successful</strong>
-                                </div>
-                                <div class="strike_possible_destination" style="height: 20%;" data-strike-target="takedown"
-                                    data-striker-id="<%= fight.fighter1_id %>" data-target-id="<%= fight.fighter2_id %>"
-                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                    data-strike-sig="false" data-strike-target="takedown" data-fighter-number="1">
-                                    <strong>Failed</strong>
-                                </div>
-                            </div>
-                        </div>
                         <img src="/img/30473.png" class="fighter_body_image" id="fighter1_img" alt="UFC Logo"
                             style="height: 75%;">
-                        <div class="strikes_items" data-strike-selected=""> 
-                            <div class="strike_card_item" data-strike-type="elbow" data-fighter-number="1">
-                                <strong>Elbow:</strong><br><span id="fighter1_strikes_elbow"></span>
+                        <div class="strikes_items" data-strike-selected="">
+                            <div id="fighter1_elbow_line" class="strike_line_detail flex">
+                                <div class="strike_card_item" data-strike-type="elbow" data-fighter-number="1" data-strike-sig="" data-strike-target=""
+                                    data-striker-id="<%= fight.fighter1_id %>" data-target-id="<%= fight.fighter2_id %>"
+                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
+                                    <strong>Elbow:</strong><br><span id="fighter1_strikes_elbow"></span>
+                                </div>
+                                <div class="significant_strike hidden" data-strike-type="elbow" data-fighter-number="1">
+                                    <div class="significant_strike_option strike_significant_strike" data-strike-sig="true">
+                                        <strong>Significant Strikes</strong>
+                                    </div>
+                                    <div class="significant_strike_option strike_non_significant_strike" data-strike-sig="false">
+                                        <strong>Non-Significant Strikes</strong>
+                                    </div>
+                                </div>
+                                <div class="strike_map_destination hidden flex" data-strike-target="">
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="head">
+                                        <strong>Head</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="body">
+                                        <strong>Body</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="leg">
+                                        <strong>Leg</strong>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="strike_card_item" data-strike-type="punch" data-fighter-number="1">
-                                <strong>Punch:</strong><br><span id="fighter1_strikes_punch"></span>
+                            <div id="fighter1_punch_line" class="strike_line_detail flex">
+                                <div class="strike_card_item" data-strike-type="punch" data-fighter-number="1" data-strike-sig="" data-strike-target=""
+                                    data-striker-id="<%= fight.fighter1_id %>" data-target-id="<%= fight.fighter2_id %>"
+                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
+                                    <strong>Punch:</strong><br><span id="fighter1_strikes_punch"></span>
+                                </div>
+                                <div class="significant_strike hidden" data-strike-type="punch" data-fighter-number="1">
+                                    <div class="significant_strike_option strike_significant_strike" data-strike-sig="true">
+                                        <strong>Significant Strikes</strong>
+                                    </div>
+                                    <div class="significant_strike_option strike_non_significant_strike" data-strike-sig="false">
+                                        <strong>Non-Significant Strikes</strong>
+                                    </div>
+                                </div>
+                                <div class="strike_map_destination hidden flex" data-strike-target="">
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="head">
+                                        <strong>Head</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="body">
+                                        <strong>Body</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="leg">
+                                        <strong>Leg</strong>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="strike_card_item" data-strike-type="knee" data-fighter-number="1">
-                                <strong>Knee:</strong><br><span id="fighter1_strikes_knee"></span>
+                            <div id="fighter1_knee_line" class="strike_line_detail flex">
+                                <div class="strike_card_item" data-strike-type="knee" data-fighter-number="1" data-strike-sig="" data-strike-target=""
+                                    data-striker-id="<%= fight.fighter1_id %>" data-target-id="<%= fight.fighter2_id %>"
+                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
+                                    <strong>Knee:</strong><br><span id="fighter1_strikes_knee"></span>
+                                </div>
+                                <div class="significant_strike hidden" data-strike-type="knee" data-fighter-number="1">
+                                    <div class="significant_strike_option strike_significant_strike" data-strike-sig="true">
+                                        <strong>Significant Strikes</strong>
+                                    </div>
+                                    <div class="significant_strike_option strike_non_significant_strike" data-strike-sig="false">
+                                        <strong>Non-Significant Strikes</strong>
+                                    </div>
+                                </div>
+                                <div class="strike_map_destination hidden flex" data-strike-target="">
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="head">
+                                        <strong>Head</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="body">
+                                        <strong>Body</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="leg">
+                                        <strong>Leg</strong>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="strike_card_item" data-strike-type="kick" data-fighter-number="1">
-                                <strong>Kick:</strong><br><span id="fighter1_strikes_kick"></span>
+                            <div id="fighter1_kick_line" class="strike_line_detail flex">
+                                <div class="strike_card_item" data-strike-type="kick" data-fighter-number="1" data-strike-sig="" data-strike-target=""
+                                    data-striker-id="<%= fight.fighter1_id %>" data-target-id="<%= fight.fighter2_id %>"
+                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
+                                    <strong>Kick:</strong><br><span id="fighter1_strikes_kick"></span>
+                                </div>
+                                <div class="significant_strike hidden" data-strike-type="kick" data-fighter-number="1">
+                                    <div class="significant_strike_option strike_significant_strike" data-strike-sig="true">
+                                        <strong>Significant Strikes</strong>
+                                    </div>
+                                    <div class="significant_strike_option strike_non_significant_strike" data-strike-sig="false">
+                                        <strong>Non-Significant Strikes</strong>
+                                    </div>
+                                </div>
+                                <div class="strike_map_destination hidden flex" data-strike-target="">
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="head">
+                                        <strong>Head</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="body">
+                                        <strong>Body</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="leg">
+                                        <strong>Leg</strong>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="strike_destination strike_map_fighter1 " style="opacity: 0;">
-                            <div class="strike_possible_destination" style="height: 20%;" data-strike-target="head"
-                                data-striker-id="<%= fight.fighter1_id %>" data-target-id="<%= fight.fighter2_id %>"
-                                data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                data-strike-sig="true" data-fighter-number="1">
-                                <strong>Head</strong><br><span id="fighter1_strikes_elbow"></span>
-                            </div>
-                            <div class="strike_possible_destination" style="height: 40%;" data-strike-target="body"
-                                data-striker-id="<%= fight.fighter1_id %>" data-target-id="<%= fight.fighter2_id %>"
-                                data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                data-strike-sig="true" data-fighter-number="1">
-                                <strong>Body</strong><br><span id="fighter1_strikes_punch"></span>
-                            </div>
-                            <div class="strike_possible_destination" style="height: 40%;" data-strike-target="leg"
-                                data-striker-id="<%= fight.fighter1_id %>" data-target-id="<%= fight.fighter2_id %>"
-                                data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                data-strike-sig="true" data-fighter-number="1">
-                                <strong>Leg</strong><br><span id="fighter1_strikes_knee"></span>
+                            <div id="fighter1_takedown_line" class="strike_line_detail flex">
+                                <div class="strike_card_item" data-strike-type="takedown" data-fighter-number="1" data-strike-sig="" data-strike-target=""
+                                    data-striker-id="<%= fight.fighter1_id %>" data-target-id="<%= fight.fighter2_id %>"
+                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
+                                    <strong>Takedown:</strong><br><span id="fighter1_strikes_takedown"></span>
+                                </div>
+                                <div class="significant_strike hidden" data-strike-type="takedown" data-fighter-number="1">
+                                    <div class="significant_strike_option strike_significant_strike" data-strike-sig="true">
+                                        <strong>Successful Takedowns</strong>
+                                    </div>
+                                    <div class="significant_strike_option strike_non_significant_strike" data-strike-sig="false">
+                                        <strong>Failed Takedown Attempts</strong>
+                                    </div>
+                                </div>
+                                <div class="strike_map_destination hidden flex" data-strike-target="">
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="head">
+                                        <strong>Head</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="body">
+                                        <strong>Body</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="1" data-strike-target="leg">
+                                        <strong>Leg</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
             <div style="padding: 0 16% 0 16%;">
@@ -173,13 +248,13 @@
                 </div>
             </div>
         </div>
-        <div class="half-width strike_card_section fighter2_strike_card">
+        <div class="half-width strike_card_section fighter2_strike_card" style="border-right: 1px solid black;">
             <div class="strike_card">
                 <h1 class="text-2xl text-center font-bold" id="fighter2_name"
                     data-fighter2-id="<%= fight.fighter2_id %>">Fighter 2</h1>
                 <div class="justify-center items-center">
                     <div class="flex fight_status_section hidden justify-center">
-                        <div class="fight_status pointer  fight_status_fighter2 fight_status_active"
+                        <div class="fight_status pointer fight_status_fighter2 fight_status_active"
                             id="fighter2_status_standing" data-fight-status="standing"
                             style="border-radius: 15px 0 0 15px;">Standing</div>
                         <div class="fight_status pointer fight_status_fighter2 " id="fighter2_status_clinch"
@@ -188,7 +263,7 @@
                         <div class="fight_status pointer fight_status_fighter2 " id="fighter2_status_ground"
                             data-fight-status="ground" style="border-radius: 0 15px 15px 0;">Ground</div>
                     </div>
-                    <div class="flex justify-center">
+                    <div class="flex justify-left">
                         <div class="fighter_hits_info">
                             <div class="hit_card_item"><strong>Head:</strong><br><span id="fighter2_hits_head"></span>
                             </div>
@@ -197,96 +272,174 @@
                             <div class="hit_card_item"><strong>Leg:</strong><br><span id="fighter2_hits_leg"></span>
                             </div>
                         </div>
-                        <div class="miscellaneous_strikes hidden">
-                            <div class="strike_card_item_takedown strike_card_item_striker2"
-                                data-strike-type="takedown"  data-fighter-number="2">
-                                <strong>Takedown</strong>
-                            </div>
-                            <div class="takedown_result hidden" id="takedown_result_fighter2">
-                                <div class="strike_possible_destination" style="height: 20%;" data-strike-target="takedown"
-                                    data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
-                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                    data-strike-sig="true" data-fighter-number="2" data-strike-target="takedown">
-                                    <strong>Successful</strong>
-                                </div>
-                                <div class="strike_possible_destination" style="height: 20%;" data-strike-target="takedown"
-                                    data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
-                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                    data-strike-sig="false" data-fighter-number="2" data-strike-target="takedown">
-                                    <strong>Failed</strong>
-                                </div>
-                            </div>
-                        </div>
-                        <img src="/img/30473.png" alt="UFC Logo" class="fighter_body_image" id="fighter2_img"
+                        <img src="/img/30473.png" class="fighter_body_image" id="fighter2_img" alt="UFC Logo"
                             style="height: 75%;">
                         <div class="strikes_items" data-strike-selected="">
-                            <div class="strike_card_item" data-strike-type="elbow" data-fighter-number="2">
-                                <strong>Elbow:</strong><br><span id="fighter2_strikes_elbow"></span>
+                            <div id="fighter2_elbow_line" class="strike_line_detail flex">
+                                <div class="strike_card_item" data-strike-type="elbow" data-fighter-number="2" data-strike-sig="" data-strike-target=""
+                                    data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
+                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
+                                    <strong>Elbow:</strong><br><span id="fighter2_strikes_elbow"></span>
+                                </div>
+                                <div class="significant_strike hidden" data-strike-type="elbow" data-fighter-number="2">
+                                    <div class="significant_strike_option strike_significant_strike" data-strike-sig="true">
+                                        <strong>Significant Strikes</strong>
+                                    </div>
+                                    <div class="significant_strike_option strike_non_significant_strike" data-strike-sig="false">
+                                        <strong>Non-Significant Strikes</strong>
+                                    </div>
+                                </div>
+                                <div class="strike_map_destination hidden flex" data-strike-target="">
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="head">
+                                        <strong>Head</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="body">
+                                        <strong>Body</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="leg">
+                                        <strong>Leg</strong>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="strike_card_item" data-strike-type="punch" data-fighter-number="2">
-                                <strong>Punch:</strong><br><span id="fighter2_strikes_punch"></span>
+                            <div id="fighter2_punch_line" class="strike_line_detail flex">
+                                <div class="strike_card_item" data-strike-type="punch" data-fighter-number="2" data-strike-sig="" data-strike-target=""
+                                    data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
+                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
+                                    <strong>Punch:</strong><br><span id="fighter2_strikes_punch"></span>
+                                </div>
+                                <div class="significant_strike hidden" data-strike-type="punch" data-fighter-number="2">
+                                    <div class="significant_strike_option strike_significant_strike" data-strike-sig="true">
+                                        <strong>Significant Strikes</strong>
+                                    </div>
+                                    <div class="significant_strike_option strike_non_significant_strike" data-strike-sig="false">
+                                        <strong>Non-Significant Strikes</strong>
+                                    </div>
+                                </div>
+                                <div class="strike_map_destination hidden flex" data-strike-target="">
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="head">
+                                        <strong>Head</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="body">
+                                        <strong>Body</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="leg">
+                                        <strong>Leg</strong>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="strike_card_item" data-strike-type="knee" data-fighter-number="2">
-                                <strong>Knee:</strong><br><span id="fighter2_strikes_knee"></span>
+                            <div id="fighter2_knee_line" class="strike_line_detail flex">
+                                <div class="strike_card_item" data-strike-type="knee" data-fighter-number="2" data-strike-sig="" data-strike-target=""
+                                    data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
+                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
+                                    <strong>Knee:</strong><br><span id="fighter2_strikes_knee"></span>
+                                </div>
+                                <div class="significant_strike hidden" data-strike-type="knee" data-fighter-number="2">
+                                    <div class="significant_strike_option strike_significant_strike" data-strike-sig="true">
+                                        <strong>Significant Strikes</strong>
+                                    </div>
+                                    <div class="significant_strike_option strike_non_significant_strike" data-strike-sig="false">
+                                        <strong>Non-Significant Strikes</strong>
+                                    </div>
+                                </div>
+                                <div class="strike_map_destination hidden flex" data-strike-target="">
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="head">
+                                        <strong>Head</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="body">
+                                        <strong>Body</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="leg">
+                                        <strong>Leg</strong>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="strike_card_item" data-strike-type="kick" data-fighter-number="2">
-                                <strong>Kick:</strong><br><span id="fighter2_strikes_kick"></span>
+                            <div id="fighter2_kick_line" class="strike_line_detail flex">
+                                <div class="strike_card_item" data-strike-type="kick" data-fighter-number="2" data-strike-sig="" data-strike-target=""
+                                    data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
+                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
+                                    <strong>Kick:</strong><br><span id="fighter2_strikes_kick"></span>
+                                </div>
+                                <div class="significant_strike hidden" data-strike-type="kick" data-fighter-number="2">
+                                    <div class="significant_strike_option strike_significant_strike" data-strike-sig="true">
+                                        <strong>Significant Strikes</strong>
+                                    </div>
+                                    <div class="significant_strike_option strike_non_significant_strike" data-strike-sig="false">
+                                        <strong>Non-Significant Strikes</strong>
+                                    </div>
+                                </div>
+                                <div class="strike_map_destination hidden flex" data-strike-target="">
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="head">
+                                        <strong>Head</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="body">
+                                        <strong>Body</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="leg">
+                                        <strong>Leg</strong>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="strike_destination strike_map_fighter2 " style="opacity: 0;">
-                            <div class="strike_possible_destination" style="height: 20%;" data-strike-target="head"
-                                data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
-                                data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                data-strike-sig="true" data-fighter-number="2">
-                                <strong>Head</strong><br><span id="fighter2_strikes_elbow"></span>
-                            </div>
-                            <div class="strike_possible_destination" style="height: 40%;" data-strike-target="body"
-                                data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
-                                data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                data-strike-sig="true" data-fighter-number="2">
-                                <strong>Body</strong><br><span id="fighter2_strikes_punch"></span>
-                            </div>
-                            <div class="strike_possible_destination" style="height: 40%;" data-strike-target="leg"
-                                data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
-                                data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>"
-                                data-strike-sig="true" data-fighter-number="2">
-                                <strong>Leg</strong><br><span id="fighter2_strikes_knee"></span>
+                            <div id="fighter2_takedown_line" class="strike_line_detail flex">
+                                <div class="strike_card_item" data-strike-type="takedown" data-fighter-number="2" data-strike-sig="" data-strike-target=""
+                                    data-striker-id="<%= fight.fighter2_id %>" data-target-id="<%= fight.fighter1_id %>"
+                                    data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
+                                    <strong>Takedown:</strong><br><span id="fighter2_strikes_takedown"></span>
+                                </div>
+                                <div class="significant_strike hidden" data-strike-type="takedown" data-fighter-number="2">
+                                    <div class="significant_strike_option strike_significant_strike" data-strike-sig="true">
+                                        <strong>Successful Takedowns</strong>
+                                    </div>
+                                    <div class="significant_strike_option strike_non_significant_strike" data-strike-sig="false">
+                                        <strong>Failed Takedown Attempts</strong>
+                                    </div>
+                                </div>
+                                <div class="strike_map_destination hidden flex" data-strike-target="">
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="head">
+                                        <strong>Head</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="body">
+                                        <strong>Body</strong>
+                                    </div>
+                                    <div class="strike_possible_destination" data-fighter-number="2" data-strike-target="leg">
+                                        <strong>Leg</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="info_card" style="padding: 0 16% 0 16%;">
-
-                <div class="px-4 sm:px-0">
-                    <h3 class="text-xl  font-semibold leading-7 text-gray-900">More info:</h3>
-                </div>
-                <div class="mt-6 border-t border-gray-100">
-                    <dl class="divide-y divide-gray-100">
-                        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                            <dt class="text-sm font-medium leading-6 text-gray-900">Total Strikes</dt>
-                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                id="fighter2_total_strikes"></dd>
-                        </div>
-                        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                            <dt class="text-sm font-medium leading-6 text-gray-900">Accuracy</dt>
-                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                id="fighter2_strikes_accuracy"></dd>
-                        </div>
-                        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                            <dt class="text-sm font-medium leading-6 text-gray-900">Takedowns</dt>
-                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                id="fighter2_takedown"></dd>
-                        </div>
-                        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                            <dt class="text-sm font-medium leading-6 text-gray-900">Takedown Accuracy</dt>
-                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                id="fighter2_takedown_accuracy"></dd>
-                        </div>
-                    </dl>
+                <div style="padding: 0 16% 0 16%;">
+                    <div class="px-4 sm:px-0">
+                        <h3 class="text-xl font-semibold leading-7 text-gray-900">More info:</h3>
+                    </div>
+                    <div class="mt-6 border-t border-gray-100">
+                        <dl class="divide-y divide-gray-100">
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Total Strikes</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
+                                    id="fighter2_total_strikes"></dd>
+                            </div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Accuracy</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
+                                    id="fighter2_strikes_accuracy"></dd>
+                            </div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Takedowns</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
+                                    id="fighter2_takedown"></dd>
+                            </div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Takedown Accuracy</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
+                                    id="fighter2_takedown_accuracy"></dd>
+                            </div>
+                        </dl>
+                    </div>
                 </div>
             </div>
         </div>
+        
     </div>
     </div>
     <%- include('partials/footer') %>
