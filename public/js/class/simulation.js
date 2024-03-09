@@ -14,9 +14,14 @@ class Simulation {
         return this.#strikes;
     }
     start() {
+        this.#strikes = [];
         this.#running = true;
     }
     stop() {
+        display_simulation_results();
+        this.#running = false;
+    }
+    pause() {
         this.#running = false;
     }
     is_running() {
@@ -48,5 +53,16 @@ class Simulation {
         } else {
             console.log('Simulation still running');
         }
+    }
+    send_simulation() {
+        let strikes = this.getJSON();
+        $.ajax({
+            type: "POST",
+            url: "/simulation",
+            data: { "strikes": strikes },
+            success: function (response) {
+                console.log(response);
+            }
+        });
     }
 }

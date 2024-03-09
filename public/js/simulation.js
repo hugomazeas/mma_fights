@@ -8,7 +8,6 @@ $(document).ready(function () {
         $(this).parent().find(".fight_status").removeClass("fight_status_active");
         $(this).addClass("fight_status_active");
     });
-
     $strike_card_section.on('click', '.strike_card_item', function () {
         if (current_simulation?.is_running()) {
             close_destination_map();
@@ -107,8 +106,7 @@ function start_simulation(fighter1_id, fighter2_id) {
 function hide_simulation_UI() {
     $(".fighter_body_image").removeClass("hidden");
     $("#btn_start_simulation").text("Start Simulation");
-    $(".fight_round_details").removeClass("hidden");
-    $(".fight_round_details").css("opacity", "100%");
+    $(".fight_round_details").fadeIn();
     $(".fight_status_section").addClass("hidden");
     $(".fighter_hits_info").removeClass("hidden");
     $(".miscellaneous_strikes").addClass("hidden");
@@ -116,8 +114,7 @@ function hide_simulation_UI() {
 function show_simulation_UI() {
     $(".fighter_body_image").addClass("hidden");
     $("#btn_start_simulation").text("Stop simulation");
-    $(".fight_round_details").css("opacity", "0%");
-    $(".fight_round_details").addClass("hidden");
+    $(".fight_round_details").fadeOut();
     $(".fight_status_section").removeClass("hidden");
     $(".fighter_hits_info").addClass("hidden");
     $(".miscellaneous_strikes").removeClass("hidden");
@@ -134,4 +131,7 @@ function send_simulation() {
             console.log("Simulation query sent");
         }
     });
+}
+function display_simulation_results(){
+    
 }
