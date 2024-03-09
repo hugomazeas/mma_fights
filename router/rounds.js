@@ -39,7 +39,9 @@ router.get('/:round_id', async function (req, res) {
 });
 router.post('/:round_id/strikes', async function (req, res) {
     let round_id = req.params.round_id;
+    console.log(req.body);
     try {
+        
         const strike = req.body.strike;
         const values = [strike.strike_code, strike.striker_id, strike.target_id, strike.sig_strike, round_id, strike.fight_status];
         await pool.query('INSERT INTO relation_strike_round (strike_code, striker_id, receiver_id, sig_strike, round_id, fight_status) VALUES ($1, $2, $3, $4, $5, $6)', values);

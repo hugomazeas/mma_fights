@@ -20,7 +20,7 @@
             </div>
             <div class="m-4 p-10 bg-white rounded shadow-xl half-width">
                 <h2 class="text-xl mb-4">Round Details</h2>
-                <ul class="space-y-4">
+                <ul class="space-y-4 round_selector_section">
 
                     <% rounds.forEach(round=> { %>
                         <li class="flex round_selector" data-round-id="<%= round.round_id %>"
@@ -39,22 +39,31 @@
                                         rounds</strong>-
                                     </strong>-
                                     Display
-                                    statistics of the round</label>
+                                    statistics of all the rounds combined</label>
                             </li>
                 </ul>
             </div>
         </div>
     </div>
     <br>
-    <div class="flex items-center justify-center activate_simulation disabled">
-        <button id="btn_start_simulation" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            onclick="start_simulation('<%= fight.fighter1_id %>', '<%= fight.fighter2_id %>')">
-            Start Simulation
-            <i id="icon_pause_simulation" class="bi bi-pause-fill hidden"></i>
-            <i id="icon_play_simulation" class="bi bi-play-fill"></i>
-        </button>
-
+    <div class="items-center justify-center w-80 mx-auto activate_simulation disabled">
+        <div class="flex space-y-2 rounded-lg bg-gray-200 shadow-md px-4 py-3">
+            <div class="flex-grow text-gray-700 text-lg font-bold simulation_banner">
+                <span>Round: <span id="round_number">1</span></span>
+                <span>Total Strikes: <span id="total_strikes">--</span></span>
+                <span>Time: <span id="round_time">--:--</span></span>
+            </div>
+            <button id="btn_start_simulation"
+                class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                onclick="start_simulation('<%= fight.fighter1_id %>', '<%= fight.fighter2_id %>')">
+                Start Simulation
+                <i id="icon_pause_simulation" class="bi bi-pause-fill hidden"></i>
+                <i id="icon_play_simulation" class="bi bi-play-fill"></i>
+            </button>
+        </div>
     </div>
+
+
     <br>
     <div class="flex fighters_strike_cards" data-fighter-selected="1">
         <div class="half-width strike_card_section fighter1_strike_card" style="border-right: 1px solid black;">
@@ -249,7 +258,7 @@
                     </div>
                 </div>
             </div>
-            <div style="padding: 0 8% 0 8%;">
+            <!-- <div style="padding: 0 8% 0 8%;">
                 <div class="px-4 sm:px-0">
                     <h3 class="text-2xl font-semibold leading-7 text-gray-900">More info:</h3>
                 </div>
@@ -277,7 +286,7 @@
                         </div>
                     </dl>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="half-width strike_card_section fighter2_strike_card" style="border-right: 1px solid black;">
             <div class="strike_card">
@@ -470,7 +479,7 @@
                         </div>
                     </div>
                 </div>
-                <div style="padding: 0 16% 0 16%;">
+                <!-- <div style="padding: 0 16% 0 16%;">
                     <div class="px-4 sm:px-0">
                         <h3 class="text-xl font-semibold leading-7 text-gray-900">More info:</h3>
                     </div>
@@ -498,7 +507,7 @@
                             </div>
                         </dl>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -507,14 +516,7 @@
         <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 sm:p-0">
             <div
                 class="fixed backdrop-blur-sm transition-duration-300 ease-in-out bg-gray-100 rounded-lg shadow-lg overflow-auto w-1/2 h-1/2 md:p-6">
-                <button type="button" title="Close modal"
-                    class="text-gray-400  focus:outline-none hover:text-gray-900 transition ease-in-out duration-150 float-right"
-                    onclick="$('#my-modal').addClass('hidden')">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+                
                 <h1 class="text-xl font-bold text-gray-900 mb-4">Résumé de la round #<span
                         id="resume_round_number"></span></h1>
                 <h2 class="text-lg font-bold text-gray-900 mb-4">Total strikes: <span id="resume_total_strikes"></span>
@@ -532,14 +534,23 @@
                             <div class=""><strong>Leg strike received:</strong><br><span
                                     id="fighter1_resume_hits_leg"></span>
                             </div>
-                            <br>
                             <div class=""><strong>Elbow:</strong><br><span id="fighter1_resume_strikes_elbow"></span>
+                                (<span id="fighter1_resume_strikes_elbow_accuracy"></span>%)
                             </div>
                             <div class=""><strong>Punch:</strong><br><span id="fighter1_resume_strikes_punch"></span>
+                                (<span id="fighter1_resume_strikes_punch_accuracy"></span>%)
                             </div>
                             <div class=""><strong>Knee:</strong><br><span id="fighter1_resume_strikes_knee"></span>
+                                (<span id="fighter1_resume_strikes_knee_accuracy"></span>%)
                             </div>
                             <div class=""><strong>Kick:</strong><br><span id="fighter1_resume_strikes_kick"></span>
+                                (<span id="fighter1_resume_strikes_kick_accuracy"></span>%)
+                            </div>
+                            <div class=""><strong>Strike Accuracy (Landed/Attemps):</strong><br><span
+                                    id="fighter1_resume_strikes_accuracy"></span>%
+                            </div>
+                            <div class=""><strong>Takedown Accuracy (Landed/Attemps):</strong><br><span
+                                    id="fighter1_resume_takedown_accuracy"></span>%
                             </div>
                         </div>
                     </div>
@@ -555,20 +566,37 @@
                             <div class=""><strong>Leg strike received:</strong><br><span
                                     id="fighter2_resume_hits_leg"></span>
                             </div>
-                            <br>
                             <div class=""><strong>Elbow:</strong><br><span id="fighter2_resume_strikes_elbow"></span>
+                                (<span id="fighter2_resume_strikes_elbow_accuracy"></span>%)
                             </div>
                             <div class=""><strong>Punch:</strong><br><span id="fighter2_resume_strikes_punch"></span>
+                                (<span id="fighter2_resume_strikes_punch_accuracy"></span>%)
                             </div>
                             <div class=""><strong>Knee:</strong><br><span id="fighter2_resume_strikes_knee"></span>
+                                (<span id="fighter2_resume_strikes_knee_accuracy"></span>%)
                             </div>
                             <div class=""><strong>Kick:</strong><br><span id="fighter2_resume_strikes_kick"></span>
+                                (<span id="fighter2_resume_strikes_kick_accuracy"></span>%)
+                            </div>
+                            <div class=""><strong>Strike Accuracy (Landed/Attemps):</strong><br><span
+                                    id="fighter2_resume_strikes_accuracy"></span>%
+                            </div>
+                            <div class=""><strong>Takedown Accuracy (Landed/Attemps):</strong><br><span
+                                    id="fighter2_resume_takedown_accuracy"></span>%
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="flex justify-between">
+                    <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                        onclick='abort_simulation();'>
+                        Abort Round
+                    </button>
+                    <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                        onclick="send_simulation();">
+                        Accept Simulation
+                    </button>
+                </div>
             </div>
         </div>
-
-
         <%- include('partials/footer') %>

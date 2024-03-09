@@ -206,3 +206,16 @@ input:checked~.dot {
     background-color: rgb(219, 90, 90);
     opacity: 0.5;
 }
+.disabled {
+    opacity: 0.4;
+    pointer-events: none !important;
+}
+.activate_simulation{
+    width: 90%;
+}
+#btn_start_simulation{
+    float:right;
+}
+.simulation_banner span {
+    margin-right: 4rem;
+}

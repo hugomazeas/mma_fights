@@ -106,7 +106,7 @@ function start_simulation(fighter1_id, fighter2_id) {
 function hide_simulation_UI() {
     $(".fighter_body_image").removeClass("hidden");
     $("#btn_start_simulation").text("Start Simulation");
-    $(".fight_round_details").fadeIn();
+    $(".round_selector_section").removeClass("disabled");
     $(".fight_status_section").addClass("hidden");
     $(".fighter_hits_info").removeClass("hidden");
     $(".miscellaneous_strikes").addClass("hidden");
@@ -114,24 +114,60 @@ function hide_simulation_UI() {
 function show_simulation_UI() {
     $(".fighter_body_image").addClass("hidden");
     $("#btn_start_simulation").text("Stop simulation");
-    $(".fight_round_details").fadeOut();
+    $(".round_selector_section").addClass("disabled");
     $(".fight_status_section").removeClass("hidden");
     $(".fighter_hits_info").addClass("hidden");
     $(".miscellaneous_strikes").removeClass("hidden");
 }
 function send_simulation() {
-    let strikes = current_simulation.getJSON();
+    $("#simulation_resume_modal").addClass("hidden");
+    let strikes = JSON.stringify(current_simulation.strikes);
     $.ajax({
-        url: '/organisations/' + org_id + '/events/' + event_id + '/fights/' + fight_id + '/rounds/' + round_id + '/strikes',
+        url: '/simulations/strikes',
         type: 'POST',
-        data: { strikes: strikes },
+        data: strikes,
         contentType: 'application/json',
         success: function (data) {
-            // display_strike(org_id, event_id, fight_id, strike.round_id);
-            console.log("Simulation query sent");
+            console.log(data);
         }
     });
 }
+function abort_simulation(){
+    $("#simulation_resume_modal").addClass("hidden");
+    current_simulation.clear();
+}
 function display_simulation_results(){
-    
+    $("#simulation_resume_modal").removeClass("hidden");
+    $("#resume_round_number").text(current_simulation.round_id);
+    $("#resume_total_strikes").text(current_simulation.strikes.length);
+    $("#fighter1_resume_hits_head").text(current_simulation.get_fighter_hit_target(current_simulation.fighter1_id, "head") || 0);
+    $("#fighter1_resume_hits_body").text(current_simulation.get_fighter_hit_target(current_simulation.fighter1_id, "body") || 0);
+    $("#fighter1_resume_hits_leg").text(current_simulation.get_fighter_hit_target(current_simulation.fighter1_id, "leg") || 0);
+    $("#fighter1_resume_hits_takedown").text(current_simulation.get_fighter_hit_target(current_simulation.fighter1_id, "takedown") || 0);
+    $("#fighter1_resume_strikes_elbow_accuracy").text(current_simulation.get_fighter_accuracy_by_action(current_simulation.fighter1_id, "elbow") || 0);
+    $("#fighter1_resume_strikes_punch_accuracy").text(current_simulation.get_fighter_accuracy_by_action(current_simulation.fighter1_id, "punch") || 0);
+    $("#fighter1_resume_strikes_knee_accuracy").text(current_simulation.get_fighter_accuracy_by_action(current_simulation.fighter1_id, "knee") || 0);
+    $("#fighter1_resume_strikes_kick_accuracy").text(current_simulation.get_fighter_accuracy_by_action(current_simulation.fighter1_id, "kick") || 0);
+    $("#fighter1_resume_strikes_elbow").text(current_simulation.get_fighter_strike_type(current_simulation.fighter1_id, "elbow") || 0);
+    $("#fighter1_resume_strikes_punch").text(current_simulation.get_fighter_strike_type(current_simulation.fighter1_id, "punch") || 0);
+    $("#fighter1_resume_strikes_knee").text(current_simulation.get_fighter_strike_type(current_simulation.fighter1_id, "knee") || 0);
+    $("#fighter1_resume_strikes_kick").text(current_simulation.get_fighter_strike_type(current_simulation.fighter1_id, "kick") || 0);
+    $("#fighter1_resume_strikes_accuracy").text(current_simulation.get_fighter_accuracy(current_simulation.fighter1_id) || 0);
+    $("#fighter1_resume_takedown_accuracy").text(current_simulation.get_fighter_takedown_accuracy(current_simulation.fighter1_id) || 0);
+
+    $("#fighter2_resume_hits_head").text(current_simulation.get_fighter_hit_target(current_simulation.fighter2_id, "head") || 0);
+    $("#fighter2_resume_hits_body").text(current_simulation.get_fighter_hit_target(current_simulation.fighter2_id, "body") || 0);
+    $("#fighter2_resume_hits_leg").text(current_simulation.get_fighter_hit_target(current_simulation.fighter2_id, "leg") || 0);
+    $("#fighter2_resume_hits_takedown").text(current_simulation.get_fighter_hit_target(current_simulation.fighter2_id, "takedown") || 0);
+    $("#fighter2_resume_strikes_elbow_accuracy").text(current_simulation.get_fighter_accuracy_by_action(current_simulation.fighter2_id, "elbow") || 0);
+    $("#fighter2_resume_strikes_punch_accuracy").text(current_simulation.get_fighter_accuracy_by_action(current_simulation.fighter2_id, "punch") || 0);
+    $("#fighter2_resume_strikes_knee_accuracy").text(current_simulation.get_fighter_accuracy_by_action(current_simulation.fighter2_id, "knee") || 0);
+    $("#fighter2_resume_strikes_kick_accuracy").text(current_simulation.get_fighter_accuracy_by_action(current_simulation.fighter2_id, "kick") || 0);
+    $("#fighter2_resume_strikes_elbow").text(current_simulation.get_fighter_strike_type(current_simulation.fighter2_id, "elbow") || 0);
+    $("#fighter2_resume_strikes_punch").text(current_simulation.get_fighter_strike_type(current_simulation.fighter2_id, "punch") || 0);
+    $("#fighter2_resume_strikes_knee").text(current_simulation.get_fighter_strike_type(current_simulation.fighter2_id, "knee") || 0);
+    $("#fighter2_resume_strikes_kick").text(current_simulation.get_fighter_strike_type(current_simulation.fighter2_id, "kick") || 0);
+    $("#fighter2_resume_strikes_accuracy").text(current_simulation.get_fighter_accuracy(current_simulation.fighter2_id) || 0);
+    $("#fighter2_resume_takedown_accuracy").text(current_simulation.get_fighter_takedown_accuracy(current_simulation.fighter2_id) || 0);
+
 }
