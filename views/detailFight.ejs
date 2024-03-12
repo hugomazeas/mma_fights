@@ -89,6 +89,8 @@
                             </div>
                             <div class="hit_card_item"><strong>Leg:</strong><br><span id="fighter1_hits_leg"></span>
                             </div>
+                            <div class="hit_card_item"><strong>Takedown:</strong><br><span id="fighter1_hits_takedown"></span>
+                            </div>
                         </div>
                         <img src="/img/30473.png" class="fighter_body_image" id="fighter1_img" alt="UFC Logo"
                             style="height: 75%;">
@@ -258,35 +260,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div style="padding: 0 8% 0 8%;">
-                <div class="px-4 sm:px-0">
-                    <h3 class="text-2xl font-semibold leading-7 text-gray-900">More info:</h3>
-                </div>
-                <div class="mt-6 border-t border-gray-100">
-                    <dl class="divide-y divide-gray-100">
-                        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                            <dt class="text-sm font-medium leading-6 text-gray-900">Total Strikes</dt>
-                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                id="fighter1_total_strikes"></dd>
-                        </div>
-                        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                            <dt class="text-sm font-medium leading-6 text-gray-900">Accuracy</dt>
-                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                id="fighter1_strikes_accuracy"></dd>
-                        </div>
-                        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                            <dt class="text-sm font-medium leading-6 text-gray-900">Takedowns</dt>
-                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                id="fighter1_takedown"></dd>
-                        </div>
-                        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                            <dt class="text-sm font-medium leading-6 text-gray-900">Takedown Accuracy</dt>
-                            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                id="fighter1_takedown_accuracy"></dd>
-                        </div>
-                    </dl>
-                </div>
-            </div> -->
         </div>
         <div class="half-width strike_card_section fighter2_strike_card" style="border-right: 1px solid black;">
             <div class="strike_card">
@@ -310,6 +283,8 @@
                             <div class="hit_card_item"><strong>Body:</strong><br><span id="fighter2_hits_body"></span>
                             </div>
                             <div class="hit_card_item"><strong>Leg:</strong><br><span id="fighter2_hits_leg"></span>
+                            </div>
+                            <div class="hit_card_item"><strong>Takedown:</strong><br><span id="fighter2_hits_takedown"></span>
                             </div>
                         </div>
                         <img src="/img/30473.png" class="fighter_body_image" id="fighter2_img" alt="UFC Logo"
@@ -479,35 +454,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div style="padding: 0 16% 0 16%;">
-                    <div class="px-4 sm:px-0">
-                        <h3 class="text-xl font-semibold leading-7 text-gray-900">More info:</h3>
-                    </div>
-                    <div class="mt-6 border-t border-gray-100">
-                        <dl class="divide-y divide-gray-100">
-                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                <dt class="text-sm font-medium leading-6 text-gray-900">Total Strikes</dt>
-                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                    id="fighter2_total_strikes"></dd>
-                            </div>
-                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                <dt class="text-sm font-medium leading-6 text-gray-900">Accuracy</dt>
-                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                    id="fighter2_strikes_accuracy"></dd>
-                            </div>
-                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                <dt class="text-sm font-medium leading-6 text-gray-900">Takedowns</dt>
-                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                    id="fighter2_takedown"></dd>
-                            </div>
-                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                <dt class="text-sm font-medium leading-6 text-gray-900">Takedown Accuracy</dt>
-                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                    id="fighter2_takedown_accuracy"></dd>
-                            </div>
-                        </dl>
-                    </div>
-                </div> -->
             </div>
         </div>
 
@@ -516,7 +462,11 @@
         <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 sm:p-0">
             <div
                 class="fixed backdrop-blur-sm transition-duration-300 ease-in-out bg-gray-100 rounded-lg shadow-lg overflow-auto w-1/2 h-1/2 md:p-6">
-                
+                <button type="button" id="close_modal_simulation_resume" title="Close modal" class="text-gray-400 focus:outline-none hover:text-gray-700 transition ease-in-out duration-150" onclick="document.getElementById('simulation_resume_modal').classList.add('hidden')">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
                 <h1 class="text-xl font-bold text-gray-900 mb-4">Résumé de la round #<span
                         id="resume_round_number"></span></h1>
                 <h2 class="text-lg font-bold text-gray-900 mb-4">Total strikes: <span id="resume_total_strikes"></span>
@@ -587,7 +537,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-between">
+                <div class="flex justify-between simulation_results_button">
                     <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
                         onclick='abort_simulation();'>
                         Abort Round

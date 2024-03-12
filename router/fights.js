@@ -35,9 +35,9 @@ router.get('/:fight_id', async function (req, res) {
 
     const rounds = (await pool.query('SELECT * FROM public.round WHERE fight_id = $1', [fight_id])).rows;
     let strike_fighter1_to_fighter2 = (await pool.query(
-        'SELECT * FROM public.relation_strike_round WHERE sig_strike = true AND striker_id = $1 AND receiver_id = $2', [fight.fighter1_id, fight.fighter2_id])).rows;
+        'SELECT * FROM public.relation_strike_round WHERE sig_strike = true AND striker_id = $1 AND target_id = $2', [fight.fighter1_id, fight.fighter2_id])).rows;
     let strike_fighter2_to_fighter1 = (await pool.query(
-        'SELECT * FROM public.relation_strike_round WHERE sig_strike = true AND striker_id = $1 AND receiver_id = $2', [fight.fighter2_id, fight.fighter1_id])).rows;
+        'SELECT * FROM public.relation_strike_round WHERE sig_strike = true AND striker_id = $1 AND target_id = $2', [fight.fighter2_id, fight.fighter1_id])).rows;
 
     res.render('detailFight', { organisation_id: organisation_id, event_id: event_id, rounds: rounds, fight: fight });
 });
@@ -65,7 +65,7 @@ router.get('/:fight_id/strikes', async function (req, res) {
     const roundIds = rounds_ids.map(row => row.round_id);
     const placeholders = roundIds.map((_, index) => `$${index + 1}`).join(',');
 
-    const strikesResponse = await pool.query(`SELECT * FROM relation_strike_round WHERE round_id IN (${placeholders});`, roundIds);
+    const strikesResponse = await pool.query(`SELECT round_id, * FROM relation_strike_round WHERE round_id IN (${placeholders});`, roundIds);
     const strikes = strikesResponse.rows;
     res.send(strikes);
 });

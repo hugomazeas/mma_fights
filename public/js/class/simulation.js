@@ -4,11 +4,18 @@ class Simulation {
     #fighter1_id;
     #fighter2_id;
     #round_id;
-    constructor(fighter1_id, fighter2_id, round_id) {
-        this.#fighter1_id = fighter1_id;
-        this.#fighter2_id = fighter2_id;
+    #org_id;
+    #event_id;
+    #fight_id;
+
+    #fight;
+
+    constructor(round_id, org_id, event_id, fight_id) {
         this.#round_id = round_id;
         this.#running = false;
+        this.#event_id = event_id;
+        this.#org_id = org_id;
+        this.#fight_id = fight_id;
     }
     get fighter1_id() {
         return this.#fighter1_id;
@@ -19,25 +26,48 @@ class Simulation {
     get strikes() {
         return this.#strikes;
     }
+    set strikes(strikes) {
+        this.#strikes = strikes;
+    }
     get round_id() {
         return this.#round_id;
+    }
+    get fight() {
+        return this.#fight;
+    }
+    async initialize() {
+        this.#strikes = await this.get_strike_existing_round(this.#round_id);
+        this.#fight = await $.get('/organisations/' + this.#org_id + '/events/' + this.#event_id + '/fights/' + this.#fight_id + '/api')
+        this.#fighter1_id = this.#fight.fighter1_id;
+        this.#fighter2_id = this.#fight.fighter2_id;
     }
     start() {
         this.#strikes = [];
         this.#running = true;
     }
     stop() {
-        display_simulation_results();
+        display_simulation_results(this, true);
         this.#running = false;
     }
     pause() {
         this.#running = false;
     }
-    clear(){
+    clear() {
         this.#strikes = [];
     }
     is_running() {
         return this.#running;
+    }
+    async get_strike_existing_round(round_id) {
+        let strikesDB = await $.get('/organisations/' + this.#org_id + '/events/' + this.#event_id + '/fights/' + this.#fight_id + '/strikes');
+        let strikes = [];
+        strikesDB.forEach(strike => {
+            strikes.push(new Strike(strike.striker_id, strike.target_id, strike.strike_code.split('_')[0], strike.strike_code.split('_')[2], strike.sig_strike, strike.fight_status, strike.round_id));
+        });
+        if (round_id != 0) {
+            strikes = strikes.filter(strike => strike.round_id == round_id);
+        }
+        return strikes;
     }
     new_strike(strike) {
         if (strike.fighter_number == 1) {
@@ -79,7 +109,7 @@ class Simulation {
         return Math.round((sig_strikes.length / strikes.length) * 100, 2);
     }
     get_fighter_hit_target(fighter_id, target) {
-        let strikes = this.#strikes.filter(strike => strike.target_id == fighter_id && strike.target == target);
+        let strikes = this.#strikes.filter(strike => strike.target_id == fighter_id && strike.strike_target == target);
         return strikes.length;
     }
     get_fighter_strike_type(fighter_id, strike_type, sig_strike) {

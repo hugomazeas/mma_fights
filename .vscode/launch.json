@@ -1,0 +1,11 @@
+{
+    "type": "node",
+    "request": "launch",
+    "name": "Launch Program",
+    "runtimeExecutable": "npm",
+    "runtimeArgs": [
+        "run-script",
+        "start"
+    ],
+    "port": 9229
+}
