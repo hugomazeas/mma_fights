@@ -65,7 +65,7 @@ router.get('/:fight_id/strikes', async function (req, res) {
     const roundIds = rounds_ids.map(row => row.round_id);
     const placeholders = roundIds.map((_, index) => `$${index + 1}`).join(',');
 
-    const strikesResponse = await pool.query(`SELECT round_id, * FROM relation_strike_round WHERE round_id IN (${placeholders});`, roundIds);
+    const strikesResponse = await pool.query(`SELECT * FROM relation_strike_round WHERE round_id IN (${placeholders});`, roundIds);
     const strikes = strikesResponse.rows;
     res.send(strikes);
 });

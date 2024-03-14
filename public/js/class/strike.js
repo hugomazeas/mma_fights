@@ -4,8 +4,9 @@ class Strike {
     static targets = ['head', 'body', 'leg', 'takedown', 'other'];
     static fight_status = ['standing', 'clinch', 'ground', 'other'];
 
-    constructor(striker_id, target_id, action, strike_target, sig_strike, fight_status, round_id) {
+    constructor(striker_id, target_id, action, strike_target, sig_strike, fight_status, round_id, round_time) {
         this.striker_id = striker_id;
+        this.round_time = round_time;
         this.target_id = target_id;
         this.action = action.toLowerCase();
         this.sig_strike = sig_strike;
@@ -29,6 +30,9 @@ class Strike {
         }
         else {
             this.strike_code = this.action.toUpperCase() + '_TO_' + this.strike_target.toUpperCase();
+        }
+        if(this.round_time == null || this.round_time < 0 || this.round_time > 300000){
+            throw new Error('Invalid round time');
         }
     }
 }

@@ -16,7 +16,7 @@ class Timer {
                     this.stop();
                 }
                 $("#round_time").text(to_MM_SS_MS(this.elapsedTime));
-                console.log(`Elapsed time: ${this.elapsedTime}ms`);
+                $("#round_time").attr("data-time-seconds", Math.floor(this.elapsedTime / 1000));
             }, interval);
         }
     }

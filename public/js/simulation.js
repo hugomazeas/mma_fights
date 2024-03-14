@@ -95,10 +95,12 @@ function fetch_strike_attributs() {
     let target = $(".strike_card_selected").attr("data-strike-target");
     let sig_strike = $(".significant_strike_option_active").attr("data-strike-sig");
     let fight_status = $(".fight_status_active").attr("data-fight-status");
-    return { fighter_number, action, target, sig_strike, fight_status };
+    let round_time = $("#round_time").attr("data-time-seconds");
+    return { fighter_number, action, target, sig_strike, fight_status, round_time};
 }
 function start_simulation(fighter1_id, fighter2_id) {
     let round_id = $(".current_round").attr("data-round-id");
+    
     if (!current_simulation && round_id != 0) {
         current_simulation = new Simulation(fighter1_id, fighter2_id, round_id, []);
     }

@@ -1,0 +1,25 @@
+<div>
+    <h2 class="text-xl mb-4">Round Details</h2>
+    <ul class="space-y-4 round_selector_section">
+
+        <% rounds.forEach(round=> { %>
+            <li class="flex round_selector" data-round-id="<%= round.round_id %>"
+                onclick="select_round('<%= organisation_id %>', '<%= event_id %>', '<%= fight.fight_id %>','<%= round.round_id %>')"
+                id="round_selector_<%= round.round_id %>">
+                <label for="first-round" class="text-gray-800 cursor-pointer"><strong>Round #<%= round.round_number %>
+                            </strong>-
+                    Display
+                    statistics of the round</label>
+            </li>
+            <% }); %>
+                <li class="flex round_selector current_round" data-round-id="0"
+                    onclick="select_round('<%= organisation_id %>', '<%= event_id %>', '<%= fight.fight_id %>','0')"
+                    id="round_selector_0">
+                    <label for="first-round" class="text-gray-800 cursor-pointer"><strong>All
+                            rounds</strong>-
+                        </strong>-
+                        Display
+                        statistics of all the rounds combined</label>
+                </li>
+    </ul>
+</div>

@@ -20,7 +20,7 @@ class Simulation {
         this.#fight_id = fight_id;
         this.#time_speed_factor = 1;
         this.#timer = new Timer();
-        this.#timer.set_factor(this.#time_speed_factor);
+        this.#timer.set_factor(1);
     }
     get fighter1_id() {
         return this.#fighter1_id;
@@ -56,7 +56,7 @@ class Simulation {
     start() {
         this.#strikes = [];
         this.#running = true;
-        this.#timer.start(1000);
+        this.#timer.start(10);
     }
     get_current_round_time() {
         return to_MM_SS_MS(this.#timer.get_elapse_time());
@@ -83,7 +83,7 @@ class Simulation {
         let strikesDB = await $.get('/organisations/' + this.#org_id + '/events/' + this.#event_id + '/fights/' + this.#fight_id + '/strikes');
         let strikes = [];
         strikesDB.forEach(strike => {
-            strikes.push(new Strike(strike.striker_id, strike.target_id, strike.strike_code.split('_')[0], strike.strike_code.split('_')[2], strike.sig_strike, strike.fight_status, strike.round_id));
+            strikes.push(new Strike(strike.striker_id, strike.target_id, strike.strike_code.split('_')[0], strike.strike_code.split('_')[2], strike.sig_strike, strike.fight_status, strike.round_id, strike.round_time_in_s));
         });
         if (round_id != 0) {
             strikes = strikes.filter(strike => strike.round_id == round_id);
@@ -99,7 +99,7 @@ class Simulation {
             strike.target_id = this.#fighter1_id;
         }
         strike.sig_strike = strike.sig_strike == "true" ? true : false;
-        let final_strike = new Strike(strike.striker_id, strike.target_id, strike.action, strike.target, strike.sig_strike, strike.fight_status, this.#round_id);
+        let final_strike = new Strike(strike.striker_id, strike.target_id, strike.action, strike.target, strike.sig_strike, strike.fight_status, this.#round_id, strike.round_time);
         if (this.#running) {
             this.#strikes.push(final_strike);
         } else {
