@@ -1,0 +1,17 @@
+<div>
+    <h2 class="text-xl">Fight Details</h2>
+    <div class="mb-4">
+        <p class="text-2xl font-bold text-gray-600">
+            <%= fight.fighter1_first_name %>
+                <%= fight.fighter1_last_name %> VS <%= fight.fighter2_first_name %>
+                        <%= fight.fighter2_last_name %>
+        </p>
+        <p class="text-gray-600">Division <%= fight.division %>
+        </p>
+        <p class="text-gray-600">Winner: <%= fight.winner_first_name %>
+                <%= fight.winner_last_name %>
+        </p>
+        <p class="text-gray-600">Card Type: <%= fight.card_type %>
+        </p>
+    </div>
+</div>
