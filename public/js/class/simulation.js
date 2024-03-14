@@ -1,4 +1,5 @@
 class Simulation {
+    static time_speed = [1, 0.5, 0.25, 0.1];
     #strikes = [];
     #running;
     #fighter1_id;
@@ -7,8 +8,9 @@ class Simulation {
     #org_id;
     #event_id;
     #fight_id;
-
+    #time_speed_factor;
     #fight;
+    #timer;
 
     constructor(round_id, org_id, event_id, fight_id) {
         this.#round_id = round_id;
@@ -16,6 +18,9 @@ class Simulation {
         this.#event_id = event_id;
         this.#org_id = org_id;
         this.#fight_id = fight_id;
+        this.#time_speed_factor = 1;
+        this.#timer = new Timer();
+        this.#timer.set_factor(this.#time_speed_factor);
     }
     get fighter1_id() {
         return this.#fighter1_id;
@@ -35,6 +40,13 @@ class Simulation {
     get fight() {
         return this.#fight;
     }
+    get time_speed_factor() {
+        return this.#time_speed_factor;
+    }
+    set time_speed_factor(time_speed_factor) {
+        this.#time_speed_factor = time_speed_factor;
+    }
+
     async initialize() {
         this.#strikes = await this.get_strike_existing_round(this.#round_id);
         this.#fight = await $.get('/organisations/' + this.#org_id + '/events/' + this.#event_id + '/fights/' + this.#fight_id + '/api')
@@ -44,12 +56,21 @@ class Simulation {
     start() {
         this.#strikes = [];
         this.#running = true;
+        this.#timer.start(1000);
+    }
+    get_current_round_time() {
+        return to_MM_SS_MS(this.#timer.get_elapse_time());
+    }
+    set_factor(new_factor) {
+        this.#timer.set_factor(new_factor);
     }
     stop() {
+        this.#timer.stop();
         display_simulation_results(this, true);
         this.#running = false;
     }
     pause() {
+        this.#timer.stop();
         this.#running = false;
     }
     clear() {

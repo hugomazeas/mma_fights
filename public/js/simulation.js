@@ -3,6 +3,13 @@ let strikes_data_from_server = [];
 $(document).ready(function () {
     let tracker = new InputTracker();
     tracker.activeTracker();
+    
+    let url = window.location.href;
+    let ids = url.split("/");
+    let fight_id = ids[6];
+    let event_id = ids[2];
+    let org_id = ids[2];
+    display_strike(org_id, event_id, fight_id, 0);
     let $strike_card_section = $(".strike_card_section");
 
     $strike_card_section.on("click", ".fight_status", function () {

@@ -1,0 +1,91 @@
+<div class="fixed z-50 inset-0 overflow-y-auto shadow-xl hidden" id="simulation_resume_modal">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 sm:p-0">
+        <div
+            class="fixed backdrop-blur-sm transition-duration-300 ease-in-out bg-gray-100 rounded-lg shadow-lg overflow-auto w-1/2 h-1/2 md:p-6">
+            <button type="button" id="close_modal_simulation_resume" title="Close modal" class="text-gray-400 focus:outline-none hover:text-gray-700 transition ease-in-out duration-150" onclick="document.getElementById('simulation_resume_modal').classList.add('hidden')">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            <h1 class="text-xl font-bold text-gray-900 mb-4">Résumé de la round #<span
+                    id="resume_round_number"></span></h1>
+            <h2 class="text-lg font-bold text-gray-900 mb-4">Total strikes: <span id="resume_total_strikes"></span>
+            </h2>
+            <div class="flex">
+                <div class="half-width">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Fighter 1</h3>
+                    <div class="fighter1_resume_strikes">
+                        <div class=""><strong>Head strike received:</strong><br><span
+                                id="fighter1_resume_hits_head"></span>
+                        </div>
+                        <div class=""><strong>Body strike received:</strong><br><span
+                                id="fighter1_resume_hits_body"></span>
+                        </div>
+                        <div class=""><strong>Leg strike received:</strong><br><span
+                                id="fighter1_resume_hits_leg"></span>
+                        </div>
+                        <div class=""><strong>Elbow:</strong><br><span id="fighter1_resume_strikes_elbow"></span>
+                            (<span id="fighter1_resume_strikes_elbow_accuracy"></span>%)
+                        </div>
+                        <div class=""><strong>Punch:</strong><br><span id="fighter1_resume_strikes_punch"></span>
+                            (<span id="fighter1_resume_strikes_punch_accuracy"></span>%)
+                        </div>
+                        <div class=""><strong>Knee:</strong><br><span id="fighter1_resume_strikes_knee"></span>
+                            (<span id="fighter1_resume_strikes_knee_accuracy"></span>%)
+                        </div>
+                        <div class=""><strong>Kick:</strong><br><span id="fighter1_resume_strikes_kick"></span>
+                            (<span id="fighter1_resume_strikes_kick_accuracy"></span>%)
+                        </div>
+                        <div class=""><strong>Strike Accuracy (Landed/Attemps):</strong><br><span
+                                id="fighter1_resume_strikes_accuracy"></span>%
+                        </div>
+                        <div class=""><strong>Takedown Accuracy (Landed/Attemps):</strong><br><span
+                                id="fighter1_resume_takedown_accuracy"></span>%
+                        </div>
+                    </div>
+                </div>
+                <div class="half-width">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Fighter 2</h3>
+                    <div class="fighter2_resume_strikes">
+                        <div class=""><strong>Head strike received:</strong><br><span
+                                id="fighter2_resume_hits_head"></span>
+                        </div>
+                        <div class=""><strong>Body strike received:</strong><br><span
+                                id="fighter2_resume_hits_body"></span>
+                        </div>
+                        <div class=""><strong>Leg strike received:</strong><br><span
+                                id="fighter2_resume_hits_leg"></span>
+                        </div>
+                        <div class=""><strong>Elbow:</strong><br><span id="fighter2_resume_strikes_elbow"></span>
+                            (<span id="fighter2_resume_strikes_elbow_accuracy"></span>%)
+                        </div>
+                        <div class=""><strong>Punch:</strong><br><span id="fighter2_resume_strikes_punch"></span>
+                            (<span id="fighter2_resume_strikes_punch_accuracy"></span>%)
+                        </div>
+                        <div class=""><strong>Knee:</strong><br><span id="fighter2_resume_strikes_knee"></span>
+                            (<span id="fighter2_resume_strikes_knee_accuracy"></span>%)
+                        </div>
+                        <div class=""><strong>Kick:</strong><br><span id="fighter2_resume_strikes_kick"></span>
+                            (<span id="fighter2_resume_strikes_kick_accuracy"></span>%)
+                        </div>
+                        <div class=""><strong>Strike Accuracy (Landed/Attemps):</strong><br><span
+                                id="fighter2_resume_strikes_accuracy"></span>%
+                        </div>
+                        <div class=""><strong>Takedown Accuracy (Landed/Attemps):</strong><br><span
+                                id="fighter2_resume_takedown_accuracy"></span>%
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between simulation_results_button">
+                <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                    onclick='abort_simulation();'>
+                    Abort Round
+                </button>
+                <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                    onclick="send_simulation();">
+                    Accept Simulation
+                </button>
+            </div>
+        </div>
+    </div>

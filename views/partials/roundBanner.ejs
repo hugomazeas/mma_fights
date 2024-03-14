@@ -1,0 +1,24 @@
+<div class="items-center justify-center w-80 mx-auto activate_simulation">
+    <div class="flex space-y-2 rounded-lg bg-gray-200 shadow-md px-4 py-3">
+        <div class="flex-grow text-gray-700 text-lg font-bold simulation_banner">
+            <span>Round: <span id="round_number">1</span></span>
+            <span>Total Strikes: <span id="total_strikes">--</span></span>
+            <span>Time: <span id="round_time">--:--</span></span>
+        </div>
+        <button id="btn_resume_round" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-5"
+            onclick="
+            display_simulation_results(current_simulation);">
+            Info round
+        </button>
+        <button id="btn_time_speed" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-5"
+            onclick="change_time_speed()" data-time-speed="1">
+            1x
+        </button>
+        <button id="btn_start_simulation" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            onclick="start_simulation('<%= fight.fighter1_id %>', '<%= fight.fighter2_id %>')">
+            Start Simulation
+            <i id="icon_pause_simulation" class="bi bi-pause-fill hidden"></i>
+            <i id="icon_play_simulation" class="bi bi-play-fill"></i>
+        </button>
+    </div>
+</div>
