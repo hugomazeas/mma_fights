@@ -105,6 +105,7 @@ class Simulation {
         } else {
             console.log('Simulation not running');
         }
+        return final_strike;
     }
     getJSON() {
         if (!this.#running) {

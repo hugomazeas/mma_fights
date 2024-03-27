@@ -29,7 +29,7 @@ $(document).ready(function () {
     $strike_card_section.on('click', '.significant_strike_option', function () {
         if (!current_simulation?.is_running()) return;
 
-        SimulationPanel.select_sig_strike_card($(this).attr("data-strike-sig"));
+        SimulationPanel.toggle_sig_strike_card();
         SimulationPanel.open_destination_map();
     });
     $strike_card_section.on("click", ".strike_possible_destination", function () {
@@ -37,7 +37,7 @@ $(document).ready(function () {
         add_new_strike();
         SimulationPanel.select_strike_target();
         SimulationPanel.close_destination_map();
-        SimulationPanel.select_sig_strike_card();
+        SimulationPanel.toggle_sig_strike_card();
         SimulationPanel.close_significant_strike_option();
         SimulationPanel.select_strike_card();
     });
@@ -46,8 +46,10 @@ $(document).ready(function () {
 function add_new_strike() {
     if (current_simulation?.is_running() == false) return;
 
-    let strike = fetch_strike_attributs();
-    current_simulation.new_strike(strike);
+    let strike_obj = fetch_strike_attributs();
+    let strike = current_simulation.new_strike(strike_obj);
+    let selector = "#strikebar_" + strike_obj.fighter_number;
+    $(selector).prepend(strike.build_html_display());
 }
 // Frontend Strike "Factory" 
 function fetch_strike_attributs() {
@@ -67,27 +69,11 @@ function start_simulation(fighter1_id, fighter2_id) {
     }
     if (!current_simulation.is_running()) {
         current_simulation.start();
-        show_simulation_UI();
+        SimulationPanel.show_simulation_UI();
     } else {
         current_simulation.stop();
-        hide_simulation_UI();
+        SimulationPanel.hide_simulation_UI();
     }
-}
-function hide_simulation_UI() {
-    $(".fighter_body_image").removeClass("hidden");
-    $("#btn_start_simulation").text("Start Simulation");
-    $(".round_selector_section").removeClass("disabled");
-    $(".fight_status_section").addClass("hidden");
-    $(".fighter_hits_info").removeClass("hidden");
-    $(".miscellaneous_strikes").addClass("hidden");
-}
-function show_simulation_UI() {
-    $(".fighter_body_image").addClass("hidden");
-    $("#btn_start_simulation").text("Stop simulation");
-    $(".round_selector_section").addClass("disabled");
-    $(".fight_status_section").removeClass("hidden");
-    $(".fighter_hits_info").addClass("hidden");
-    $(".miscellaneous_strikes").removeClass("hidden");
 }
 function send_simulation() {
     $("#simulation_resume_modal").addClass("hidden");

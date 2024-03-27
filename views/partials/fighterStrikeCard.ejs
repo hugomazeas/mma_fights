@@ -1,17 +1,20 @@
-<div class="half-width strike_card_section fighter<%= fighter_number %>_strike_card" style="border-right: 1px solid black;">
+<div class="half-width strike_card_section fighter<%= fighter_number %>_strike_card"
+    style="border-right: 1px solid black;">
     <div class="strike_card">
-        <h1 class="text-2xl text-center font-bold" id="fighter<%= fighter_number %>_name"
-            data-fighter<%= fighter_number %>-id="<%= striker %>">Fighter 1</h1>
+        <h1 class="text-2xl text-center font-bold" id="fighter<%= fighter_number %>_name" data-fighter<%=fighter_number
+            %>-id="<%= striker %>">Fighter <%= fighter_number %>
+        </h1>
         <div class="justify-center items-center">
             <div class="flex fight_status_section hidden justify-center">
                 <div class="fight_status pointer fight_status_fighter<%= fighter_number %> fight_status_active"
                     id="fighter<%= fighter_number %>_status_standing" data-fight-status="standing"
                     style="border-radius: 15px 0 0 15px;">Standing</div>
-                <div class="fight_status pointer fight_status_fighter<%= fighter_number %> " id="fighter<%= fighter_number %>_status_clinch"
-                    data-fight-status="clinch">Clinch
+                <div class="fight_status pointer fight_status_fighter<%= fighter_number %> "
+                    id="fighter<%= fighter_number %>_status_clinch" data-fight-status="clinch">Clinch
                 </div>
-                <div class="fight_status pointer fight_status_fighter<%= fighter_number %> " id="fighter<%= fighter_number %>_status_ground"
-                    data-fight-status="ground" style="border-radius: 0 15px 15px 0;">Ground</div>
+                <div class="fight_status pointer fight_status_fighter<%= fighter_number %> "
+                    id="fighter<%= fighter_number %>_status_ground" data-fight-status="ground"
+                    style="border-radius: 0 15px 15px 0;">Ground</div>
             </div>
             <div class="flex justify-left">
                 <div class="fighter_hits_info">
@@ -21,26 +24,26 @@
                     <div class="hit_card_item"><strong>Body:</strong><br><span
                             id="fighter<%= fighter_number %>_hits_body"></span>
                     </div>
-                    <div class="hit_card_item"><strong>Leg:</strong><br><span id="fighter<%= fighter_number %>_hits_leg"></span>
+                    <div class="hit_card_item"><strong>Leg:</strong><br><span
+                            id="fighter<%= fighter_number %>_hits_leg"></span>
                     </div>
                     <div class="hit_card_item"><strong>Takedown:</strong><br><span
                             id="fighter<%= fighter_number %>_hits_takedown"></span>
                     </div>
                 </div>
-                <img src="/img/30473.png" class="fighter_body_image" id="fighter<%= fighter_number %>_img" alt="UFC Logo"
-                    style="height: 75%;">
+                <img src="/img/30473.png" class="fighter_body_image" id="fighter<%= fighter_number %>_img"
+                    alt="UFC Logo" style="height: 75%;">
                 <div class="strikes_items" data-strike-selected="">
                     <div id="fighter<%= fighter_number %>_elbow_line" class="strike_line_detail flex">
-                        <div class="strike_card_item" data-strike-type="elbow" data-fighter-number="1"
-                            data-strike-sig="" data-strike-target=""
-                            data-striker-id="<%= striker %>"
-                            data-target-id="<%= target %>" data-fight-id="<%= fight.fight_id %>"
-                            data-event-id="<%= fight.event_id %>">
+                        <div class="strike_card_item" data-strike-type="elbow"
+                            data-fighter-number="<%= fighter_number %>" data-strike-sig="" data-strike-target=""
+                            data-striker-id="<%= striker %>" data-target-id="<%= target %>"
+                            data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
                             <strong>Elbow:</strong><br><span id="fighter<%= fighter_number %>_strikes_elbow"></span>
                         </div>
                         <div class="significant_strike hidden" data-strike-type="elbow"
-                            data-fighter-number="1">
-                            <div class="significant_strike_option strike_significant_strike"
+                            data-fighter-number="<%= fighter_number %>">
+                            <div class="significant_strike_option strike_significant_strike significant_strike_option_active"
                                 data-strike-sig="true">
                                 <strong>Significant Strikes</strong>
                             </div>
@@ -50,31 +53,30 @@
                             </div>
                         </div>
                         <div class="strike_map_destination hidden flex" data-strike-target="">
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="head">
                                 <strong>Head</strong>
                             </div>
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="body">
                                 <strong>Body</strong>
                             </div>
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="leg">
                                 <strong>Leg</strong>
                             </div>
                         </div>
                     </div>
                     <div id="fighter<%= fighter_number %>_punch_line" class="strike_line_detail flex">
-                        <div class="strike_card_item" data-strike-type="punch" data-fighter-number="1"
-                            data-strike-sig="" data-strike-target=""
-                            data-striker-id="<%= striker %>"
-                            data-target-id="<%= target %>" data-fight-id="<%= fight.fight_id %>"
-                            data-event-id="<%= fight.event_id %>">
+                        <div class="strike_card_item" data-strike-type="punch"
+                            data-fighter-number="<%= fighter_number %>" data-strike-sig="" data-strike-target=""
+                            data-striker-id="<%= striker %>" data-target-id="<%= target %>"
+                            data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
                             <strong>Punch:</strong><br><span id="fighter<%= fighter_number %>_strikes_punch"></span>
                         </div>
                         <div class="significant_strike hidden" data-strike-type="punch"
-                            data-fighter-number="1">
-                            <div class="significant_strike_option strike_significant_strike"
+                            data-fighter-number="<%= fighter_number %>">
+                            <div class="significant_strike_option strike_significant_strike significant_strike_option_active"
                                 data-strike-sig="true">
                                 <strong>Significant Strikes</strong>
                             </div>
@@ -84,31 +86,30 @@
                             </div>
                         </div>
                         <div class="strike_map_destination hidden flex" data-strike-target="">
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="head">
                                 <strong>Head</strong>
                             </div>
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="body">
                                 <strong>Body</strong>
                             </div>
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="leg">
                                 <strong>Leg</strong>
                             </div>
                         </div>
                     </div>
                     <div id="fighter<%= fighter_number %>_knee_line" class="strike_line_detail flex">
-                        <div class="strike_card_item" data-strike-type="knee" data-fighter-number="1"
-                            data-strike-sig="" data-strike-target=""
-                            data-striker-id="<%= striker %>"
-                            data-target-id="<%= target %>" data-fight-id="<%= fight.fight_id %>"
-                            data-event-id="<%= fight.event_id %>">
+                        <div class="strike_card_item" data-strike-type="knee"
+                            data-fighter-number="<%= fighter_number %>" data-strike-sig="" data-strike-target=""
+                            data-striker-id="<%= striker %>" data-target-id="<%= target %>"
+                            data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
                             <strong>Knee:</strong><br><span id="fighter<%= fighter_number %>_strikes_knee"></span>
                         </div>
                         <div class="significant_strike hidden" data-strike-type="knee"
-                            data-fighter-number="1">
-                            <div class="significant_strike_option strike_significant_strike"
+                            data-fighter-number="<%= fighter_number %>">
+                            <div class="significant_strike_option strike_significant_strike significant_strike_option_active"
                                 data-strike-sig="true">
                                 <strong>Significant Strikes</strong>
                             </div>
@@ -118,31 +119,30 @@
                             </div>
                         </div>
                         <div class="strike_map_destination hidden flex" data-strike-target="">
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="head">
                                 <strong>Head</strong>
                             </div>
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="body">
                                 <strong>Body</strong>
                             </div>
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="leg">
                                 <strong>Leg</strong>
                             </div>
                         </div>
                     </div>
                     <div id="fighter<%= fighter_number %>_kick_line" class="strike_line_detail flex">
-                        <div class="strike_card_item" data-strike-type="kick" data-fighter-number="1"
-                            data-strike-sig="" data-strike-target=""
-                            data-striker-id="<%= striker %>"
-                            data-target-id="<%= target %>" data-fight-id="<%= fight.fight_id %>"
-                            data-event-id="<%= fight.event_id %>">
+                        <div class="strike_card_item" data-strike-type="kick"
+                            data-fighter-number="<%= fighter_number %>" data-strike-sig="" data-strike-target=""
+                            data-striker-id="<%= striker %>" data-target-id="<%= target %>"
+                            data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
                             <strong>Kick:</strong><br><span id="fighter<%= fighter_number %>_strikes_kick"></span>
                         </div>
                         <div class="significant_strike hidden" data-strike-type="kick"
-                            data-fighter-number="1">
-                            <div class="significant_strike_option strike_significant_strike"
+                            data-fighter-number="<%= fighter_number %>">
+                            <div class="significant_strike_option strike_significant_strike significant_strike_option_active"
                                 data-strike-sig="true">
                                 <strong>Significant Strikes</strong>
                             </div>
@@ -152,31 +152,31 @@
                             </div>
                         </div>
                         <div class="strike_map_destination hidden flex" data-strike-target="">
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="head">
                                 <strong>Head</strong>
                             </div>
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="body">
                                 <strong>Body</strong>
                             </div>
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="leg">
                                 <strong>Leg</strong>
                             </div>
                         </div>
                     </div>
                     <div id="fighter<%= fighter_number %>_takedown_line" class="strike_line_detail flex">
-                        <div class="strike_card_item" data-strike-type="takedown" data-fighter-number="1"
-                            data-strike-sig="" data-strike-target=""
-                            data-striker-id="<%= striker %>"
-                            data-target-id="<%= target %>" data-fight-id="<%= fight.fight_id %>"
-                            data-event-id="<%= fight.event_id %>">
-                            <strong>Takedown:</strong><br><span id="fighter<%= fighter_number %>_strikes_takedown"></span>
+                        <div class="strike_card_item" data-strike-type="takedown"
+                            data-fighter-number="<%= fighter_number %>" data-strike-sig="" data-strike-target=""
+                            data-striker-id="<%= striker %>" data-target-id="<%= target %>"
+                            data-fight-id="<%= fight.fight_id %>" data-event-id="<%= fight.event_id %>">
+                            <strong>Takedown:</strong><br><span
+                                id="fighter<%= fighter_number %>_strikes_takedown"></span>
                         </div>
                         <div class="significant_strike hidden" data-strike-type="takedown"
-                            data-fighter-number="1">
-                            <div class="significant_strike_option strike_significant_strike"
+                            data-fighter-number="<%= fighter_number %>">
+                            <div class="significant_strike_option strike_significant_strike significant_strike_option_active"
                                 data-strike-sig="true">
                                 <strong>Successful Takedowns</strong>
                             </div>
@@ -186,15 +186,15 @@
                             </div>
                         </div>
                         <div class="strike_map_destination hidden flex" data-strike-target="">
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="head">
                                 <strong>Head</strong>
                             </div>
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="body">
                                 <strong>Body</strong>
                             </div>
-                            <div class="strike_possible_destination" data-fighter-number="1"
+                            <div class="strike_possible_destination" data-fighter-number="<%= fighter_number %>"
                                 data-strike-target="leg">
                                 <strong>Leg</strong>
                             </div>
@@ -204,4 +204,17 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+    
+    <h1 class="text-center text-4xl">Strike Bar <small>- Press z to cancel last strike</small></h2>
+    <div class="w-130 h-80 overflow-auto border border-gray-700 rounded-md scrollbar bg-gray-800 text-white strikebar" id="strikebar_<%= fighter_number %>">
+        
+    </div>
+
+
+
+
+
 </div>

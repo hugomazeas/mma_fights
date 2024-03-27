@@ -31,8 +31,20 @@ class Strike {
         else {
             this.strike_code = this.action.toUpperCase() + '_TO_' + this.strike_target.toUpperCase();
         }
-        if(this.round_time == null || this.round_time < 0 || this.round_time > 300000){
+        if (this.round_time == null || this.round_time < 0 || this.round_time > 300000) {
             throw new Error('Invalid round time');
         }
+    }
+    build_html_display() {
+        let strike_display = `
+        <div class="flex justify-between items-center px-4 py-2 border-b border-gray-700">
+            <p>
+
+            <span class="inline-block w-20 ${this.sig_strike ? 'text-green-500' : 'text-red-500'}">${this.sig_strike ? 'Successful' : 'Unsuccessful'}</span>
+            <span class="inline-block w-10 text-blue-500">${this.action} </span> to 
+            <span class="inline-block w-15 text-yellow-500">${this.strike_target} </span> at ${format_seconds(this.round_time)}</p>
+            <button class="btn btn-outline-light"><i class="bi bi-x"></i></button>
+        </div>`;
+        return strike_display;
     }
 }

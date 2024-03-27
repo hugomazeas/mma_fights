@@ -1,4 +1,9 @@
 class SimulationPanel {
+    static select_fight_status(status) {
+        let fighter_number = $(".fighters_strike_cards").attr("data-fighter-selected");
+        $(".fight_status_fighter" + fighter_number).removeClass("fight_status_active");
+        $("#fighter" + fighter_number + "_status_" + status).addClass("fight_status_active");
+    }
     static select_strike_target(target) {
         $(".strike_possible_destination").removeClass("strike_possible_destination_active");
         if (target) {
@@ -13,12 +18,8 @@ class SimulationPanel {
             $("#fighter" + fighter_number + "_" + action + "_line").find(".strike_card_item[data-strike-type='" + action + "']").addClass("strike_card_selected");
         }
     }
-    static select_sig_strike_card(sig_strike) {
-        $(".significant_strike_option").css("opacity", "50%").removeClass("significant_strike_option_active");
-        if (sig_strike) {
-            $(".significant_strike_option[data-strike-sig='" + sig_strike + "']").addClass("significant_strike_option_active");
-            $(".significant_strike_option[data-strike-sig='" + sig_strike + "']").css("opacity", "100%");
-        }
+    static toggle_sig_strike_card() {
+        $(".significant_strike_option").toggleClass("significant_strike_option_active");
     }
     static get_current_fighter_line() {
         let fighter_number = $(".fighters_strike_cards").attr("data-fighter-selected");
@@ -38,5 +39,21 @@ class SimulationPanel {
     }
     static open_destination_map() {
         SimulationPanel.get_current_fighter_line().find(".strike_map_destination").removeClass("hidden");
+    }
+    static hide_simulation_UI() {
+        $(".fighter_body_image").removeClass("hidden");
+        $("#btn_start_simulation").text("Start Simulation");
+        $(".round_selector_section").removeClass("disabled");
+        $(".fight_status_section").addClass("hidden");
+        $(".fighter_hits_info").removeClass("hidden");
+        $(".miscellaneous_strikes").addClass("hidden");
+    }
+    static show_simulation_UI() {
+        $(".fighter_body_image").addClass("hidden");
+        $("#btn_start_simulation").text("Stop simulation");
+        $(".round_selector_section").addClass("disabled");
+        $(".fight_status_section").removeClass("hidden");
+        $(".fighter_hits_info").addClass("hidden");
+        $(".miscellaneous_strikes").removeClass("hidden");
     }
 }
