@@ -7,7 +7,7 @@ I am currently developping the platform, more specifically on the mechanism to c
 # Run this app
 To run this app, pull the project locally and execute
 ```bash
-node .\app.js.
+npm run start
  ```
 **Database schema file coming soon!!**
 # Tech
