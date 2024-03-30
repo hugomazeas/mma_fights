@@ -42,26 +42,25 @@ $(document).ready(function () {
         SimulationPanel.select_strike_card();
     });
 });
-
 function add_new_strike() {
     if (current_simulation?.is_running() == false) return;
 
-    let strike_obj = fetch_strike_attributs();
+    let strike_obj = SimulationPanel.fetch_strike_attributs();
     let strike = current_simulation.new_strike(strike_obj);
-    let selector = "#strikebar_" + strike_obj.fighter_number;
-    $(selector).prepend(strike.build_html_display());
+
+    add_strike_to_strikesbar(strike_obj.fighter_number, strike);
 }
-// Frontend Strike "Factory" 
-function fetch_strike_attributs() {
-    let fighter_number = $(".strike_card_selected").attr("data-fighter-number");
-    let action = $(".strike_card_selected").attr("data-strike-type");
-    let target = $(".strike_card_selected").attr("data-strike-target");
-    let sig_strike = $(".significant_strike_option_active").attr("data-strike-sig");
-    let fight_status = $(".fight_status_active").attr("data-fight-status");
-    let round_time = $("#round_time").attr("data-time-seconds");
-    return { fighter_number, action, target, sig_strike, fight_status, round_time};
+function add_strike_to_strikesbar(fighter_number, strike) {
+    let selector = "#strikebar_" + fighter_number;
+    let length_strikes = current_simulation.strikes.length - 1;
+    $(selector).prepend(strike.build_html_display(length_strikes));
+}
+function delete_strike(index){
+    current_simulation.strikes.splice(index, 1);
+    $(`.delete-btn[data-index="${index}"]`).parent().remove();
 }
 function start_simulation(fighter1_id, fighter2_id) {
+    $(".strikebar").removeClass("hidden");
     let round_id = $(".current_round").attr("data-round-id");
 
     if (!current_simulation && round_id != 0) {
@@ -89,7 +88,7 @@ function send_simulation() {
     });
 }
 function abort_simulation(){
-    $("#simulation_resume_modal").addClass("hidden");
+    SimulationPanel.abort_simulation_UI();
     current_simulation.clear();
 }
 function display_simulation_results(simulation, action_button = false){

@@ -35,16 +35,18 @@ class Strike {
             throw new Error('Invalid round time');
         }
     }
-    build_html_display() {
+    build_html_display(index) {
         let strike_display = `
-        <div class="flex justify-between items-center px-4 py-2 border-b border-gray-700">
-            <p>
-
-            <span class="inline-block w-20 ${this.sig_strike ? 'text-green-500' : 'text-red-500'}">${this.sig_strike ? 'Successful' : 'Unsuccessful'}</span>
-            <span class="inline-block w-10 text-blue-500">${this.action} </span> to 
-            <span class="inline-block w-15 text-yellow-500">${this.strike_target} </span> at ${format_seconds(this.round_time)}</p>
-            <button class="btn btn-outline-light"><i class="bi bi-x"></i></button>
-        </div>`;
+            <div class="flex justify-between items-center px-4 py-2 border-b border-gray-700">
+                <p>
+                    <span class="inline-block w-20 text-center ${this.sig_strike ? 'text-green-500' : 'text-red-500'}">${this.sig_strike ? 'Successful' : 'Unsuccessful'}</span>
+                    <span class="inline-block w-20 text-center text-blue-500">${this.action} </span> to 
+                    <span class="inline-block w-20 text-center text-yellow-500">${this.strike_target} </span> at ${format_seconds(this.round_time)}
+                </p>
+                <button class="btn btn-outline-light delete-btn" data-index="${index}" onclick="delete_strike(${index})">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>`;
         return strike_display;
     }
 }

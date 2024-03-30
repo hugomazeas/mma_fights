@@ -56,4 +56,18 @@ class SimulationPanel {
         $(".fighter_hits_info").addClass("hidden");
         $(".miscellaneous_strikes").removeClass("hidden");
     }
+    static fetch_strike_attributs() {
+        let fighter_number = $(".strike_card_selected").attr("data-fighter-number");
+        let action = $(".strike_card_selected").attr("data-strike-type");
+        let target = $(".strike_card_selected").attr("data-strike-target");
+        let sig_strike = $(".significant_strike_option_active").attr("data-strike-sig");
+        let fight_status = $(".fight_status_active").attr("data-fight-status");
+        let round_time = $("#round_time").attr("data-time-seconds");
+        return { fighter_number, action, target, sig_strike, fight_status, round_time };
+    }
+    static abort_simulation_UI() {
+        this.hide_simulation_UI();
+        $(".strikebar").addClass("hidden");
+        $("#simulation_resume_modal").addClass("hidden");
+    }
 }

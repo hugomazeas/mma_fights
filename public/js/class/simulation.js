@@ -1,6 +1,6 @@
 class Simulation {
     static time_speed = [1, 0.5, 0.25, 0.1];
-    #strikes = [];
+    #strikes;
     #running;
     #fighter1_id;
     #fighter2_id;
@@ -21,6 +21,7 @@ class Simulation {
         this.#time_speed_factor = 1;
         this.#timer = new Timer();
         this.#timer.set_factor(1);
+        this.#strikes = [];
     }
     get fighter1_id() {
         return this.#fighter1_id;
