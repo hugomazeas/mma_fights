@@ -2,13 +2,16 @@
     <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 sm:p-0">
         <div
             class="fixed backdrop-blur-sm transition-duration-300 ease-in-out bg-gray-100 rounded-lg shadow-lg overflow-auto w-1/2 h-1/2 md:p-6">
-            <button type="button" id="close_modal_simulation_resume" title="Close modal" class="text-gray-400 focus:outline-none hover:text-gray-700 transition ease-in-out duration-150" onclick="document.getElementById('simulation_resume_modal').classList.add('hidden')">
+            <button type="button" id="close_modal_simulation_resume" title="Close modal"
+                class="text-gray-400 focus:outline-none hover:text-gray-700 transition ease-in-out duration-150"
+                onclick="document.getElementById('simulation_resume_modal').classList.add('hidden')">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-              </button>
-            <h1 class="text-xl font-bold text-gray-900 mb-4">Résumé de la round #<span
-                    id="resume_round_number"></span></h1>
+            </button>
+
+            <h1 class="text-xl font-bold text-gray-900 mb-4">Résumé de la round #<span id="resume_round_number"></span>
+            </h1>
             <h2 class="text-lg font-bold text-gray-900 mb-4">Total strikes: <span id="resume_total_strikes"></span>
             </h2>
             <div class="flex">
@@ -77,12 +80,41 @@
                     </div>
                 </div>
             </div>
+            <h1 class="text-xl font-bold text-gray-900 mb-4">Round time: <span class="simulation_round_time"></span></h1>
+            <div class="justify-evenly items-center time_exceed_round_maximum_time hidden">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Time is exceeding <span
+                        class="round_exceeding_time">#</span> seconds.</h2>
+                <div class="flex">
+                    <label class="bg-blue-300 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
+                        <input type="radio" name="time_option" value="cut_to_5min" checked>
+                        Cut to 5min<span class="round_exceeding_time"></span>
+                    </label>
+                    <label class="bg-blue-300 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
+                        <input type="radio" name="time_option" value="timeout" >
+                        Time-out of <span class="round_exceeding_time"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="justify-evenly items-center time_less_than_round_maximum_time hidden">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Round finished early?</h2>
+                <div class="flex">
+                    <label class="bg-blue-300 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
+                        <input type="radio" name="time_option" value="cut_to_5min" checked>
+                        Cut to 5min.<span class="round_exceeding_time"></span>
+                    </label>
+                    <label class="bg-blue-300 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">
+                        <input type="radio" name="time_option" value="match_finished">
+                        Match is finished. <span class="round_exceeding_time"></span>
+                    </label>
+                </div>
+            </div>
             <div class="flex justify-between simulation_results_button">
                 <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
                     onclick='abort_simulation();'>
                     Abort Round
                 </button>
-                <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                <button class="bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded"
                     onclick="send_simulation();">
                     Accept Simulation
                 </button>

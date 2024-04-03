@@ -10,7 +10,7 @@ class Simulation {
     #fight_id;
     #time_speed_factor;
     #fight;
-    #timer;
+    timer;
 
     constructor(round_id, org_id, event_id, fight_id) {
         this.#round_id = round_id;
@@ -19,8 +19,8 @@ class Simulation {
         this.#org_id = org_id;
         this.#fight_id = fight_id;
         this.#time_speed_factor = 1;
-        this.#timer = new Timer();
-        this.#timer.set_factor(1);
+        this.timer = new Timer();
+        this.timer.set_factor(1);
         this.#strikes = [];
     }
     get fighter1_id() {
@@ -57,21 +57,23 @@ class Simulation {
     start() {
         this.#strikes = [];
         this.#running = true;
-        this.#timer.start(10);
+        this.timer.start(10);
     }
     get_current_round_time() {
-        return to_MM_SS_MS(this.#timer.get_elapse_time());
+        return to_MM_SS_MS(this.timer.get_elapse_time());
     }
     set_factor(new_factor) {
-        this.#timer.set_factor(new_factor);
+        this.timer.set_factor(new_factor);
     }
     stop() {
-        this.#timer.stop();
-        display_simulation_results(this, true);
+        this.timer.stop();
+        let simulation_results = new SimulationResults();
+        simulation_results.set_simulation(this);
+        simulation_results.display_simulation_results(true);
         this.#running = false;
     }
     pause() {
-        this.#timer.stop();
+        this.timer.stop();
         this.#running = false;
     }
     clear() {

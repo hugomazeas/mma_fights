@@ -7,7 +7,7 @@
         </div>
         <button id="btn_resume_round" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-5"
             onclick="
-            display_simulation_results(current_simulation);">
+            current_simulation.stop();">
             Info round
         </button>
         <button id="btn_time_speed" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-5"
@@ -15,7 +15,7 @@
             1x
         </button>
         <button id="btn_start_simulation" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            onclick="start_simulation('<%= fight.fighter1_id %>', '<%= fight.fighter2_id %>')">
+            onclick="toggle_start_stop_simulation('<%= fight.fighter1_id %>', '<%= fight.fighter2_id %>')">
             Start Simulation
             <i id="icon_pause_simulation" class="bi bi-pause-fill hidden"></i>
             <i id="icon_play_simulation" class="bi bi-play-fill"></i>

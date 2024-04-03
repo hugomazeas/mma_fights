@@ -15,6 +15,7 @@ class InputTracker {
     #select_head_strike = "z";
     #select_body_strike = "x";
     #select_leg_strike = "c";
+    #delete_last_strike = "Backspace";
 
     #possible_keys = [];
     constructor() {
@@ -102,6 +103,8 @@ class InputTracker {
                     $(".fighters_strike_cards").attr("data-fighter-selected", 2);
                     _this.setTrackingFighterNumber(2);
                     break;
+                case _this.#delete_last_strike:
+                    $("#strikebar_" + fighter_number).find(".delete-btn").first().click();
             }
         });
     }
