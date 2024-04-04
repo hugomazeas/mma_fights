@@ -54,6 +54,9 @@ class Simulation {
         this.#fighter1_id = this.#fight.fighter1_id;
         this.#fighter2_id = this.#fight.fighter2_id;
     }
+    add_strikes(strikes) {
+        this.#strikes.push(...strikes);
+    }
     start() {
         this.#strikes = [];
         this.#running = true;

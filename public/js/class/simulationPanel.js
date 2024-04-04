@@ -70,4 +70,26 @@ class SimulationPanel {
         $(".strikebar").addClass("hidden");
         $("#simulation_resume_modal").addClass("hidden");
     }
+    static pause_simulation() {
+
+    }
+    static resume_simulation() {
+
+    }
+    static select_round(round_id) {
+
+        if (round_id == 0) {
+            $("#round_number").text("-");
+            $("#btn_start_simulation").addClass("disabled");
+            $("#toggleSimulation").prop("disabled", true);
+        } else {
+            $("#round_number").text(round_id);
+            $("#btn_start_simulation").removeClass("disabled");
+            $("#toggleSimulation").prop("disabled", false);
+        }
+
+        $(".round_selector").removeClass("current_round");
+        $("#round_selector_" + round_id).addClass("current_round");
+        $('.strike_card_section').addClass("disabled");
+    }
 }
