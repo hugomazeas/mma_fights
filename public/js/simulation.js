@@ -5,7 +5,6 @@ $(document).ready(function () {
     let tracker = new InputTracker();
     tracker.activeTracker();
 
-    detailFight(0, 0 , 0);
     let $strike_card_section = $(".strike_card_section");
 
     $strike_card_section.on("click", ".fight_status", function () {
