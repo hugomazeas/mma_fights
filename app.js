@@ -8,6 +8,7 @@ const fightersRoutes = require('./router/fighter.js');
 const fightsRoutes = require('./router/fights.js');
 const roundsRoutes = require('./router/rounds.js');
 const simulationRoutes = require('./router/simulation.js');
+const apiRoutes = require('./router/api.js');
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -21,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+    res.redirect('/organisations');
 });
 
 app.use('/organisations', organisationsRoutes);
@@ -30,6 +31,7 @@ app.use('/organisations/:org_id/events/:event_id/fights', fightsRoutes);
 app.use('/organisations/:org_id/events/:event_id/fights/:fight_id/rounds', roundsRoutes);
 app.use('/simulations', simulationRoutes);
 app.use('/fighters', fightersRoutes);
+app.use('/api', apiRoutes);
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);

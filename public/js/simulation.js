@@ -4,7 +4,11 @@ let fight;
 $(document).ready(function () {
     let tracker = new InputTracker();
     tracker.activeTracker();
-
+    let fight_id = window.location.href.split("/").pop();
+    import_fight(fight_id).then(async function() {
+        await fight.init_simulations();
+        display_strike(0);
+    });;
     let $strike_card_section = $(".strike_card_section");
 
     $strike_card_section.on("click", ".fight_status", function () {
@@ -177,8 +181,8 @@ function select_round(round_id) {
     }, 300);
     SimulationPanel.select_round(round_id);
 }
-async function import_fight(org_id, event_id, fight_id) {
-    await $.get('/organisations/' + org_id + '/events/' + event_id + '/fights/' + fight_id + '/api', function (data) {
+async function import_fight(fight_id) {
+    await $.get('/api/fight/' + fight_id, function (data) {
         fight = new Fight(data?.fight_id, data?.event_id, data?.org_id, data?.fighter1_id, data?.fighter2_id, data?.winner_id, data?.division, data?.round_length, data?.card_type, data?.card_title, data?.rounds);
     });
 }

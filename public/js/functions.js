@@ -40,7 +40,7 @@ function detailEvent(org_id, event_id) {
 }
 function detailFight(org_id, event_id, fight_id) {
     display_url('/organisations/' + org_id + '/events/' + event_id + '/fights/' + fight_id);
-    import_fight(org_id, event_id, fight_id).then(async function() {
+    import_fight(fight_id).then(async function() {
         await fight.init_simulations();
         display_strike(0);
     });
@@ -52,7 +52,7 @@ function display_url(url) {
     $.ajax({
         url: url,
         type: 'GET',
-        cache: false, // Add cache: false
+        cache: false,
         success: function (htmlResponse) {
             let main_container = htmlResponse.split("<div class=\"main_container\">")[1];
 
