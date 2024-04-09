@@ -1,9 +1,9 @@
 let current_simulation;
 let strikes_data_from_server = [];
 let fight;
+let tracker;
 $(document).ready(function () {
-    let tracker = new InputTracker();
-    tracker.activate_tracker();
+    tracker = new InputTracker();
     
     let fight_id = window.location.href.split("/").pop();
 
@@ -64,15 +64,19 @@ function toggle_start_stop_simulation() {
     if($(".simulation_banner").hasClass("hidden")){
         SimulationPanel.show_simulation_UI();
     }else{
+        current_simulation.stop();
+        SimulationPanel.resume_simulation();
         SimulationPanel.hide_simulation_UI();
     }
 }
 function toggle_pause_play_simulation() {
     if (current_simulation.is_running()) {
         current_simulation.pause();
+        // tracker.desactivate_tracker();
         SimulationPanel.pause_simulation();
     } else {
         current_simulation.start();
+        // tracker.activate_tracker();
         SimulationPanel.resume_simulation();
     }
 }
@@ -162,7 +166,6 @@ async function display_strike(round_id) {
 
 }
 function select_round(round_id) {
-
     setTimeout(() => {
         display_strike(round_id).then(() => {
             $(".strike_card_section").removeClass("disabled");

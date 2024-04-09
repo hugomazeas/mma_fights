@@ -16,6 +16,7 @@ class InputTracker {
     #select_body_strike = "x";
     #select_leg_strike = "c";
     #delete_last_strike = "Backspace";
+    #toggle_time = " ";
 
     constructor() {
         this.setTrackingFighterNumber(1);
@@ -31,7 +32,7 @@ class InputTracker {
             let fighter_number = _this.getTrackingFighterNumber();
             SimulationPanel.close_destination_map();
             SimulationPanel.close_significant_strike_option();
-
+            console.log(key);
             switch (key) {
                 case _this.#stranding_key:
                     SimulationPanel.select_fight_status("standing");
@@ -107,6 +108,10 @@ class InputTracker {
                     break;
                 case _this.#delete_last_strike:
                     $("#strikebar_" + fighter_number).find(".delete-btn").first().click();
+                case _this.#toggle_time:
+                    e.preventDefault();
+                    toggle_pause_play_simulation();
+                    break;
             }
         });
     }

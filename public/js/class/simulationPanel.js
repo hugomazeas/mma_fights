@@ -57,6 +57,7 @@ class SimulationPanel {
         $(".fighter_hits_info").addClass("hidden");
         $(".miscellaneous_strikes").removeClass("hidden");
         $(".simulation_banner").removeClass("hidden");
+        $(".strikebar").removeClass("hidden");
     }
     static fetch_strike_attributs() {
         let fighter_number = $(".strike_card_selected").attr("data-fighter-number");
@@ -73,10 +74,16 @@ class SimulationPanel {
         $("#simulation_resume_modal").addClass("hidden");
     }
     static pause_simulation() {
-
+        $(".strike_card").addClass("disabled");
+        $(".icon_pause").addClass("hidden");
+        $(".icon_play").removeClass("hidden");
+        $("#btn_start_simulation").removeClass("disabled");
     }
     static resume_simulation() {
-
+        $(".strike_card").removeClass("disabled");
+        $(".icon_pause").removeClass("hidden");
+        $(".icon_play").addClass("hidden");
+        $("#btn_start_simulation").addClass("disabled");
     }
     static select_round(round_id) {
 
