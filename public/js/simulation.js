@@ -3,8 +3,10 @@ let strikes_data_from_server = [];
 let fight;
 $(document).ready(function () {
     let tracker = new InputTracker();
-    tracker.activeTracker();
+    tracker.activate_tracker();
+    
     let fight_id = window.location.href.split("/").pop();
+
     import_fight(fight_id).then(async function() {
         await fight.init_simulations();
         display_strike(0);
@@ -59,22 +61,9 @@ function delete_strike(index){
     $(`.delete-btn[data-index="${index}"]`).parent().remove();
 }
 function toggle_start_stop_simulation() {
-    $(".strikebar").removeClass("hidden");
-    let round_id = $(".current_round").attr("data-round-id");
-
-    if (current_simulation) {
-        $(".simulation_banner").removeClass("hidden");
+    if($(".simulation_banner").hasClass("hidden")){
         SimulationPanel.show_simulation_UI();
-        current_simulation.stop();
-        if(confirm("Do you want to save the simulation?")){
-            send_simulation();
-        } else {
-            abort_simulation();
-        }
-        delete current_simulation;
-    } else {
-        current_simulation = new Simulation(fighter1_id, fighter2_id, round_id, []);
-        $(".simulation_banner").addClass("hidden");
+    }else{
         SimulationPanel.hide_simulation_UI();
     }
 }
@@ -84,7 +73,7 @@ function toggle_pause_play_simulation() {
         SimulationPanel.pause_simulation();
     } else {
         current_simulation.start();
-        SimulationPanel.remove_simulation();
+        SimulationPanel.resume_simulation();
     }
 }
 function send_simulation() {
@@ -106,12 +95,12 @@ function abort_simulation(){
 }
 async function display_strike(round_id) {
 
-    let simulation = fight.get_round_simulation(round_id);
+    current_simulation = fight.get_round_simulation(round_id);
 
     $("#fighter1_name").text(fight.fighter1_first_name + " " + fight.fighter1_last_name);
     $("#fighter2_name").text(fight.fighter2_first_name + " " + fight.fighter2_last_name);
 
-    const current_round_strikes = simulation.strikes;
+    const current_round_strikes = current_simulation.strikes;
     let fighter1_strikes;
     let fighter2_strikes;
 

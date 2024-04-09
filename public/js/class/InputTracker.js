@@ -17,11 +17,13 @@ class InputTracker {
     #select_leg_strike = "c";
     #delete_last_strike = "Backspace";
 
-    #possible_keys = [];
     constructor() {
         this.setTrackingFighterNumber(1);
     }
-    activeTracker() {
+    desactivate_tracker(){
+        $(document).off("keydown");
+    }
+    activate_tracker() {
         // _this is used to access the class properties in the event handler
         let _this = this;
         $(document).keydown(function (e) {

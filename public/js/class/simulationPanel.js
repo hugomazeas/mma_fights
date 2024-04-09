@@ -47,6 +47,7 @@ class SimulationPanel {
         $(".fight_status_section").addClass("hidden");
         $(".fighter_hits_info").removeClass("hidden");
         $(".miscellaneous_strikes").addClass("hidden");
+        $(".simulation_banner").addClass("hidden");
     }
     static show_simulation_UI() {
         $(".fighter_body_image").addClass("hidden");
@@ -55,6 +56,7 @@ class SimulationPanel {
         $(".fight_status_section").removeClass("hidden");
         $(".fighter_hits_info").addClass("hidden");
         $(".miscellaneous_strikes").removeClass("hidden");
+        $(".simulation_banner").removeClass("hidden");
     }
     static fetch_strike_attributs() {
         let fighter_number = $(".strike_card_selected").attr("data-fighter-number");
