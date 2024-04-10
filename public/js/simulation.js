@@ -4,13 +4,14 @@ let fight;
 let tracker;
 $(document).ready(function () {
     tracker = new InputTracker();
-    
+
     let fight_id = window.location.href.split("/").pop();
 
-    import_fight(fight_id).then(async function() {
+    import_fight(fight_id).then(async function () {
         await fight.init_simulations();
         display_strike(0);
-    });;
+    });
+    
     let $strike_card_section = $(".strike_card_section");
 
     $strike_card_section.on("click", ".fight_status", function () {
@@ -18,22 +19,22 @@ $(document).ready(function () {
         $(this).addClass("fight_status_active");
     });
     $strike_card_section.on('click', '.strike_card_item', function () {
-        if (current_simulation?.is_running()) {
-            SimulationPanel.close_destination_map();
-            SimulationPanel.close_significant_strike_option();
-            SimulationPanel.select_strike_card($(this).attr("data-strike-type"));
-            SimulationPanel.open_significant_strike_option();
-        } else {
-            console.log("Simulation not active");
-        }
+        SimulationPanel.close_destination_map();
+        SimulationPanel.close_significant_strike_option();
+        SimulationPanel.select_strike_card($(this).attr("data-strike-type"));
+        SimulationPanel.open_significant_strike_option();
+
     });
     $strike_card_section.on('click', '.significant_strike_option', function () {
-        if (!current_simulation?.is_running()) return;
-
-        SimulationPanel.toggle_sig_strike_card();
+        $(".significant_strike_option").removeClass("significant_strike_option_active");
+        $(this).toggleClass("significant_strike_option_active");
         SimulationPanel.open_destination_map();
     });
     $strike_card_section.on("click", ".strike_possible_destination", function () {
+        if(!current_simulation?.is_running()){
+            Notification.warning("Simulation is not running");
+            return;
+        } 
         SimulationPanel.select_strike_target($(this).attr("data-strike-target"));
         add_new_strike();
         SimulationPanel.select_strike_target();
@@ -56,14 +57,14 @@ function add_strike_to_strikesbar(fighter_number, strike) {
     let length_strikes = current_simulation.strikes.length - 1;
     $(selector).prepend(strike.build_html_display(length_strikes));
 }
-function delete_strike(index){
+function delete_strike(index) {
     current_simulation.strikes.splice(index, 1);
     $(`.delete-btn[data-index="${index}"]`).parent().remove();
 }
 function toggle_start_stop_simulation() {
-    if($(".simulation_banner").hasClass("hidden")){
+    if ($(".simulation_banner").hasClass("hidden")) {
         SimulationPanel.show_simulation_UI();
-    }else{
+    } else {
         current_simulation.stop();
         SimulationPanel.resume_simulation();
         SimulationPanel.hide_simulation_UI();
@@ -93,7 +94,7 @@ function send_simulation() {
         }
     });
 }
-function abort_simulation(){
+function abort_simulation() {
     SimulationPanel.abort_simulation_UI();
     current_simulation.clear();
 }

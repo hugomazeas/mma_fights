@@ -44,6 +44,7 @@ function detailFight(org_id, event_id, fight_id) {
         await fight.init_simulations();
         display_strike(0);
     });
+    location.reload();
 }
 function display_url(url) {
     console.log("Going to " + url);
