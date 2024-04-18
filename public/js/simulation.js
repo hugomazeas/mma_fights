@@ -94,10 +94,6 @@ function send_simulation() {
         }
     });
 }
-function abort_simulation() {
-    SimulationPanel.abort_simulation_UI();
-    current_simulation.clear();
-}
 async function display_strike(round_id) {
 
     current_simulation = fight.get_round_simulation(round_id);

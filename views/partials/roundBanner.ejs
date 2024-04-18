@@ -1,21 +1,15 @@
 <div class="items-center justify-center w-80 mx-auto activate_simulation">
     <div class="flex space-y-2 rounded-lg bg-gray-200 shadow-md px-4 py-3">
         <div class="flex-grow text-gray-700 text-lg font-bold simulation_banner hidden">
-            <button id="btn_resume_round"
+            <button id="btn_keyboard_shortcuts"
+                class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-5" onclick=""
+                data-time-speed="1">
+                <i class="bi bi-keyboard"></i>
+            </button>
+            <button id="btn_info_round"
                 class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-5" onclick="
-        current_simulation.stop();">
+        current_simulation.display_info();">
                 Info round
-            </button>
-            <button id="btn_time_speed"
-                class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-5"
-                onclick="change_time_speed()" data-time-speed="1">
-                1x
-            </button>
-            <button id="btn_pause_resume"
-                class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-5"
-                onclick="toggle_pause_play_simulation()" data-time-speed="1">
-                <i class="bi bi-pause-fill icon_pause hidden"></i>
-                <i class="bi bi-play-fill icon_play "></i>
             </button>
             <span>Round: <span id="round_number">1</span></span>
             <span>Total Strikes: <span id="total_strikes">--</span></span>
@@ -27,5 +21,33 @@
             <i id="icon_pause_simulation" class="bi bi-pause-fill hidden"></i>
             <i id="icon_play_simulation" class="bi bi-play-fill"></i>
         </button>
+    </div>
+    <div class="flex rounded-lg bg-gray-200 shadow-md px-4 py-3 mt-4 justify-center time_control_banner hidden">
+        <button id="btn_time_speed"
+            class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-5"
+            onclick="change_time_speed()" data-time-speed="1">
+            1x
+        </button>
+        <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
+            <i class="bi bi-rewind-fill"></i>
+        </button>
+        <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
+            <i class="bi bi-skip-backward-fill"></i>
+        </button>
+        <button id="btn_pause_resume" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1"
+            onclick="toggle_pause_play_simulation()" data-time-speed="1">
+            <i class="bi bi-pause-fill icon_pause hidden"></i>
+            <i class="bi bi-play-fill icon_play"></i>
+        </button>
+        <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
+            <i class="bi bi-skip-forward-fill"></i>
+        </button>
+        <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
+            <i class="bi bi-fast-forward-fill"></i>
+        </button>
+        <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-5" onclick="">
+            <i class="bi bi-backspace-fill"></i>
+        </button>
+        
     </div>
 </div>

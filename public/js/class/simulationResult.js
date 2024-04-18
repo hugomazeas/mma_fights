@@ -7,14 +7,8 @@ class SimulationResults {
     set_simulation(simulation){
         this.simulation = simulation;
     }
-    display_simulation_results(action_button = false){
-        if(action_button){
-            $(".simulation_results_button").removeClass("hidden");
-            $("#close_modal_simulation_resume").addClass("hidden");
-        }else{
-            $("#close_modal_simulation_resume").removeClass("hidden");
-            $(".simulation_results_button").addClass("hidden");
-        }
+    display_simulation_results(){
+        
         let round_seconds = this.simulation.timer.get_elapse_time()/1000;
         $(".simulation_round_time").text(format_seconds(round_seconds));
     

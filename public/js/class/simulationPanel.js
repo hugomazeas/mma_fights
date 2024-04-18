@@ -41,6 +41,7 @@ class SimulationPanel {
         SimulationPanel.get_current_fighter_line().find(".strike_map_destination").removeClass("hidden");
     }
     static hide_simulation_UI() {
+        $(".time_control_banner").addClass("hidden");
         $(".fighter_body_image").removeClass("hidden");
         $("#btn_start_simulation").text("Start Simulation");
         $(".round_selector_section").removeClass("disabled");
@@ -50,6 +51,7 @@ class SimulationPanel {
         $(".simulation_banner").addClass("hidden");
     }
     static show_simulation_UI() {
+        $(".time_control_banner").removeClass("hidden");
         $(".fighter_body_image").addClass("hidden");
         $("#btn_start_simulation").text("Stop simulation");
         $(".round_selector_section").addClass("disabled");

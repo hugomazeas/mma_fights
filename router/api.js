@@ -32,5 +32,10 @@ router.get('/fight/:fight_id/', async function (req, res) {
     fight.rounds = rounds;
     res.send(fight);
 });
+router.get('/columnInfo/:table_name/', async function (req, res) {
+    const table_name = req.params.table_name;
+    const columns = (await pool.query("SELECT * FROM get_column_comments('" + table_name + "');"));
+    res.send(columns.rows);
+});
 
 module.exports = router;

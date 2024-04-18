@@ -70,14 +70,16 @@ class Simulation {
     }
     stop() {
         this.timer.stop();
-        let simulation_results = new SimulationResults();
-        simulation_results.set_simulation(this);
-        simulation_results.display_simulation_results(true);
         this.#running = false;
     }
     pause() {
         this.timer.stop();
         this.#running = false;
+    }
+    display_info() {
+        let simulation_results = new SimulationResults();
+        simulation_results.set_simulation(this);
+        simulation_results.display_simulation_results();
     }
     clear() {
         this.#strikes = [];
