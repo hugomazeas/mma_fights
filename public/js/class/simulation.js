@@ -11,6 +11,7 @@ class Simulation {
     #time_speed_factor;
     #fight;
     timer;
+    simulation_panel;
 
     constructor(round_id, org_id, event_id, fight_id) {
         this.#round_id = round_id;
@@ -47,12 +48,23 @@ class Simulation {
     set time_speed_factor(time_speed_factor) {
         this.#time_speed_factor = time_speed_factor;
     }
-
     async initialize() {
         this.#strikes = await this.get_strike_existing_round(this.#round_id);
         this.#fight = await $.get('/organisations/' + this.#org_id + '/events/' + this.#event_id + '/fights/' + this.#fight_id + '/api')
         this.#fighter1_id = this.#fight.fighter1_id;
         this.#fighter2_id = this.#fight.fighter2_id;
+    }
+    rollback_5sec() {
+
+    }
+    forward_5sec() {
+
+    }
+    back_5sec() {
+
+    }
+    back_to_start() {
+
     }
     add_strikes(strikes) {
         this.#strikes.push(...strikes);

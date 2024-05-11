@@ -13,7 +13,6 @@
             </button>
             <span>Round: <span id="round_number">1</span></span>
             <span>Total Strikes: <span id="total_strikes">--</span></span>
-            <span>Time: <span id="round_time" data-time-seconds="0">--:--</span></span>
         </div>
         <button id="btn_start_simulation" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
             onclick="toggle_start_stop_simulation('<%= fight.fighter1_id %>', '<%= fight.fighter2_id %>')">
@@ -23,31 +22,40 @@
         </button>
     </div>
     <div class="flex rounded-lg bg-gray-200 shadow-md px-4 py-3 mt-4 justify-center time_control_banner hidden">
-        <button id="btn_time_speed"
-            class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-5"
-            onclick="change_time_speed()" data-time-speed="1">
-            1x
-        </button>
-        <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
-            <i class="bi bi-rewind-fill"></i>
-        </button>
-        <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
-            <i class="bi bi-skip-backward-fill"></i>
-        </button>
-        <button id="btn_pause_resume" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1"
-            onclick="toggle_pause_play_simulation()" data-time-speed="1">
-            <i class="bi bi-pause-fill icon_pause hidden"></i>
-            <i class="bi bi-play-fill icon_play"></i>
-        </button>
-        <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
-            <i class="bi bi-skip-forward-fill"></i>
-        </button>
-        <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
-            <i class="bi bi-fast-forward-fill"></i>
-        </button>
-        <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-5" onclick="">
-            <i class="bi bi-backspace-fill"></i>
-        </button>
-        
+        <div style="width: 30%;">
+            <span class="font-bold">Time: <span id="round_time" data-time-seconds="0">--:--</span>/05:00.000</span>
+        </div>
+        <div style="width: 40%;" class="flex justify-center">
+            <button id="btn_time_speed"
+                class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-5"
+                onclick="change_time_speed()" data-time-speed="1">
+                1x
+            </button>
+            <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
+                <i class="bi bi-rewind-fill"></i>
+            </button>
+            <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
+                <i class="bi bi-skip-backward-fill"></i>
+            </button>
+            <button id="btn_pause_resume"
+                class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1"
+                onclick="toggle_pause_play_simulation()" data-time-speed="1">
+                <i class="bi bi-pause-fill icon_pause hidden"></i>
+                <i class="bi bi-play-fill icon_play"></i>
+            </button>
+            <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
+                <i class="bi bi-skip-forward-fill"></i>
+            </button>
+            <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
+                <i class="bi bi-fast-forward-fill"></i>
+            </button>
+            <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-5" onclick="">
+                <i class="bi bi-backspace-fill"></i>
+            </button>
+        </div>
+
+        <div style="width: 30%;"></div>
+
+
     </div>
 </div>

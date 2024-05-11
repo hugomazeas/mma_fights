@@ -21,7 +21,10 @@
     <script src="/js/class/notification.js"></script>
     <script src="/js/class/inputTracker.js"></script>
     <script src="/js/class/simulationResult.js"></script>
-    <script src="/js/notify.js"></script>
+    <script src="/js/class/appnavigator.js"></script>
+    <script src="/js/class/cookieManager.js"></script>
+    <script src="/js/commun.js"></script>
+    <script src="/js/plugins/notify.js"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -31,7 +34,7 @@
         <div class="container mx-auto px-4 py-2">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <a class="text-white text-lg font-semibold" href="http://localhost:3000/">MMA Statistics</a>
+                    <a class="text-white text-lg font-semibold" onclick="navigator.go_to('home')">MMA Statistics</a>
                 </div>
                 <div class="flex items-center space-x-4">
                     <a class="text-gray-300 hover:text-white text-xl font-semibold" href="#"

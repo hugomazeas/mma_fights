@@ -9,18 +9,19 @@
             </div>
         </div>
     </div>
+    <div class="simulation_panel">
+
     <br>
     <%- include('partials/roundBanner') %>
-
-
-
-        <br>
-        <div class="flex fighters_strike_cards" data-fighter-selected="1">
-            <%- include('partials/fighterStrikeCard', {striker: fight.fighter1_id, target: fight.fighter2_id,
-                fighter_number: 1 }) %>
-                <%- include('partials/fighterStrikeCard', {striker: fight.fighter2_id, target: fight.fighter1_id,
-                    fighter_number: 2 }) %>
+    <br>
+    <div class="flex fighters_strike_cards" data-fighter-selected="1">
+        <%- include('partials/fighterStrikeCard', {striker: fight.fighter1_id, target: fight.fighter2_id,
+            fighter_number: 1 }) %>
+        <%- include('partials/fighterStrikeCard', {striker: fight.fighter2_id, target: fight.fighter1_id,
+            fighter_number: 2 }) %>
         </div>
-        <%- include('partials/simulationModal.ejs') %>
+    
+    </div>
+    <%- include('partials/simulationModal.ejs') %>
 
-            <%- include('partials/footer') %>
+    <%- include('partials/footer') %>

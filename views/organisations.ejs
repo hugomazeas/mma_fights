@@ -56,7 +56,7 @@
                         </thead>
                         <tbody class="bg-gray-100 border-b">
                             <% organisations.forEach(organisation=> { %>
-                                <tr class="pointer" onclick="detailOrganisation('<%= organisation.organisation_id %>')">
+                                <tr class="pointer" onclick="navigator.go_to('organisations', {org_id: '<%= organisation.organisation_id %>'})">
                                     <!-- <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
                                         <%= organisation.organisation_id %>
                                     </td> -->

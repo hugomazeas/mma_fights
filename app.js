@@ -21,10 +21,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/', (req, res) => {
-    res.redirect('/organisations');
-});
-
 app.use('/organisations', organisationsRoutes);
 app.use('/organisations/:org_id/events', eventsRoutes);
 app.use('/organisations/:org_id/events/:event_id/fights', fightsRoutes);
@@ -36,4 +32,3 @@ app.use('/api', apiRoutes);
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 });
-

@@ -32,19 +32,8 @@ function deleteFight(event_id, fight_id) {
         }
     });
 }
-function detailOrganisation(org_id) {
-    display_url('/organisations/' + org_id);
-}
 function detailEvent(org_id, event_id) {
     display_url('/organisations/' + org_id + '/events/' + event_id);
-}
-function detailFight(org_id, event_id, fight_id) {
-    display_url('/organisations/' + org_id + '/events/' + event_id + '/fights/' + fight_id);
-    import_fight(fight_id).then(async function() {
-        await fight.init_simulations();
-        display_strike(0);
-    });
-    location.reload();
 }
 function display_url(url) {
     console.log("Going to " + url);

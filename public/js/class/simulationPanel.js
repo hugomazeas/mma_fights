@@ -1,4 +1,5 @@
 class SimulationPanel {
+
     static select_fight_status(status) {
         let fighter_number = $(".fighters_strike_cards").attr("data-fighter-selected");
         $(".fight_status_fighter" + fighter_number).removeClass("fight_status_active");
@@ -76,13 +77,13 @@ class SimulationPanel {
         $("#simulation_resume_modal").addClass("hidden");
     }
     static pause_simulation() {
-        $(".strike_card").addClass("disabled");
+        // $(".strike_card").addClass("disabled");
         $(".icon_pause").addClass("hidden");
         $(".icon_play").removeClass("hidden");
         $("#btn_start_simulation").removeClass("disabled");
     }
     static resume_simulation() {
-        $(".strike_card").removeClass("disabled");
+        // $(".strike_card").removeClass("disabled");
         $(".icon_pause").removeClass("hidden");
         $(".icon_play").addClass("hidden");
         $("#btn_start_simulation").addClass("disabled");

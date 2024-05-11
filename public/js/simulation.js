@@ -1,11 +1,11 @@
 let current_simulation;
 let strikes_data_from_server = [];
 let fight;
-let tracker;
 $(document).ready(function () {
-    tracker = new InputTracker();
 
-    let fight_id = window.location.href.split("/").pop();
+    
+
+    let fight_id = CookieManager.getCookie("fight_id");
 
     import_fight(fight_id).then(async function () {
         await fight.init_simulations();
@@ -73,11 +73,9 @@ function toggle_start_stop_simulation() {
 function toggle_pause_play_simulation() {
     if (current_simulation.is_running()) {
         current_simulation.pause();
-        // tracker.desactivate_tracker();
         SimulationPanel.pause_simulation();
     } else {
         current_simulation.start();
-        // tracker.activate_tracker();
         SimulationPanel.resume_simulation();
     }
 }
