@@ -57,6 +57,7 @@ function change_time_speed() {
     $("#btn_time_speed").text(next_time_speed + "x");
 }
 function capitalize_first_letter(str) {
+    if(!str) return str;
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 function to_MM_SS_MS(milliseconds) {

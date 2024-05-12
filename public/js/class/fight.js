@@ -36,6 +36,8 @@ class Fight {
             this.simulations.push(simulation);
         }
         this.simulations.push(total_simulation);
+        this.fighter1 = await $.get('/api/fighter/' + this.fighter1_id);
+        this.fighter2 = await $.get('/api/fighter/' + this.fighter2_id);
     }
     get_round_simulation(round_id) {
         return this.simulations.find(simulation => simulation.round_id == round_id);

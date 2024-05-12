@@ -29,5 +29,20 @@ router.get('/columnInfo/:table_name/', async function (req, res) {
     const columns = (await pool.query("SELECT * FROM get_column_comments('" + table_name + "');"));
     res.send(columns.rows);
 });
+router.get('/organisation/:org_id', async function (req, res) {
+    const org_id = req.params.org_id;
+    const organisation = (await pool.query('SELECT * FROM organisation WHERE organisation_id = $1', [org_id])).rows
+    res.send(organisation[0]);
+});
+router.get('/event/:event_id', async function (req, res) {
+    const event_id = req.params.event_id;
+    const event = (await pool.query('SELECT * FROM event WHERE event_id = $1', [event_id])).rows
+    res.send(event[0]);
+});
+router.get('/fighter/:fighter_id', async function (req, res) {
+    const fighter_id = req.params.fighter_id;
+    const fighter = (await pool.query('SELECT * FROM fighter WHERE fighter_id = $1', [fighter_id])).rows
+    res.send(fighter[0]);
+});
 
 module.exports = router;

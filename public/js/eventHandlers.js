@@ -115,7 +115,4 @@ $(document).ready(function () {
     });
     
     update_breadscrum();
-    // $("#btn_goto_events").trigger("click");
-    // $("#btn_goto_fighters").trigger("click");
-    // $("#btn_goto_organisation").trigger("click");
 });

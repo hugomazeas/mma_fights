@@ -3,8 +3,6 @@ let strikes_data_from_server = [];
 let fight;
 $(document).ready(function () {
 
-    initiate_simulation();
-    
     let $strike_card_section = $(".strike_card_section");
 
     $strike_card_section.on("click", ".fight_status", function () {
@@ -45,7 +43,6 @@ function initiate_simulation() {
         display_strike(0);
     });
 }
-
 function add_new_strike() {
     if (current_simulation?.is_running() == false) return;
 
@@ -98,8 +95,6 @@ async function display_strike(round_id) {
 
     current_simulation = fight.get_round_simulation(round_id);
 
-    $("#fighter1_name").text(fight.fighter1_first_name + " " + fight.fighter1_last_name);
-    $("#fighter2_name").text(fight.fighter2_first_name + " " + fight.fighter2_last_name);
 
     const current_round_strikes = current_simulation.strikes;
     let fighter1_strikes;
@@ -160,7 +155,8 @@ async function display_strike(round_id) {
     $("#fighter2_strikes_punch").text(fighter2_strikes_punch);
     $("#fighter2_strikes_knee").text(fighter2_strikes_knee);
     $("#fighter2_strikes_takedown").text(fighter2_strikes_takedown);
-
+    $("#fighter1_name").text(fight.fighter1.first_name + " " + fight.fighter1.last_name);
+    $("#fighter2_name").text(fight.fighter2.first_name + " " + fight.fighter2.last_name);
 }
 function select_round(round_id) {
     setTimeout(() => {

@@ -2,8 +2,6 @@ class Simulation {
     static time_speed = [1, 0.5, 0.25, 0.1];
     #strikes;
     #running;
-    #fighter1_id;
-    #fighter2_id;
     #round_id;
     #org_id;
     #event_id;
@@ -23,12 +21,6 @@ class Simulation {
         this.timer = new Timer();
         this.timer.set_factor(1);
         this.#strikes = [];
-    }
-    get fighter1_id() {
-        return this.#fighter1_id;
-    }
-    get fighter2_id() {
-        return this.#fighter2_id;
     }
     get strikes() {
         return this.#strikes;
@@ -50,9 +42,6 @@ class Simulation {
     }
     async initialize() {
         this.#strikes = await this.get_strike_existing_round(this.#round_id);
-        this.#fight = await $.get('/organisations/' + this.#org_id + '/events/' + this.#event_id + '/fights/' + this.#fight_id + '/api')
-        this.#fighter1_id = this.#fight.fighter1_id;
-        this.#fighter2_id = this.#fight.fighter2_id;
     }
     rollback_5sec() {
 
@@ -112,11 +101,12 @@ class Simulation {
     }
     new_strike(strike) {
         if (strike.fighter_number == 1) {
-            strike.striker_id = this.#fighter1_id;
-            strike.target_id = this.#fighter2_id;
+            debugger;
+            strike.striker_id = fight.fighter1.fighter_id;
+            strike.target_id = fight.fighter2.fighter_id;
         } else {
-            strike.striker_id = this.#fighter2_id;
-            strike.target_id = this.#fighter1_id;
+            strike.striker_id = fight.fighter2.fighter_id;
+            strike.target_id = fight.fighter1.fighter_id;
         }
         strike.sig_strike = strike.sig_strike == "true" ? true : false;
         let final_strike = new Strike(strike.striker_id, strike.target_id, strike.action, strike.target, strike.sig_strike, strike.fight_status, this.#round_id, strike.round_time);
