@@ -32,27 +32,6 @@ function deleteFight(event_id, fight_id) {
         }
     });
 }
-function detailEvent(org_id, event_id) {
-    display_url('/organisations/' + org_id + '/events/' + event_id);
-}
-function display_url(url) {
-    console.log("Going to " + url);
-    history.pushState(null, null, url);
-
-    $.ajax({
-        url: url,
-        type: 'GET',
-        cache: false,
-        success: function (htmlResponse) {
-            let main_container = htmlResponse.split("<div class=\"main_container\">")[1];
-
-            main_container = main_container.replace(/\\n/g, '');
-            main_container = main_container.substring(0, main_container.length - 49);
-            $(".main_container").html(main_container);
-            update_breadscrum();
-        }
-    });
-}
 function update_breadscrum() {
     let url = window.location.href;
     let ids = url.split("/").splice(3);

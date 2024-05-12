@@ -1,20 +1,13 @@
 const express = require('express');
-const router = express.Router({ mergeParams: true });
-const { Pool } = require('pg');
-
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'postgres',
-    password: 'admin',
-    port: 5432,
-});
+const router = express.Router({ mergeParams: true }); 
+const pool = require('./db');
 
 router.get('/', async function (req, res) {
     const rounds = (await pool.query('SELECT * FROM public.fighter')).rows;
-    res.send(rounds); // Render events.ejs view
+    res.send(rounds); 
 });
 router.get('/:fight_id', async function (req, res) {
+    const template_suffix = res.locals.template_suffix;
     const organisation_id = req.params.org_id;
     const event_id = req.params.event_id;
     const fight_id = req.params.fight_id;
@@ -34,8 +27,7 @@ router.get('/:fight_id', async function (req, res) {
     `, [fight_id])).rows[0];
 
     const rounds = (await pool.query('SELECT * FROM public.round WHERE fight_id = $1', [fight_id])).rows;
-
-    res.render('detailFight', { organisation_id: organisation_id, event_id: event_id, rounds: rounds, fight: fight });
+    res.render('fights/' + template_suffix + 'detailFight', { organisation_id: organisation_id, event_id: event_id, rounds: rounds, fight: fight });
 });
 
 router.get('/:fight_id/api', async function (req, res) {

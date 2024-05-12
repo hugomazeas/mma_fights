@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const path = require('path');
 
 const organisationsRoutes = require('./router/organisations.js');
 const eventsRoutes = require('./router/events.js');
@@ -20,7 +21,13 @@ app.use((req, res, next) => {
     console.log(`Request: ${req.method} ${req.url}`);
     next();
 });
-
+app.use((req, res, next) => {
+    res.locals.template_suffix = req.xhr ? 'partial' : '';
+    next();
+});
+app.get('/', (req, res) => {
+    res.render('home');
+});
 app.use('/organisations', organisationsRoutes);
 app.use('/organisations/:org_id/events', eventsRoutes);
 app.use('/organisations/:org_id/events/:event_id/fights', fightsRoutes);
@@ -29,6 +36,11 @@ app.use('/simulations', simulationRoutes);
 app.use('/fighters', fightersRoutes);
 app.use('/api', apiRoutes);
 
+app.get('*', (req, res) => {
+    if (!req.xhr && !req.path.includes('/api/')) {
+        res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    }
+});
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 });

@@ -1,8 +1,9 @@
 class CookieManager {
     static setCookie(name, value) {
+        if (!value)
+            value = "";
         var expires = "; expires=Fri, 31 Dec 9999 23:59:59 GMT"; // Expires far in the future
         document.cookie = name + "=" + value + expires + "; path=/";
-        console.log("Cookie set. Name: " + name + ", Value: " + value);
     }
 
     static getCookie(name) {

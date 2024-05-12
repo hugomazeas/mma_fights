@@ -7,7 +7,9 @@ class AppNavigator {
         fighters: 'fighters',
         statistics: 'statistics',
     }
+    
     #main_container;
+
     constructor(main_container) {
         this.#main_container = main_container;
     }
@@ -37,18 +39,19 @@ class AppNavigator {
                 console.error('Unknown destination');
                 break;
         }
-
-        if (url) {
+        if (url != '/') {
             this.display_url(url);
             CookieManager.setCookie('last_visited', url);
-            CookieManager.setCookie('fight_id', params.fight_id);
-            CookieManager.setCookie('event_id', params.event_id);
-            CookieManager.setCookie('org_id', params.org_id);
+            CookieManager.setCookie('fight_id', params?.fight_id);
+            CookieManager.setCookie('event_id', params?.event_id);
+            CookieManager.setCookie('org_id', params?.org_id);
+        }else{
+            $('.' + this.#main_container).html('');
+            history.pushState(null, null, url);
         }
     }
 
     display_url(url) {
-        console.log("Going to " + url);
         history.pushState(null, null, url);
         let _this = this;
         $.ajax({
@@ -56,10 +59,8 @@ class AppNavigator {
             type: 'GET',
             cache: false,
             success: function (htmlResponse) {
-                let main_container = htmlResponse.split("<div class=\"" + _this.#main_container + "\">")[1];
-
-                main_container = main_container.replace(/\\n/g, '');
-                $("." + _this.#main_container).html(main_container);
+                let main_container = htmlResponse.replace(/\\n/g, '');
+                $('.' + _this.#main_container).html(main_container);
             }
         });
     }

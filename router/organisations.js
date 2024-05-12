@@ -1,23 +1,15 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const { Pool } = require('pg');
-const { isRequestHTTPS } = require('./../utils.js');
-
-
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'postgres',
-    password: 'admin',
-    port: 5432,
-});
+const pool = require('./db');
 
 router.get('/', async function (req, res) {
     const organisations = (await pool.query('SELECT * FROM organisation')).rows;
-    res.render('organisations', { organisations: organisations });
+    const template_suffix = res.locals.template_suffix;
+    res.render('organisations/' + template_suffix + 'organisations', { organisations: organisations });
 });
 router.get('/:org_id', async function (req, res) {
     const id = req.params.org_id;
+    const template_suffix = res.locals.template_suffix;
     let organisation;
     let event;
     if (id == 0) {
@@ -29,9 +21,9 @@ router.get('/:org_id', async function (req, res) {
     }
 
     if (id == 0) {
-        res.render('events', { organisation: organisation, events: event });
+        res.render('events/' + template_suffix + 'Events', { organisation: organisation, events: event });
     } else {
-        res.render('detailOrganisation', { organisation: organisation, events: event });
+        res.render('organisations/' + template_suffix + 'detailOrganisation', { organisation: organisation, events: event });
     }
 });
 router.post('/', async function (req, res) {

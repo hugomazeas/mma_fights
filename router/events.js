@@ -1,18 +1,10 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const { Pool } = require('pg');
-
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'postgres',
-    password: 'admin',
-    port: 5432,
-});
+const pool = require('./db');
 
 router.get('/', async function (req, res) {
     let events;
-
+    const template_suffix = res.locals.template_suffix;
     if (req.params.org_id == 0) {
         events = (await pool.query('SELECT event.*, organisation.name AS organisation_name FROM event JOIN organisation ON event.organisation_id = organisation.organisation_id')).rows;
     } else {
@@ -20,7 +12,8 @@ router.get('/', async function (req, res) {
     }
     const organisations = (await pool.query('SELECT * FROM organisation')).rows;
     const fighters = (await pool.query('SELECT fighter_id, CONCAT(first_name, \' \', last_name) as full_name FROM fighter ORDER BY full_name ASC')).rows;
-    res.render('events', { events: events, organisations: organisations, fighters: fighters });
+
+    res.render('events/' + template_suffix + 'events', { events: events, organisations: organisations, fighters: fighters });
 });
 
 router.post('/', async function (req, res) {
@@ -52,7 +45,8 @@ router.get('/:event_id', async function (req, res) {
         WHERE event_id = $1;
     `, [req.params.event_id])).rows;
     const fighters = (await pool.query('SELECT fighter_id, CONCAT(first_name, \' \', last_name) as full_name FROM fighter ORDER BY full_name ASC')).rows;
-    res.render('detailEvent', { organisation_id: req.params.org_id, event: event, fights_of_event: fights_of_event, fighters: fighters });
+    const template_suffix = res.locals.template_suffix;
+    res.render('events/' + template_suffix + 'detailEvent', { organisation_id: req.params.org_id, event: event, fights_of_event: fights_of_event, fighters: fighters });
 });
 
 module.exports = router;

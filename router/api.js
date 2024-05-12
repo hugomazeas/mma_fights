@@ -1,14 +1,6 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const { Pool } = require('pg');
-
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'postgres',
-    password: 'admin',
-    port: 5432,
-});
+const pool = require('./db');
 
 router.get('/fight/:fight_id/', async function (req, res) {
     const fight_id = req.params.fight_id;

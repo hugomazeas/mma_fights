@@ -3,14 +3,7 @@ let strikes_data_from_server = [];
 let fight;
 $(document).ready(function () {
 
-    
-
-    let fight_id = CookieManager.getCookie("fight_id");
-
-    import_fight(fight_id).then(async function () {
-        await fight.init_simulations();
-        display_strike(0);
-    });
+    initiate_simulation();
     
     let $strike_card_section = $(".strike_card_section");
 
@@ -44,6 +37,15 @@ $(document).ready(function () {
         SimulationPanel.select_strike_card();
     });
 });
+function initiate_simulation() {
+    let fight_id = CookieManager.getCookie("fight_id");
+    if(fight_id == "") return;
+    import_fight(fight_id).then(async function () {
+        await fight.init_simulations();
+        display_strike(0);
+    });
+}
+
 function add_new_strike() {
     if (current_simulation?.is_running() == false) return;
 
