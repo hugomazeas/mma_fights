@@ -12,13 +12,26 @@ class Timer {
             this.isRunning = true;
             this.intervalId = setInterval(() => {
                 this.elapsedTime += interval * this.factor;
-                if(this.elapsedTime >= this.round_time_ms){
+                if (this.elapsedTime >= this.round_time_ms) {
                     this.stop();
                 }
-                $("#round_time").text(to_MM_SS_MS(this.elapsedTime));
-                $("#round_time").attr("data-time-seconds", Math.floor(this.elapsedTime / 1000));
+                this.update_view();
             }, interval);
         }
+    }
+    update_view() {
+        $("#round_time").text(to_MM_SS_MS(this.elapsedTime));
+        $("#round_time").attr("data-time-seconds", Math.floor(this.elapsedTime / 1000));
+    }
+
+    rollback_seconds(seconds) {
+        if (this.elapsedTime > seconds * 1000)
+            this.elapsedTime -= seconds * 1000;
+        else
+            this.elapsedTime = 0;
+    }
+    forward_seconds(seconds) {
+        this.elapsedTime += seconds * 1000;
     }
 
     stop() {

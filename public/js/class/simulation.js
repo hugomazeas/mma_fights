@@ -43,11 +43,13 @@ class Simulation {
     async initialize() {
         this.#strikes = await this.get_strike_existing_round(this.#round_id);
     }
-    rollback_5sec() {
-
+    rollback_seconds(seconds) {
+        this.timer.rollback_seconds(seconds);
+        this.timer.update_view();
     }
-    forward_5sec() {
-
+    forward_seconds(seconds) {
+        this.timer.forward_seconds(seconds);
+        this.timer.update_view();
     }
     back_5sec() {
 
@@ -61,7 +63,7 @@ class Simulation {
     start() {
         this.#strikes = [];
         this.#running = true;
-        this.timer.start(10);
+        this.timer.start(50);
     }
     get_current_round_time() {
         return to_MM_SS_MS(this.timer.get_elapse_time());
@@ -101,7 +103,6 @@ class Simulation {
     }
     new_strike(strike) {
         if (strike.fighter_number == 1) {
-            debugger;
             strike.striker_id = fight.fighter1.fighter_id;
             strike.target_id = fight.fighter2.fighter_id;
         } else {

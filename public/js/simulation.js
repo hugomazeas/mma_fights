@@ -1,6 +1,7 @@
 let current_simulation;
 let strikes_data_from_server = [];
 let fight;
+let simulation_active = false;
 $(document).ready(function () {
 
     let $strike_card_section = $(".strike_card_section");
@@ -61,12 +62,11 @@ function delete_strike(index) {
     $(`.delete-btn[data-index="${index}"]`).parent().remove();
 }
 function toggle_start_stop_simulation() {
-    if ($(".simulation_banner").hasClass("hidden")) {
-        SimulationPanel.show_simulation_UI();
+    if (simulation_active == false) {
+        SimulationPanel.show_simulation_active();
     } else {
         current_simulation.stop();
-        SimulationPanel.resume_simulation();
-        SimulationPanel.hide_simulation_UI();
+        SimulationPanel.hide_simulation_active();
     }
 }
 function toggle_pause_play_simulation() {
@@ -143,6 +143,7 @@ async function display_strike(round_id) {
     $("#fighter2_hits_leg").text(fighter2_hits_leg);
     $("#fighter2_hits_takedown").text(fighter2_hits_takedown);
 
+    $("#total_strikes").text(current_round_strikes.length);
 
     $("#fighter1_strikes_elbow").text(fighter1_strikes_elbow);
     $("#fighter1_strikes_kick").text(fighter1_strikes_kick);
@@ -155,6 +156,7 @@ async function display_strike(round_id) {
     $("#fighter2_strikes_punch").text(fighter2_strikes_punch);
     $("#fighter2_strikes_knee").text(fighter2_strikes_knee);
     $("#fighter2_strikes_takedown").text(fighter2_strikes_takedown);
+
     $("#fighter1_name").text(fight.fighter1.first_name + " " + fight.fighter1.last_name);
     $("#fighter2_name").text(fight.fighter2.first_name + " " + fight.fighter2.last_name);
 }
@@ -170,4 +172,12 @@ async function import_fight(fight_id) {
     await $.get('/api/fight/' + fight_id, function (data) {
         fight = new Fight(data?.fight_id, data?.event_id, data?.org_id, data?.fighter1_id, data?.fighter2_id, data?.winner_id, data?.division, data?.round_length, data?.card_type, data?.card_title, data?.rounds);
     });
+}
+function rollback_seconds(seconds) {
+    current_simulation.rollback_seconds(seconds);
+    SimulationPanel.highlight_rollback();
+}
+function forward_seconds(seconds) {
+    current_simulation.forward_seconds(seconds);
+    SimulationPanel.highlight_rollback();
 }

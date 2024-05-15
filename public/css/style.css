@@ -6,7 +6,16 @@
 .pointer:hover {
     background-color: #d4d4d4;
 }
+.highlight {
+    transition: all 0.15s ease-in;
+    background-color: #587acc;
+    border-radius: 0.5rem;
+}
 
+.highlight-removed {
+    transition: all 0.15s ease-out;
+    background-color: transparent;
+}
 .half-width {
     width: 50%;
 }

@@ -19,7 +19,10 @@ class AppNavigator {
         this.#current_url = url;
         CookieManager.setCookie('last_visited', url);
         history.pushState(null, null, url);
-        if(url.includes("fight")) initiate_simulation();
+        if(url.includes("fight")) {
+            initiate_simulation();
+            select_round(0);
+        } 
     }
     get_current_url(){
         return this.#current_url;

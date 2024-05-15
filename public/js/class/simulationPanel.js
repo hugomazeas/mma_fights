@@ -41,7 +41,8 @@ class SimulationPanel {
     static open_destination_map() {
         SimulationPanel.get_current_fighter_line().find(".strike_map_destination").removeClass("hidden");
     }
-    static hide_simulation_UI() {
+    static hide_simulation_active() {
+        simulation_active = false;
         $(".time_control_banner").addClass("hidden");
         $(".fighter_body_image").removeClass("hidden");
         $("#btn_start_simulation").text("Start Simulation");
@@ -49,9 +50,9 @@ class SimulationPanel {
         $(".fight_status_section").addClass("hidden");
         $(".fighter_hits_info").removeClass("hidden");
         $(".miscellaneous_strikes").addClass("hidden");
-        $(".simulation_banner").addClass("hidden");
     }
-    static show_simulation_UI() {
+    static show_simulation_active() {
+        simulation_active = true;
         $(".time_control_banner").removeClass("hidden");
         $(".fighter_body_image").addClass("hidden");
         $("#btn_start_simulation").text("Stop simulation");
@@ -59,7 +60,6 @@ class SimulationPanel {
         $(".fight_status_section").removeClass("hidden");
         $(".fighter_hits_info").addClass("hidden");
         $(".miscellaneous_strikes").removeClass("hidden");
-        $(".simulation_banner").removeClass("hidden");
         $(".strikebar").removeClass("hidden");
     }
     static fetch_strike_attributs() {
@@ -71,8 +71,8 @@ class SimulationPanel {
         let round_time = $("#round_time").attr("data-time-seconds");
         return { fighter_number, action, target, sig_strike, fight_status, round_time };
     }
-    static abort_simulation_UI() {
-        this.hide_simulation_UI();
+    static abort_simulation_active() {
+        this.hide_simulation_active();
         $(".strikebar").addClass("hidden");
         $("#simulation_resume_modal").addClass("hidden");
     }
@@ -91,17 +91,21 @@ class SimulationPanel {
     static select_round(round_id) {
 
         if (round_id == 0) {
-            $("#round_number").text("-");
+            $("#round_number").text("All");
             $("#btn_start_simulation").addClass("disabled");
-            $("#toggleSimulation").prop("disabled", true);
         } else {
             $("#round_number").text(round_id);
             $("#btn_start_simulation").removeClass("disabled");
-            $("#toggleSimulation").prop("disabled", false);
         }
-
         $(".round_selector").removeClass("current_round");
         $("#round_selector_" + round_id).addClass("current_round");
         $('.strike_card_section').addClass("disabled");
+    }
+    static highlight_rollback() {
+        $(".timer").removeClass("highlight-removed");
+        $(".timer").addClass("highlight");
+        setTimeout(() => {
+            $(".timer").addClass("highlight-removed");
+        }, 300);
     }
 }

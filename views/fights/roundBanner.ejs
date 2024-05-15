@@ -1,6 +1,6 @@
 <div class="items-center justify-center w-80 mx-auto activate_simulation">
     <div class="flex space-y-2 rounded-lg bg-gray-200 shadow-md px-4 py-3">
-        <div class="flex-grow text-gray-700 text-lg font-bold simulation_banner hidden">
+        <div class="flex-grow text-gray-700 text-lg font-bold simulation_banner">
             <button id="btn_keyboard_shortcuts"
                 class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-5" onclick=""
                 data-time-speed="1">
@@ -23,7 +23,7 @@
     </div>
     <div class="flex rounded-lg bg-gray-200 shadow-md px-4 py-3 mt-4 justify-center time_control_banner hidden">
         <div style="width: 30%;">
-            <span class="font-bold">Time: <span id="round_time" data-time-seconds="0">--:--</span>/05:00.000</span>
+            <span class="font-bold timer">Time: <span id="round_time" data-time-seconds="0">--:--</span>/05:00.000</span>
         </div>
         <div style="width: 40%;" class="flex justify-center">
             <button id="btn_time_speed"
@@ -34,7 +34,7 @@
             <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
                 <i class="bi bi-rewind-fill"></i>
             </button>
-            <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
+            <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="rollback_seconds(5)">
                 <i class="bi bi-skip-backward-fill"></i>
             </button>
             <button id="btn_pause_resume"
@@ -43,7 +43,7 @@
                 <i class="bi bi-pause-fill icon_pause hidden"></i>
                 <i class="bi bi-play-fill icon_play"></i>
             </button>
-            <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
+            <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="forward_seconds(5)">
                 <i class="bi bi-skip-forward-fill"></i>
             </button>
             <button id="" class="bg-gray-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-1" onclick="">
