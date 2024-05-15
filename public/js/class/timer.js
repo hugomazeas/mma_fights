@@ -12,7 +12,7 @@ class Timer {
             this.isRunning = true;
             this.intervalId = setInterval(() => {
                 this.elapsedTime += interval * this.factor;
-                if (this.elapsedTime >= this.round_time_ms) {
+                if (this.elapsedTime >= this.round_time_ms * 1000) {
                     this.stop();
                 }
                 this.update_view();
@@ -20,8 +20,9 @@ class Timer {
         }
     }
     update_view() {
-        $("#round_time").text(to_MM_SS_MS(this.elapsedTime));
-        $("#round_time").attr("data-time-seconds", Math.floor(this.elapsedTime / 1000));
+        $("#round_time_counter").text(to_MM_SS_MS(this.elapsedTime));
+        $("#round_time_counter").attr("data-time-seconds", Math.floor(this.elapsedTime / 1000));
+        $("#round_time_max").text(to_MM_SS_MS(this.round_time_ms * 1000));
     }
 
     rollback_seconds(seconds) {
@@ -31,7 +32,9 @@ class Timer {
             this.elapsedTime = 0;
     }
     forward_seconds(seconds) {
-        this.elapsedTime += seconds * 1000;
+        if (this.elapsedTime < this.round_time_ms * 1000 - seconds * 1000)
+
+            this.elapsedTime += seconds * 1000;
     }
 
     stop() {
@@ -47,6 +50,12 @@ class Timer {
     reset() {
         this.stop();
         this.elapsedTime = 0;
+    }
+
+    finish() {
+        this.stop();
+        this.elapsedTime = this.round_time_ms * 1000;
+        this.update_view();
     }
 
     set_factor(newFactor) {

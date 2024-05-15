@@ -18,7 +18,7 @@ class Simulation {
         this.#org_id = org_id;
         this.#fight_id = fight_id;
         this.#time_speed_factor = 1;
-        this.timer = new Timer();
+        this.timer = new Timer(300);
         this.timer.set_factor(1);
         this.#strikes = [];
     }
@@ -51,11 +51,13 @@ class Simulation {
         this.timer.forward_seconds(seconds);
         this.timer.update_view();
     }
-    back_5sec() {
-
-    }
     back_to_start() {
-
+        this.timer.reset();
+        this.timer.update_view();
+    }
+    front_to_end() {
+        this.timer.finish();
+        this.timer.update_view();
     }
     add_strikes(strikes) {
         this.#strikes.push(...strikes);

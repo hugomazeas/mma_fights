@@ -181,3 +181,9 @@ function forward_seconds(seconds) {
     current_simulation.forward_seconds(seconds);
     SimulationPanel.highlight_rollback();
 }
+function finish_timer() {
+    current_simulation.front_to_end();
+}
+function reset_timer() {
+    current_simulation.back_to_start();
+}

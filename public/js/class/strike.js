@@ -37,7 +37,7 @@ class Strike {
     }
     build_html_display(index) {
         let strike_display = `
-            <div class="flex justify-between items-center px-4 py-2 border-b border-gray-700">
+            <div class="flex justify-between items-center px-4 py-2 border-b border-gray-700" data-round-time="${this.round_time}">
                 <p>
                     <span class="inline-block w-20 text-center ${this.sig_strike ? 'text-green-500' : 'text-red-500'}">${this.sig_strike ? 'Successful' : 'Unsuccessful'}</span>
                     <span class="inline-block w-20 text-center text-blue-500">${this.action} </span> to 
