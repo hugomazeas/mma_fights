@@ -43,6 +43,24 @@ class Simulation {
     async initialize() {
         this.#strikes = await this.get_strike_existing_round(this.#round_id);
     }
+    start() {
+        this.#strikes = [];
+        this.#running = true;
+        this.timer.start(50);
+    }
+    stop() {
+        this.timer.stop();
+        this.#running = false;
+    }
+    pause() {
+        this.timer.stop();
+        this.#running = false;
+    }
+    reset() {
+        this.back_to_start();
+        this.#running = false;
+        this.#strikes = [];
+    }
     rollback_seconds(seconds) {
         this.timer.rollback_seconds(seconds);
         this.timer.update_view();
@@ -62,24 +80,11 @@ class Simulation {
     add_strikes(strikes) {
         this.#strikes.push(...strikes);
     }
-    start() {
-        this.#strikes = [];
-        this.#running = true;
-        this.timer.start(50);
-    }
     get_current_round_time() {
         return to_MM_SS_MS(this.timer.get_elapse_time());
     }
     set_factor(new_factor) {
         this.timer.set_factor(new_factor);
-    }
-    stop() {
-        this.timer.stop();
-        this.#running = false;
-    }
-    pause() {
-        this.timer.stop();
-        this.#running = false;
     }
     display_info() {
         let simulation_results = new SimulationResults();
@@ -119,13 +124,6 @@ class Simulation {
             console.log('Simulation not running');
         }
         return final_strike;
-    }
-    getJSON() {
-        if (!this.#running) {
-            return JSON.stringify(this.#strikes);
-        } else {
-            console.log('Simulation still running');
-        }
     }
     get_fighter_total_sig_strikes(fighter_id) {
         let strikes = this.#strikes.filter(strike => strike.striker_id == fighter_id && strike.sig_strike == true);
@@ -168,11 +166,12 @@ class Simulation {
         return Math.round((this.get_fighter_takedown_landed(fighter_id) / this.get_fighter_takedown_attemps(fighter_id)) * 100, 2);
     }
     send_simulation() {
-        let strikes = this.getJSON();
         $.ajax({
             type: "POST",
-            url: "/simulation",
-            data: { "strikes": strikes },
+            url: "/simulations/strikes",
+            contentType: "application/json", 
+            cache: false,
+            data: JSON.stringify(this.#strikes),
             success: function (response) {
                 console.log(response);
             }

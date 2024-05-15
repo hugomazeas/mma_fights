@@ -64,6 +64,7 @@ function delete_strike(index) {
 function toggle_start_stop_simulation() {
     if (simulation_active == false) {
         SimulationPanel.show_simulation_active();
+        current_simulation.clear();
     } else {
         current_simulation.stop();
         SimulationPanel.hide_simulation_active();
@@ -77,19 +78,6 @@ function toggle_pause_play_simulation() {
         current_simulation.start();
         SimulationPanel.resume_simulation();
     }
-}
-function send_simulation() {
-    $("#simulation_resume_modal").addClass("hidden");
-    let strikes = JSON.stringify(current_simulation.strikes);
-    $.ajax({
-        url: '/simulations/strikes',
-        type: 'POST',
-        data: strikes,
-        contentType: 'application/json',
-        success: function (data) {
-            console.log(data);
-        }
-    });
 }
 async function display_strike(round_id) {
 
@@ -183,7 +171,17 @@ function forward_seconds(seconds) {
 }
 function finish_timer() {
     current_simulation.front_to_end();
+    SimulationPanel.highlight_rollback();
 }
 function reset_timer() {
     current_simulation.back_to_start();
+    SimulationPanel.highlight_rollback();
+}
+function upload_simulation() {
+    current_simulation.send_simulation();
+    reset_simulation();
+}
+function reset_simulation() {
+    current_simulation.reset();
+    reset_timer();
 }

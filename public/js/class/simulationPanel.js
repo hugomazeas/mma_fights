@@ -68,7 +68,7 @@ class SimulationPanel {
         let target = $(".strike_card_selected").attr("data-strike-target");
         let sig_strike = $(".significant_strike_option_active").attr("data-strike-sig");
         let fight_status = $(".fight_status_active").attr("data-fight-status");
-        let round_time = $("#round_time").attr("data-time-seconds");
+        let round_time = $("#round_time_counter").attr("data-time-seconds");
         return { fighter_number, action, target, sig_strike, fight_status, round_time };
     }
     static abort_simulation_active() {

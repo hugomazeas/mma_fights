@@ -7,8 +7,6 @@ router.get('/', async function (req, res) {
     res.render('fighters', { fighters: fighters }); // Render events.ejs view
 });
 router.get('/:round_id', async function (req, res) {
-    const organisation_id = req.params.org_id;
-    const event_id = req.params.event_id;
     const fight_id = req.params.fight_id;
     const round_id = req.params.round_id;
     const round = (await pool.query('SELECT * FROM round WHERE round_id = $1', [round_id])).rows[0];
@@ -28,20 +26,6 @@ router.get('/:round_id', async function (req, res) {
     `, [fight_id])).rows[0];
     
     res.render('detailRound', { fight: fight, round: round});
-});
-router.post('/:round_id/strikes', async function (req, res) {
-    let round_id = req.params.round_id;
-    console.log(req.body);
-    try {
-        
-        const strike = req.body.strike;
-        const values = [strike.strike_code, strike.striker_id, strike.target_id, strike.sig_strike, round_id, strike.fight_status];
-        await pool.query('INSERT INTO relation_strike_round (strike_code, striker_id, target_id, sig_strike, round_id, fight_status) VALUES ($1, $2, $3, $4, $5, $6)', values);
-        res.sendStatus(201);
-    } catch (error) {
-        console.error("Error inserting data: ", error);
-        res.status(500).send(error.toString());
-    }
 });
 
 module.exports = router;
