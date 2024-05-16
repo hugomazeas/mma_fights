@@ -62,7 +62,7 @@ function delete_strike(index) {
     $(`.delete-btn[data-index="${index}"]`).parent().remove();
 }
 function toggle_start_stop_simulation() {
-    if (simulation_active == false) {
+    if (!simulation_active) {
         SimulationPanel.show_simulation_active();
         current_simulation.clear();
     } else {

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(document).on('click', '#btn_goto_organisation', function () {
+    $(document).on('click', '#btn_goto_organisations', function () {
         navigator.go_to("organisations", { org_id: '' });
     });
     $(document).on('click', '#btn_goto_events', function () {

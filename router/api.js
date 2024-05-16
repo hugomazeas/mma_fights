@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 const pool = require('./db');
 
+const Navbar = require('../models/navbar.js');
+
 router.get('/fight/:fight_id/', async function (req, res) {
     const fight_id = req.params.fight_id;
     let fight = (await pool.query(`
@@ -18,7 +20,7 @@ router.get('/fight/:fight_id/', async function (req, res) {
         LEFT JOIN fighter AS winner ON fight.winner_id = winner.fighter_id
         WHERE fight_id = $1
     `, [fight_id])).rows[0];
-    
+
     const rounds = (await pool.query('SELECT round_id FROM public.round WHERE fight_id = $1', [fight_id])).rows.map(row => row.round_id);
     console.log(rounds);
     fight.rounds = rounds;
@@ -44,5 +46,12 @@ router.get('/fighter/:fighter_id', async function (req, res) {
     const fighter = (await pool.query('SELECT * FROM fighter WHERE fighter_id = $1', [fighter_id])).rows
     res.send(fighter[0]);
 });
-
+router.get('/navBar', async function (req, res) {
+    let navbar = new Navbar();
+    let db_navbar = (await pool.query('SELECT * FROM navbar')).rows;
+    db_navbar.forEach(element => {
+        navbar.addItem(element.name, element.onClick, element.icon);
+    });
+    res.render('partials/navBar', { navbar: navbar.getItems() });
+});
 module.exports = router;

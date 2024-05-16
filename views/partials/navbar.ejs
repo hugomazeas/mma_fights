@@ -1,0 +1,43 @@
+<nav class="bg-gray-800">
+  <div class="container mx-auto px-4 py-2">
+    <div class="flex items-center justify-between">
+      <!-- Mobile menu button-->
+      <div class="mr-6 flex sm:hidden">
+        <button type="button"
+          class="text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+          aria-controls="mobile-menu" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+      <!-- Logo and title -->
+      <a class="text-white text-lg font-semibold" onclick="navigator.go_to('home')">MMA Statistics</a>
+      <!-- Navigation Links -->
+      <div class="hidden sm:ml-6 sm:flex sm:space-x-4">
+        <% navbar.forEach(item=> { %>
+          <a href="#"
+            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium navbar-item"
+            id="btn_goto_<%= item.name %>"><i class="<%= item.icon %>"></i>
+            <%= item.name.charAt(0).toUpperCase() + item.name.slice(1) %>
+          </a>
+          <% }) %>
+      </div>
+      <!-- Mobile menu, show/hide based on menu state. -->
+      <div class="sm:hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pt-2 pb-3">
+          <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium">Dashboard</a>
+          <% navbar.forEach(item=> { %>
+            <a href="#"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+              onclick="navigator.go_to('<%= item.onclick %>')" id="navbar_item_<%= item.id %>">
+              <%= item.name %>
+            </a>
+            <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

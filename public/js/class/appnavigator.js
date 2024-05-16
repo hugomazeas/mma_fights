@@ -14,8 +14,15 @@ class AppNavigator {
     constructor(main_container) {
         this.#main_container = main_container;
         this.#current_url = this.set_current_url(window.location.pathname);
+        this.insert_navbar();
+    }
+    insert_navbar(){
+        $.get('/api/navBar', function (data) {
+            $('nav').html(data);
+        });
     }
     set_current_url(url){
+        current_simulation?.reset();
         this.#current_url = url;
         CookieManager.setCookie('last_visited', url);
         history.pushState(null, null, url);
