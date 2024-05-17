@@ -1,6 +1,5 @@
 class LocalStorageManager {
-    // Set an item in LocalStorage
-    setItem(key, value) {
+    static set_item(key, value) {
         try {
             const serializedValue = JSON.stringify(value);
             localStorage.setItem(key, serializedValue);
@@ -9,8 +8,7 @@ class LocalStorageManager {
         }
     }
 
-    // Get an item from LocalStorage
-    getItem(key) {
+    static get_item(key) {
         try {
             const serializedValue = localStorage.getItem(key);
             return serializedValue ? JSON.parse(serializedValue) : null;
@@ -20,8 +18,7 @@ class LocalStorageManager {
         }
     }
 
-    // Remove an item from LocalStorage
-    removeItem(key) {
+    static remove_item(key) {
         try {
             localStorage.removeItem(key);
         } catch (error) {
@@ -29,8 +26,7 @@ class LocalStorageManager {
         }
     }
 
-    // Clear all items from LocalStorage
-    clear() {
+    static clear() {
         try {
             localStorage.clear();
         } catch (error) {
@@ -38,8 +34,7 @@ class LocalStorageManager {
         }
     }
 
-    // Get all keys from LocalStorage
-    getAllKeys() {
+    static get_all_keys() {
         try {
             return Object.keys(localStorage);
         } catch (error) {

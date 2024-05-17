@@ -66,20 +66,29 @@ class AppNavigator {
         CookieManager.setCookie('org_id', params?.org_id);
         breadscrum.update(params?.org_id, params?.event_id, params?.fight_id);
         this.set_current_url(url);
-        this.send_location_objects_to_local_storage(params?.org_id, params?.event_id, params?.fight_id);
+        this.push_info_to_datastore(params?.org_id, params?.event_id, params?.fight_id);
     }
-    send_location_objects_to_local_storage(org_id, event_id, fight_id) {
-        if(!org_id) return;
+    push_info_to_datastore(org_id, event_id, fight_id) {
+        if (!org_id){
+            dataStore.set('organisation', null);
+            return;
+        }
         $.get('/api/organisation/' + org_id).done(function (data) {
-            localStorageManager.setItem('organisation', data);
+            dataStore.set('organisation', new Organisation(data));
         });
-        if(!event_id) return;
+        if(!event_id){
+            dataStore.set('event', null);
+            return;
+        }
         $.get('/api/event/' + event_id).done(function (data) {
-            localStorageManager.setItem('event', data);
+            dataStore.set('event', new Event(data));
         });
-        if(!fight_id) return;
-        $.get('/api/fighter/' + fight_id).done(function (data) {
-            localStorageManager.setItem('fight', data);
+        if(!fight_id){
+            dataStore.set('fight', null);
+            return;
+        }
+        $.get('/api/fight/' + fight_id).done(function (data) {
+            dataStore.set('fight', data);
         });
     }
     display_url(url) {

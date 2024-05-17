@@ -1,10 +1,11 @@
 let navigator;
 let breadscrum;
-let localStorageManager;
+let dataStore;
 $(document).ready(function () {
     navigator = new AppNavigator("main_container");
     breadscrum = new Breadscrum("breadscrum");
-    localStorageManager = new LocalStorageManager();
+    dataStore = new DataStore();
+    dataStore.init();
     
     const last_visited = CookieManager.getCookie("last_visited");
     const visiting = window.location.pathname;
