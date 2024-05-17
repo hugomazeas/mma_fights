@@ -53,8 +53,6 @@ $(document).ready(function () {
         }
     });
     $(document).on('click', '#btn_add_event', function () {
-        let current_url = window.location.href;
-        let organisation_id = current_url.split("/")[4];
         let event = {
             name: $("#event_name").val(),
             date: $("#event_date").val(),

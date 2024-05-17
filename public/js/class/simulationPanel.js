@@ -43,6 +43,9 @@ class SimulationPanel {
     }
     static hide_simulation_active() {
         simulation_active = false;
+        this.close_destination_map();
+        this.close_significant_strike_option();
+        $(".strike_card_item").removeClass("strike_card_selected");
         $(".time_control_banner").addClass("hidden");
         $(".fighter_body_image").removeClass("hidden");
         $("#btn_start_simulation").text("Start Simulation");
