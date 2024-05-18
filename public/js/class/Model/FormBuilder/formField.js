@@ -69,7 +69,14 @@ class FormField {
             case 'button':
                 html = `
                     <div class="mt-4">
-                        <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" name="${name}" type="submit">${label}</button>
+                        <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" name="${name}">${label}</button>
+                    </div>
+                `;
+                break;
+            case 'cancel_button':
+                html = `
+                    <div class="mt-4">
+                        <button class="px-4 py-1 text-white font-light tracking-wider bg-red-600 rounded" name="${name}" onclick="ModalManager.close();">${label}</button>
                     </div>
                 `;
                 break;

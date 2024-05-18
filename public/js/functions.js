@@ -74,3 +74,6 @@ function format_seconds(seconds) {
     let formattedSeconds = remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds;
     return minutes + ":" + formattedSeconds;
 }
+function getRandomNumber() {
+    return Math.floor(Math.random() * 999999) + 1;
+}
