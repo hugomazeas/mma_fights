@@ -86,4 +86,9 @@ router.get('/round_length', async function (req, res) {
     const round_lengths = (await pool.query('SELECT * FROM round_length')).rows;
     res.send(round_lengths);
 });
+router.post('/organisation', async function (req, res) {
+    const organisation = req.body;
+    await pool.query('INSERT INTO organisation (name, headquarter, founded_year) VALUES ($1, $2, $3)', [organisation.name, organisation.headquarter, organisation.founded_year]);
+    res.send(organisation);
+});
 module.exports = router;

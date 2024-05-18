@@ -1,50 +1,17 @@
 class FormField {
     constructor(type, name, label, value, options, placeholder, required) {
-        this.field = {
-            type: type,
-            name: name,
-            label: label,
-            value: value? value : '',
-            options: options,
-            placeholder: placeholder ? placeholder : '',
-            required: required
-        }
+        this.type = type;
+        this.name = name;
+        this.label = label ? label : '';
+        this.value = value ? value : '';
+        this.options = options;
+        this.placeholder = placeholder ? placeholder : '';
+        this.required = required;
+       
     }
 
-
-    setType(type) {
-        this.field.type = type;
-    }
-
-    setName(name) {
-        this.field.name = name;
-    }
-
-    setLabel(label) {
-        this.field.label = label;
-    }
-
-    setValue(value) {
-        this.field.value = value;
-    }
-
-    setPlaceholder(placeholder) {
-        this.field.placeholder = placeholder;
-    }
-
-    setRequired(required) {
-        this.field.required = required;
-    }
-
-    setOptions(options) {
-        this.field.options = options;
-    }
-
-    getField() {
-        return this.field;
-    }
     build() { 
-        const { type, name, label, value, placeholder, required, options } = this.field;
+        const { type, name, label, value, placeholder, required, options } = this;
         let html = '';
 
         switch (type) {

@@ -145,8 +145,8 @@ async function display_strike(round_id) {
     $("#fighter2_strikes_knee").text(fighter2_strikes_knee);
     $("#fighter2_strikes_takedown").text(fighter2_strikes_takedown);
 
-    $("#fighter1_name").text(fight.fighter1.first_name + " " + fight.fighter1.last_name);
-    $("#fighter2_name").text(fight.fighter2.first_name + " " + fight.fighter2.last_name);
+    $("#fighter1_name").text(fight.fighter1.full_name);
+    $("#fighter2_name").text(fight.fighter2.full_name);
 }
 function select_round(round_id) {
     setTimeout(() => {

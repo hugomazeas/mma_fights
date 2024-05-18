@@ -1,30 +1,10 @@
 
 <div class="container mx-auto p-8">
-    <div class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
-        <p class="text-gray-800 font-medium form_title">Add Organisation</p>
-        <p class="hidden" id="organisation_id"></p>
-        <div class="">
-            <label class="block text-sm text-gray-00" for="name">Name</label>
-            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" id="organisation_name"
-                name="name" placeholder="Enter Organisation Name" aria-label="Name">
-        </div>
-        <div class="mt-4">
-            <label class="block text-sm text-gray-00" for="headquarters">Headquarters</label>
-            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" id="organisation_headquarters"
-                name="headquarters" placeholder="Enter Headquarters" aria-label="Headquarters">
-        </div>
-        <div class="mt-4">
-            <label class="block text-sm text-gray-00" for="founded_year">Founded Year</label>
-            <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="number"
-                id="organisation_founded_year" name="founded_year" placeholder="Enter Founded Year"
-                aria-label="Founded Year">
-        </div>
-        <div class="mt-6">
-            <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
-                id="btn_add_organisation">Add Organisation</button>
-            <button class="hidden px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
-                id="btn_edit_organisation">Edit Organisation</button>
-        </div>
+    
+    <div class="flex  mb-4">
+        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onclick="Organisation.show_modal_form()">
+            Add organisation
+        </button>
     </div>
 </div>
 <div class="container mx-auto p-8">
