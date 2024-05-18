@@ -34,4 +34,8 @@ class Event{
         form.form_fields.push(formSubmit);
         return form.build();
     }
+    static show_form(selector){
+        let form = Event.build_form();
+        $(selector).html(form);
+    }
 }

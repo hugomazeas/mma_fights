@@ -32,7 +32,7 @@ class Fight {
             await simulation.initialize();
 
             total_simulation.add_strikes(simulation.strikes);
-            
+
             this.simulations.push(simulation);
         }
         this.simulations.push(total_simulation);
@@ -41,5 +41,29 @@ class Fight {
     }
     get_round_simulation(round_id) {
         return this.simulations.find(simulation => simulation.round_id == round_id);
+    }
+    static build_form() {
+        let form = new FormBuilder("Add Fight", "fight_form", [], 50, 50);
+        let formFighter1 = new FormField("fighters", "fighter1_id", "Fighter 1");
+        let formFighter2 = new FormField("fighters", "fighter2_id", "Fighter 2");
+        let formDivision = new FormField("division", "division", "Division");
+        let formRoundLength = new FormField("number", "round_length", "Round Length (in seconds, 5 minutes = 300 seconds)");
+        let formNumberRound = new FormField("number_round", "number_round", "Number of rounds");
+        let formCardType = new FormField("card_type", "card_type", "Card Type");
+        let formCardTitle = new FormField("text", "card_title", "Card Title");
+        let formSubmit = new FormField("button", "submit", "Submit");
+        form.form_fields.push(formFighter1);
+        form.form_fields.push(formFighter2);
+        form.form_fields.push(formDivision);
+        form.form_fields.push(formRoundLength);
+        form.form_fields.push(formNumberRound);
+        form.form_fields.push(formCardType);
+        form.form_fields.push(formCardTitle);
+        form.form_fields.push(formSubmit);
+        return form.build();
+    }
+    static async show_form(selector) {
+        let form = await Fight.build_form();
+        $(selector).html(form);
     }
 }

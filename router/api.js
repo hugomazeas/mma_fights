@@ -54,4 +54,36 @@ router.get('/navBar', async function (req, res) {
     });
     res.render('partials/navBar', { navbar: navbar.getItems() });
 });
+router.get('/organisations', async function (req, res) {
+    const organisations = (await pool.query('SELECT * FROM organisation')).rows;
+    res.send(organisations);
+});
+router.get('/events', async function (req, res) {
+    const events = (await pool.query('SELECT * FROM event')).rows;
+    res.send(events);
+});
+router.get('/fighters', async function (req, res) {
+    const fighters = (await pool.query('SELECT * FROM fighter')).rows;
+    res.send(fighters);
+});
+router.get('/fights', async function (req, res) {
+    const fights = (await pool.query('SELECT * FROM fight')).rows;
+    res.send(fights);
+});
+router.get('/division', async function (req, res) {
+    const divisions = (await pool.query('SELECT * FROM division')).rows;
+    res.send(divisions);
+});
+router.get('/number_round', async function (req, res) {
+    const number_rounds = (await pool.query('SELECT * FROM number_round')).rows;
+    res.send(number_rounds);
+});
+router.get('/card_type', async function (req, res) {
+    const card_types = (await pool.query('SELECT * FROM card_type')).rows;
+    res.send(card_types);
+});
+router.get('/round_length', async function (req, res) {
+    const round_lengths = (await pool.query('SELECT * FROM round_length')).rows;
+    res.send(round_lengths);
+});
 module.exports = router;
