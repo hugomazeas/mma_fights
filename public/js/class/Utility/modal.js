@@ -1,10 +1,10 @@
 class ModalManager {
     static opened_modals = [];
-    constructor(title, content, height, width, zIndex) {
+    constructor(title, content, zIndex) {
         this.title = title;
         this.content = content;
-        this.height = height;
-        this.width = width;
+        this.height = 100;
+        this.width = 100;
         this.zIndex = zIndex;
     }
 

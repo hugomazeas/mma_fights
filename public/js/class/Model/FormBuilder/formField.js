@@ -104,7 +104,7 @@ class FormField {
                         <div class="mt-4">
                             <label class="block text-sm text-gray-700" for="${name}">${label}</label>
                             <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="${name}" ${required ? 'required' : ''}>
-                                ${data.map(item => `<option value="${item[`${type.slice(0, -1)}_id`]}">${item.length ||item.name || `${item.first_name} ${item.last_name}` || `${item.fighter1_first_name} ${item.fighter1_last_name } vs ${item.fighter2_first_name} ${item.fighter2_last_name}`}</option>`).join('')} 
+                                ${data.map(item => `<option value="${item[`${type.slice(0, -1)}_id`]}">${item.length || item.name || item.full_name || `${item.division} (${item.max_weight} lbs)`}</option>`).join('')} 
                             </select>
                         </div>
                     `;

@@ -11,19 +11,21 @@ router.get('/:org_id', async function (req, res) {
     const id = req.params.org_id;
     const template_suffix = res.locals.template_suffix;
     let organisation;
-    let event;
+    let events;
     if (id == 0) {
-        event = (await pool.query('SELECT * FROM event')).rows;
-        organisation = (await pool.query('SELECT * FROM organisation')).rows;
+        events = (await pool.query('SELECT * FROM event')).rows;
+        organisation = (await pool.query(`SELECT o.*, (SELECT COUNT(*) FROM event WHERE organisation_id = o.organisation_id) AS event_count
+                            FROM organisation AS o`)).rows;
     } else {
-        organisation = (await pool.query('SELECT * FROM organisation WHERE organisation_id = $1', [id])).rows[0];
-        event = (await pool.query('SELECT * FROM event WHERE organisation_id = $1', [id])).rows;
+        organisation = (await pool.query(`SELECT o.*, (SELECT COUNT(*) FROM event WHERE organisation_id = o.organisation_id) AS event_count
+                            FROM organisation AS o where organisation_id = $1;`, [id])).rows;
+        events = (await pool.query('SELECT * FROM event WHERE organisation_id = $1', [id])).rows;
     }
 
     if (id == 0) {
-        res.render('events/' + template_suffix + 'Events', { organisation: organisation, events: event });
+        res.render('events/' + template_suffix + 'Events', { organisation: organisation[0], events: events });
     } else {
-        res.render('organisations/' + template_suffix + 'detailOrganisation', { organisation: organisation, events: event });
+        res.render('organisations/' + template_suffix + 'detailOrganisation', { organisation: organisation[0], events: events });
     }
 });
 router.post('/', async function (req, res) {

@@ -45,6 +45,7 @@ class Fight {
     static build_form() {
 
         let form = new FormBuilder("Add Fight", "fight_form", [], 50, 50);
+        let formEvent = new FormField("events", "event_id", "Event");
         let formFighter1 = new FormField("fighters", "fighter1_id", "Fighter 1");
         let formFighter2 = new FormField("fighters", "fighter2_id", "Fighter 2");
         let formDivision = new FormField("division", "division", "Division");
@@ -54,7 +55,8 @@ class Fight {
         let formCardTitle = new FormField("text", "card_title", "Card Title");
         let formCancel = new FormField("cancel_button", "cancel", "Cancel");
         let formSubmit = new FormField("button", "submit", "Submit");
-
+        
+        form.form_fields.push(formEvent);
         form.form_fields.push(formFighter1);
         form.form_fields.push(formFighter2);
         form.form_fields.push(formDivision);
@@ -66,11 +68,9 @@ class Fight {
         form.form_fields.push(formSubmit);
         return form.build();
     }
-    static async show_form(selector) {
-    }
     static async show_modal_form() {
         let form = await Fight.build_form();
-        let modal = new ModalManager("Add Fight", form, 100, 100, 3);
+        let modal = new ModalManager("Add Fight", form, 3);
         modal.show();
     }
     
