@@ -10,7 +10,7 @@ class Breadscrum {
     set_organisation(org_id) {
         if(!org_id) return;
         let _this = this;
-        navigator.sent_ajax_request('/api/organisation/' + org_id, 'GET', null, function (data) {
+        navigator.send_ajax_request('/api/organisation/' + org_id, 'GET', true, null, function (data) {
             $("." + _this.breadscrum_container).empty().html(
                 `<li class="mr-2"><a href="#" class="hover:text blue-500">${capitalize_first_letter(data.name)}</a></li>`
             );
@@ -19,7 +19,7 @@ class Breadscrum {
     set_event(event_id) {
         if(!event_id) return;
         let _this = this;
-        navigator.sent_ajax_request('/api/event/' + event_id, 'GET', null, function (data) {
+        navigator.send_ajax_request('/api/event/' + event_id, 'GET', true, null, function (data) {
             $("." + _this.breadscrum_container).append(
                 ` <li class="mr-2"><a href="#" class="hover:text blue-500"> < ${capitalize_first_letter(data.name)}</a></li>`
             );
@@ -28,7 +28,7 @@ class Breadscrum {
     set_fight(fight_id) {
         if(!fight_id) return;
         let _this = this;
-        navigator.sent_ajax_request('/api/fight/' + fight_id, 'GET', null, function (data) {
+        navigator.send_ajax_request('/api/fight/' + fight_id, 'GET', true, null, function (data) {
             $("." + _this.breadscrum_container).append(
                 `<li class="mr-2"><a href="#" class="hover:text blue-500"> < ${capitalize_first_letter(data.fight_name)}</a></li>`
             );

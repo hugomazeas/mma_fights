@@ -1,5 +1,6 @@
 class CookieManager {
     static setCookie(name, value) {
+        if(value === "/authentification/login") return;
         if (!value)
             value = "";
         var expires = "; expires=Fri, 31 Dec 9999 23:59:59 GMT"; // Expires far in the future

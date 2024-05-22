@@ -46,7 +46,7 @@ router.get('/fighter/:fighter_id', async function (req, res) {
     const fighter = (await pool.query('SELECT * FROM fighter WHERE fighter_id = $1', [fighter_id])).rows
     res.send(fighter[0]);
 });
-router.get('/navBar', async function (req, res) {
+router.get('/navbar_items', async function (req, res) {
     let navbar = new Navbar();
     let db_navbar = (await pool.query('SELECT * FROM navbar')).rows;
     db_navbar.forEach(element => {

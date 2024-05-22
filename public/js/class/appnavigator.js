@@ -6,6 +6,7 @@ class AppNavigator {
         fights: 'fights',
         fighters: 'fighters',
         statistics: 'statistics',
+        login: 'login'
     }
 
     #main_container;
@@ -17,7 +18,7 @@ class AppNavigator {
         this.insert_navbar();
     }
     insert_navbar() {
-        $.get('/api/navBar', function (data) {
+        $.get('/api/navbar_items', function (data) {
             $('nav').html(data);
         });
     }
@@ -55,35 +56,37 @@ class AppNavigator {
             case this.#destinations.statistics:
                 url = '/statistics';
                 break;
+            case this.#destinations.login:
+                url = '/authentification/login';
+                break;
             default:
                 console.error('Unknown destination');
                 break;
         }
 
+        this.set_current_url(url);
         this.display_url(url);
         CookieManager.setCookie('fight_id', params?.fight_id);
         CookieManager.setCookie('event_id', params?.event_id);
         CookieManager.setCookie('org_id', params?.org_id);
         breadscrum.update(params?.org_id, params?.event_id, params?.fight_id);
-        this.set_current_url(url);
         this.push_info_to_datastore(params?.org_id, params?.event_id, params?.fight_id);
     }
     push_info_to_datastore(org_id, event_id, fight_id) {
-        if (!org_id){
+        if (!org_id) {
             dataStore.set('organisation', null);
             return;
         }
-        $.get('/api/organisation/' + org_id).done(function (data) {
+        this.send_ajax_request('/api/organisation/' + org_id, 'GET', true, null, function (data) {
             dataStore.set('organisation', new Organisation(data));
         });
-        if(!event_id){
-            dataStore.set('event', null);
-            return;
-        }
-        $.get('/api/event/' + event_id).done(function (data) {
+        this.send_ajax_request('/api/event/' + event_id, 'GET', true, null, function (data) {
             dataStore.set('event', new Event(data));
         });
-        if(!fight_id){
+        this.send_ajax_request('/api/fight/' + fight_id, 'GET', true, null, function (data) {
+            dataStore.set('fight', data);
+        });
+        if (!fight_id) {
             dataStore.set('fight', null);
             return;
         }
@@ -92,29 +95,40 @@ class AppNavigator {
         });
     }
     display_url(url) {
-        if (url == '/') {
+        if (url === '/') {
             $('.' + this.#main_container).html('');
             return;
         }
         let _this = this;
-        $.ajax({
-            url: url,
-            type: 'GET',
-            cache: false,
-            success: function (htmlResponse) {
-                let main_container = htmlResponse.replace(/\\n/g, '');
+        let callback = function (xhr) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                let main_container = xhr.responseText.replace(/\\n/g, '');
                 $('.' + _this.#main_container).html(main_container);
+            } else {
+                navigator.go_to('login');
             }
-        });
+        };
+        this.send_ajax_request(url, 'GET', true, null, callback);
+
     }
-    sent_ajax_request(url, type, data, success_callback) {
-        $.ajax({
-            url: url,
-            type: type,
-            data: data,
-            cache: false,
-            contentType: 'application/json',
-            success: success_callback
-        });
+    send_ajax_request(url, method, async, data, callback) {
+        let xhr = new XMLHttpRequest();
+        xhr.open(method, url, async);
+        xhr.setRequestHeader('Authorization', `${dataStore.get("token")}`);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+        xhr.onload = function () {
+            callback(xhr);
+        }
+
+        xhr.onerror = function () {
+            navigator.go_to('login');
+        };
+
+        if (data && typeof data === 'object') {
+            data = JSON.stringify(data);
+        }
+        xhr.send(data);
     }
 }
