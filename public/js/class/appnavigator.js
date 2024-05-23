@@ -27,10 +27,6 @@ class AppNavigator {
         this.#current_url = url;
         CookieManager.setCookie('last_visited', url);
         history.pushState(null, null, url);
-        if (url.includes("fight")) {
-            initiate_simulation();
-            select_round(0);
-        }
     }
     get_current_url() {
         return this.#current_url;
@@ -73,24 +69,16 @@ class AppNavigator {
         this.push_info_to_datastore(params?.org_id, params?.event_id, params?.fight_id);
     }
     push_info_to_datastore(org_id, event_id, fight_id) {
-        if (!org_id) {
-            dataStore.set('organisation', null);
-            return;
-        }
-        this.send_ajax_request('/api/organisation/' + org_id, 'GET', true, null, function (data) {
+        if (!org_id) return;
+        AppNavigator.send_ajax_request('/api/organisation/' + org_id, 'GET', true, null, function (data) {
             dataStore.set('organisation', new Organisation(data));
         });
-        this.send_ajax_request('/api/event/' + event_id, 'GET', true, null, function (data) {
+        if (!event_id) return;
+        AppNavigator.send_ajax_request('/api/event/' + event_id, 'GET', true, null, function (data) {
             dataStore.set('event', new Event(data));
         });
-        this.send_ajax_request('/api/fight/' + fight_id, 'GET', true, null, function (data) {
-            dataStore.set('fight', data);
-        });
-        if (!fight_id) {
-            dataStore.set('fight', null);
-            return;
-        }
-        $.get('/api/fight/' + fight_id).done(function (data) {
+        if (!fight_id) return;
+        AppNavigator.send_ajax_request('/api/fight/' + fight_id, 'GET', true, null, function (data) {
             dataStore.set('fight', data);
         });
     }
@@ -100,26 +88,29 @@ class AppNavigator {
             return;
         }
         let _this = this;
-        let callback = function (xhr) {
+        let callback = function (data, xhr) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 let main_container = xhr.responseText.replace(/\\n/g, '');
                 $('.' + _this.#main_container).html(main_container);
+                if (url.includes("fight")) {
+                    initiate_simulation();
+                }
             } else {
                 navigator.go_to('login');
             }
         };
-        this.send_ajax_request(url, 'GET', true, null, callback);
+        AppNavigator.send_ajax_request(url, 'GET', true, null, callback);
 
     }
-    send_ajax_request(url, method, async, data, callback) {
+    static send_ajax_request(url, method, async, data, callback) {
         let xhr = new XMLHttpRequest();
         xhr.open(method, url, async);
         xhr.setRequestHeader('Authorization', `${dataStore.get("token")}`);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
-        xhr.onload = function () {
-            callback(xhr);
+        xhr.onload = function (data) {
+            callback(data, xhr);
         }
 
         xhr.onerror = function () {
@@ -130,5 +121,9 @@ class AppNavigator {
             data = JSON.stringify(data);
         }
         xhr.send(data);
+        if(xhr.responseText) {
+            return JSON.parse(xhr.responseText);
+        }
+        return xhr.responseText;
     }
 }

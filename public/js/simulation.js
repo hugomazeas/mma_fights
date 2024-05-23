@@ -23,10 +23,10 @@ $(document).ready(function () {
         SimulationPanel.open_destination_map();
     });
     $strike_card_section.on("click", ".strike_possible_destination", function () {
-        if(!current_simulation?.is_running()){
+        if (!current_simulation?.is_running()) {
             Notification.warning("Simulation is not running");
             return;
-        } 
+        }
         SimulationPanel.select_strike_target($(this).attr("data-strike-target"));
         add_new_strike();
         SimulationPanel.select_strike_target();
@@ -38,11 +38,10 @@ $(document).ready(function () {
 });
 function initiate_simulation() {
     let fight_id = CookieManager.getCookie("fight_id");
-    if(fight_id == "") return;
-    import_fight(fight_id).then(async function () {
-        await fight.init_simulations();
-        display_strike(0);
-    });
+    if (fight_id == "") return;
+    import_fight(fight_id)
+    fight.init_simulations()
+    display_strike(0);
 }
 function add_new_strike() {
     if (current_simulation?.is_running() == false) return;
@@ -79,8 +78,8 @@ function toggle_pause_play_simulation() {
         SimulationPanel.resume_simulation();
     }
 }
-async function display_strike(round_id) {
-
+function display_strike(round_id) {
+    select_round(round_id);
     current_simulation = fight.get_round_simulation(round_id);
 
 
@@ -149,16 +148,12 @@ async function display_strike(round_id) {
     $("#fighter2_name").text(fight.fighter2.full_name);
 }
 function select_round(round_id) {
-    setTimeout(() => {
-        display_strike(round_id).then(() => {
-            $(".strike_card_section").removeClass("disabled");
-        });
-    }, 300);
     SimulationPanel.select_round(round_id);
 }
-async function import_fight(fight_id) {
-    await $.get('/api/fight/' + fight_id, function (data) {
-        fight = new Fight(data?.fight_id, data?.event_id, data?.org_id, data?.fighter1_id, data?.fighter2_id, data?.winner_id, data?.division, data?.round_length, data?.card_type, data?.card_title, data?.rounds);
+function import_fight(fight_id) {
+    AppNavigator.send_ajax_request('/api/fight/' + fight_id, 'GET', false, null, function (data) {
+        let parsed_data = JSON.parse(data.target.response);
+        fight = new Fight(parsed_data?.fight_id, parsed_data?.event_id, parsed_data?.org_id, parsed_data?.fighter1_id, parsed_data?.fighter2_id, parsed_data?.winner_id, parsed_data?.division, parsed_data?.round_length, parsed_data?.card_type, parsed_data?.card_title, parsed_data?.rounds);
     });
 }
 function rollback_seconds(seconds) {

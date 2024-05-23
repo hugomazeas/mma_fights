@@ -40,8 +40,8 @@ class Simulation {
     set time_speed_factor(time_speed_factor) {
         this.#time_speed_factor = time_speed_factor;
     }
-    async initialize() {
-        this.#strikes = await this.get_strike_existing_round(this.#round_id);
+    initialize() {
+        this.#strikes = this.get_strike_existing_round(this.#round_id);
     }
     start() {
         this.#strikes = [];
@@ -97,8 +97,8 @@ class Simulation {
     is_running() {
         return this.#running;
     }
-    async get_strike_existing_round(round_id) {
-        let strikesDB = await $.get('/organisations/' + this.#org_id + '/events/' + this.#event_id + '/fights/' + this.#fight_id + '/strikes');
+    get_strike_existing_round(round_id) {
+        let strikesDB = AppNavigator.send_ajax_request('/organisations/' + this.#org_id + '/events/' + this.#event_id + '/fights/' + this.#fight_id + '/strikes', 'GET', false, null, function(){});
         let strikes = [];
         strikesDB.forEach(strike => {
             strikes.push(new Strike(strike.striker_id, strike.target_id, strike.strike_code.split('_')[0], strike.strike_code.split('_')[2], strike.sig_strike, strike.fight_status, strike.round_id, strike.round_time_in_s));
@@ -169,7 +169,7 @@ class Simulation {
         $.ajax({
             type: "POST",
             url: "/simulations/strikes",
-            contentType: "application/json", 
+            contentType: "application/json",
             cache: false,
             data: JSON.stringify(this.#strikes),
             success: function (response) {

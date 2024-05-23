@@ -16,10 +16,10 @@ class AuthentificationManager {
         else {
             this.is_logged = false;
         }
-        navigator.send_ajax_request('/authentification/check_token', 'POST', true, { token: this.token }, function (data) {
-            let response_data = JSON.parse(data.response);
+        AppNavigator.send_ajax_request('/authentification/check_token', 'POST', true, { token: this.token }, function (data) {
+            let response_data = JSON.parse(data.target.response);
             if (!response_data.valid) {
-                console.log(response_data.error);
+                console.log(response_data);
                 return;
             }
             navigator.display_url(CookieManager.getCookie("last_visited"));
@@ -32,7 +32,7 @@ class AuthentificationManager {
         const password = $("#password").val();
         if (email === "" || password === "") return;
         let _this = this;
-        navigator.send_ajax_request('/authentification/login', 'POST', true, { email, password }, function (data) {
+        AppNavigator.send_ajax_request('/authentification/login', 'POST', true, { email, password }, function (data) {
             let response_data = JSON.parse(data.response);
             if (response_data.error) {
                 console.log(response_data.error);

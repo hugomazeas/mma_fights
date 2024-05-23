@@ -102,7 +102,6 @@ class SimulationPanel {
         }
         $(".round_selector").removeClass("current_round");
         $("#round_selector_" + round_id).addClass("current_round");
-        $('.strike_card_section').addClass("disabled");
     }
     static highlight_rollback() {
         $(".timer").removeClass("highlight-removed");

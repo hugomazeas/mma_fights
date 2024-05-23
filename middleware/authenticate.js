@@ -3,6 +3,7 @@ const public_paths = [
   '/',
   '/api/navbar_items',
   '/authentification/login',
+  '/authentification/check_token',
 ]
 const authenticate = (req, res, next) => {
   if (req.method === 'GET' && public_paths.includes(req.path))

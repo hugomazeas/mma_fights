@@ -32,7 +32,7 @@ router.post('/login', async (req, res) => {
         }
 
         const payload = { id: user.id, name: user.name };
-        const token = jwt.sign(payload, keys.secretOrKey, { expiresIn: '10s' });
+        const token = jwt.sign(payload, keys.secretOrKey, { expiresIn: '7d' });
         res.send({ token: `Bearer ${token}`, user: user });
     } catch (error) {
         console.error(error);

@@ -25,19 +25,20 @@ class Fight {
         this.card_type = card_type;
         this.card_title = card_title;
     }
-    async init_simulations() {
+    init_simulations() {
         let total_simulation = new Simulation(0, this.org_id, this.event_id, this.fight_id);
         for (let i = 0; i < this.number_of_rounds; i++) {
             let simulation = new Simulation(this.round_ids[i], this.org_id, this.event_id, this.fight_id);
-            await simulation.initialize();
+            simulation.initialize();
 
             total_simulation.add_strikes(simulation.strikes);
 
             this.simulations.push(simulation);
         }
         this.simulations.push(total_simulation);
-        this.fighter1 = await $.get('/api/fighter/' + this.fighter1_id);
-        this.fighter2 = await $.get('/api/fighter/' + this.fighter2_id);
+        this.fighter1 = AppNavigator.send_ajax_request('/api/fighter/' + this.fighter1_id, 'GET', false, null, function () { });
+        this.fighter2 = AppNavigator.send_ajax_request('/api/fighter/' + this.fighter2_id, 'GET', false, null, function () { });
+
     }
     get_round_simulation(round_id) {
         return this.simulations.find(simulation => simulation.round_id == round_id);
@@ -55,7 +56,7 @@ class Fight {
         let formCardTitle = new FormField("text", "card_title", "Card Title");
         let formCancel = new FormField("cancel_button", "cancel", "Cancel");
         let formSubmit = new FormField("button", "submit", "Submit");
-        
+
         form.form_fields.push(formEvent);
         form.form_fields.push(formFighter1);
         form.form_fields.push(formFighter2);
@@ -73,5 +74,5 @@ class Fight {
         let modal = new ModalManager("Add Fight", form, 3);
         modal.show();
     }
-    
+
 }
