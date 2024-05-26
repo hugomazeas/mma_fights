@@ -4,14 +4,14 @@
 
         <% rounds.forEach(round=> { %>
             <li class="flex round_selector" data-round-id="<%= round.round_id %>"
-                onclick="select_round('<%= round.round_id %>')" id="round_selector_<%= round.round_id %>">
+                onclick="display_round_data('<%= round.round_id %>')" id="round_selector_<%= round.round_id %>">
                 <label for="first-round" class="text-gray-800 cursor-pointer"><strong>Round #<%= round.round_number %>
                     </strong>-
                     Display
                     statistics of the round</label>
             </li>
             <% }); %>
-                <li class="flex round_selector current_round" data-round-id="0" onclick="select_round('0')"
+                <li class="flex round_selector current_round" data-round-id="0" onclick="display_round_data('0')"
                     id="round_selector_0">
                     <label for="first-round" class="text-gray-800 cursor-pointer"><strong>All
                             rounds </strong>-

@@ -41,7 +41,7 @@ function initiate_simulation() {
     if (fight_id == "") return;
     import_fight(fight_id)
     fight.init_simulations()
-    display_strike(0);
+    display_round_data(0);
 }
 function add_new_strike() {
     if (current_simulation?.is_running() == false) return;
@@ -78,8 +78,9 @@ function toggle_pause_play_simulation() {
         SimulationPanel.resume_simulation();
     }
 }
-function display_strike(round_id) {
-    select_round(round_id);
+function display_round_data(round_id) {
+    SimulationPanel.select_round(round_id);
+
     current_simulation = fight.get_round_simulation(round_id);
 
 
@@ -146,9 +147,6 @@ function display_strike(round_id) {
 
     $("#fighter1_name").text(fight.fighter1.full_name);
     $("#fighter2_name").text(fight.fighter2.full_name);
-}
-function select_round(round_id) {
-    SimulationPanel.select_round(round_id);
 }
 function import_fight(fight_id) {
     AppNavigator.send_ajax_request('/api/fight/' + fight_id, 'GET', false, null, function (data) {
