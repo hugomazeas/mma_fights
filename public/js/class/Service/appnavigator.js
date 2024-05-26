@@ -8,7 +8,6 @@ class AppNavigator {
         statistics: 'statistics',
         login: 'login'
     }
-
     #main_container;
     #current_url;
 
@@ -18,7 +17,7 @@ class AppNavigator {
         this.insert_navbar();
     }
     insert_navbar() {
-        $.get('/api/navbar_items', function (data) {
+        $.get('/api/navbar_item', function (data) {
             $('nav').html(data);
         });
     }
@@ -125,5 +124,8 @@ class AppNavigator {
             return JSON.parse(xhr.responseText);
         }
         return xhr.responseText;
+    }
+    static refresh_page() {
+        navigator.display_url(navigator.get_current_url());
     }
 }

@@ -71,8 +71,8 @@ function toggle_pause_play_simulation() {
 }
 function display_round_data(round_id) {
     StrikeRegister.display_strike_registers();
-    StrikeTimeline.init_timeline(1);
-    StrikeTimeline.init_timeline(2);
+    // StrikeTimeline.init_timeline(1);
+    // StrikeTimeline.init_timeline(2);
 
     SimulationPanel.select_round(round_id);
     
@@ -145,8 +145,8 @@ function display_round_data(round_id) {
     
     StrikeRegister.add_strikes_to_strikeregister(1, fighter1_strikes);
     StrikeRegister.add_strikes_to_strikeregister(2, fighter2_strikes);
-    StrikeTimeline.add_strikes(1, fighter1_strikes);
-    StrikeTimeline.add_strikes(2, fighter2_strikes);
+    // StrikeTimeline.add_strikes(1, fighter1_strikes);
+    // StrikeTimeline.add_strikes(2, fighter2_strikes);
 }
 function import_fight(fight_id) {
     AppNavigator.send_ajax_request('/api/fight/' + fight_id, 'GET', false, null, function (data) {

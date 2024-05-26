@@ -46,12 +46,12 @@ class Organisation {
         data["founded_year"] = form.find("[name='founded_year']").val();
         return data;
     }
-    static create_organisation() {
-        let data = Organisation.extract_data_from_form();
-        let organisation = new Organisation(data);
-        $.post("/api/organisation", organisation, function (data) {
-            console.log(data);
-        });
-        return organisation;
-    }
+    // static create_organisation() {
+    //     let data = Organisation.extract_data_from_form();
+    //     let organisation = new Organisation(data);
+    //     $.post("/api/organisation", organisation, function (data) {
+    //         console.log(data);
+    //     });
+    //     return organisation;
+    // }
 }

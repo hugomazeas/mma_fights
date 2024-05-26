@@ -46,7 +46,7 @@ router.get('/fighter/:fighter_id', async function (req, res) {
     const fighter = (await pool.query('SELECT * FROM fighter WHERE fighter_id = $1', [fighter_id])).rows
     res.send(fighter[0]);
 });
-router.get('/navbar_items', async function (req, res) {
+router.get('/navbar_item', async function (req, res) {
     let navbar = new Navbar();
     let db_navbar = (await pool.query('SELECT * FROM navbar')).rows;
     db_navbar.forEach(element => {
@@ -54,19 +54,19 @@ router.get('/navbar_items', async function (req, res) {
     });
     res.render('partials/navBar', { navbar: navbar.getItems() });
 });
-router.get('/organisations', async function (req, res) {
+router.get('/organisation', async function (req, res) {
     const organisations = (await pool.query('SELECT * FROM organisation')).rows;
     res.send(organisations);
 });
-router.get('/events', async function (req, res) {
+router.get('/event', async function (req, res) {
     const events = (await pool.query('SELECT * FROM event')).rows;
     res.send(events);
 });
-router.get('/fighters', async function (req, res) {
+router.get('/fighter', async function (req, res) {
     const fighters = (await pool.query('SELECT * FROM fighter')).rows;
     res.send(fighters);
 });
-router.get('/fights', async function (req, res) {
+router.get('/fight', async function (req, res) {
     const fights = (await pool.query('SELECT * FROM fight')).rows;
     res.send(fights);
 });
@@ -90,5 +90,15 @@ router.post('/organisation', async function (req, res) {
     const organisation = req.body;
     await pool.query('INSERT INTO organisation (name, headquarter, founded_year) VALUES ($1, $2, $3)', [organisation.name, organisation.headquarter, organisation.founded_year]);
     res.send(organisation);
+});
+router.post('/fight', async function (req, res) {
+    const fight = req.body;
+    const result = await pool.query('INSERT INTO fight (event_id, fighter1_id, fighter2_id, division, round_length, number_round, card_type) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING fight_id', [fight.event_id, fight.fighter1_id, fight.fighter2_id, fight.division, fight.round_length, fight.number_round, fight.card_type]);
+    fight.fight_id = result.rows[0].fight_id;
+    await pool.query('INSERT INTO fight (event_id, fighter1_id, fighter2_id, division, round_length, number_round, card_type) VALUES ($1, $2, $3, $4, $5, $6, $7)', [fight.event_id, fight.fighter1_id, fight.fighter2_id, fight.division, fight.round_length, fight.number_round, fight.card_type]);
+    for (let i = 0; i < fight.number_round; i++) {
+        await pool.query('INSERT INTO round (fight_id, round_number, max_duration) VALUES ($1, $2, $3)', [fight.fight_id, i + 1, fight.round_length]);
+    }
+    res.send(fight);
 });
 module.exports = router;

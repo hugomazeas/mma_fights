@@ -6,11 +6,11 @@ class FormBuilder {
         this.width = width;
         this.height = height;
     }
-    async build() {
+    build() {
 
         let field_html = "";
         let button_html = "";
-        this.form_fields.forEach(async field => {
+        this.form_fields.forEach(field => {
             if (field.type == "cancel_button" || field.type == "button")
                 button_html += field.build();
             else

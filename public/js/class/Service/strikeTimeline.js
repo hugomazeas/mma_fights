@@ -3,6 +3,7 @@ class StrikeTimeline {
 
     static init_timeline(fighter_number) {
         // Initialize timeline
+        $("#strikes_progressbar_" + fighter_number).empty();
         let container = document.getElementById('strikes_progressbar_' + fighter_number);
         let items = new vis.DataSet([]);
 
@@ -45,7 +46,7 @@ class StrikeTimeline {
         }
 
         let items = timelineData.items;
-        let timeline = timelineData.timeline;
+
 
         var strikeTime = vis.moment().add(strike.round_time, 'seconds'); // Use round_time directly in seconds
         var description = `${strike.action.toUpperCase()} to ${strike.strike_target?.toUpperCase()} (${strike.sig_strike ? 'Successful' : 'Unsuccessful'})`;
@@ -55,13 +56,15 @@ class StrikeTimeline {
             content: description,
             start: strikeTime
         });
-        timeline.redraw();
-
-    }
+23    }
     static add_strikes(fighter_number, strikes) {
+        let timelineData = StrikeTimeline.timelines[fighter_number];
+        let timeline = timelineData.timeline;
         strikes.forEach(strike => {
             this.add_strike(fighter_number, strike);
         });
+        timeline.redraw();
+
     }
     static clear_timeline(fighter_number) {
         let timelineData = StrikeTimeline.timelines[fighter_number];

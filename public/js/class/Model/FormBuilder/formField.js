@@ -1,5 +1,5 @@
 class FormField {
-    constructor(type, name, label, value, options, placeholder, required) {
+    constructor(type, name, label, value, options, placeholder, required, callback) {
         this.type = type;
         this.name = name;
         this.label = label ? label : '';
@@ -7,6 +7,7 @@ class FormField {
         this.options = options;
         this.placeholder = placeholder ? placeholder : '';
         this.required = required;
+        this.callback = callback;
        
     }
 
@@ -36,7 +37,7 @@ class FormField {
             case 'button':
                 html = `
                     <div class="mt-4">
-                        <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" name="${name}">${label}</button>
+                        <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" onclick="${this.callback}" name="${name}">${label}</button>
                     </div>
                 `;
                 break;
@@ -58,20 +59,20 @@ class FormField {
                 `;
                 break;
             case 'organisation':
-            case 'events':
-            case 'fighters':
-            case 'fights':
+            case 'event':
+            case 'fighter':
+            case 'fight':
             case 'division':
             case 'number_round':
             case 'card_type':
             case 'round_length':
-                const data = this.fetchDataSync(`/api/${type}`); 
+                const data = AppNavigator.send_ajax_request(`/api/${type}`, 'GET', false, null, function (data){});
                 if (data) { 
                     html = `
                         <div class="mt-4">
                             <label class="block text-sm text-gray-700" for="${name}">${label}</label>
                             <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="${name}" ${required ? 'required' : ''}>
-                                ${data.map(item => `<option value="${item[`${type.slice(0, -1)}_id`]}">${item.length || item.name || item.full_name || `${item.division} (${item.max_weight} lbs)`}</option>`).join('')} 
+                                ${data.map(item => `<option value="${item[`${type}_id`]}">${item.length || item.name || item.full_name || `${item.division} (${item.max_weight} lbs)`}</option>`).join('')} 
                             </select>
                         </div>
                     `;

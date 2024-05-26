@@ -1,7 +1,7 @@
 const passport = require('passport');
 const public_paths = [
   '/',
-  '/api/navbar_items',
+  '/api/navbar_item',
   '/authentification/login',
   '/authentification/check_token',
 ]

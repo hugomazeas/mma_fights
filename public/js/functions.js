@@ -47,17 +47,17 @@ function update_breadscrum() {
         $("#breadscrum").append(`<li><span class="mx-2">/</span></li>`);
     }
 }
-function change_time_speed() {
-    let time_speed = $("#btn_time_speed").attr("data-time-speed");
-    let index = Simulation.time_speed.indexOf(parseFloat(time_speed));
-    let next_time_speed = Simulation.time_speed[(index + 1) % Simulation.time_speed.length];
-    current_simulation.set_factor(next_time_speed);
-
-    $("#btn_time_speed").attr("data-time-speed", next_time_speed);
-    $("#btn_time_speed").text(next_time_speed + "x");
+function debug(variable, wanted_value){
+    if (variable && wanted_value) {
+        if (variable == wanted_value) {
+            debugger;
+        }
+    }else{
+        debugger;
+    }
 }
 function capitalize_first_letter(str) {
-    if(!str) return str;
+    if (!str) return str;
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 function to_MM_SS_MS(milliseconds) {
