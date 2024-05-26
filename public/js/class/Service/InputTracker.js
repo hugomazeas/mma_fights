@@ -107,7 +107,7 @@ class InputTracker {
                     _this.setTrackingFighterNumber(2);
                     break;
                 case _this.#delete_last_strike:
-                    $("#strikebar_" + fighter_number).find(".delete-btn").first().click();
+                    $("#strikeregister_" + fighter_number).find(".delete-btn").first().click();
                 case _this.#toggle_time:
                     e.preventDefault();
                     toggle_pause_play_simulation();
