@@ -21,7 +21,8 @@
     "pg": "^8.11.5",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.3",
-    "usemods": "^0.0.23"
+    "usemods": "^0.0.23",
+    "vis-network": "^9.1.9"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

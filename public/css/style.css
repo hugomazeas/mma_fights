@@ -96,7 +96,9 @@
 }
 
 .strike_card_section {
-    padding: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
     transition: all 0.25s ease-in-out;
 }
 
@@ -266,4 +268,38 @@ input:checked~.dot {
 
 .scrollbar::-webkit-scrollbar-thumb:hover {
     background-color: rgb(139, 142, 145);
+}
+/* Vis timeline */
+/* Set the timeline background color */
+.vis-timeline {
+    background-color: #395e68; /* Slightly darker shade than #44707d */
+    border-radius: 8px; /* Rounded corners for the timeline container */
+}
+
+/* Set rounded corners for timeline items */
+.vis-item {
+    border-radius: 4px; /* Rounded corners for each item */
+    border: 1px solid #fff; /* Optional: adds a white border to each item for better visibility */
+    color: #fff; /* White text color for better readability on a dark background */
+    background-color: #4f7c87; /* Slightly lighter than the timeline for contrast */
+}
+
+/* Set styles for the timeline axis */
+.vis-time-axis .vis-text {
+    color: #eee; /* Lighter text color for the axis for visibility */
+}
+
+/* Style adjustments for major and minor grid lines */
+.vis-grid.vis-major, .vis-grid.vis-minor {
+    border-top-color: black; /* Change line color to black */
+}
+
+/* Hover styles for items */
+.vis-item:hover {
+    background-color: #6693a0; /* Lighter shade for hover effect */
+}
+
+/* Set specific styles for different types of items, if needed */
+.vis-item.vis-box {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Optional: adds shadow for depth */
 }
