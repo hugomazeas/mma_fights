@@ -1,4 +1,5 @@
 class AppNavigator {
+    static instance;
     #destinations = {
         home: 'home',
         organisations: 'organisations',
@@ -15,6 +16,7 @@ class AppNavigator {
         this.#main_container = main_container;
         this.#current_url = this.set_current_url(window.location.pathname);
         this.insert_navbar();
+        AppNavigator.instance = this;
     }
     insert_navbar() {
         $.get('/api/navbar_item', function (data) {
@@ -59,7 +61,6 @@ class AppNavigator {
                 break;
         }
 
-        this.set_current_url(url);
         this.display_url(url);
         CookieManager.setCookie('fight_id', params?.fight_id);
         CookieManager.setCookie('event_id', params?.event_id);
@@ -97,6 +98,7 @@ class AppNavigator {
             } else {
                 navigator.go_to('login');
             }
+            AppNavigator.instance.set_current_url(url);
         };
         AppNavigator.send_ajax_request(url, 'GET', true, null, callback);
 
