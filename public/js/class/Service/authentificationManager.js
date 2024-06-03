@@ -33,7 +33,7 @@ class AuthentificationManager {
         if (email === "" || password === "") return;
         let _this = this;
         AppNavigator.send_ajax_request('/authentification/login', 'POST', true, { email, password }, function (data) {
-            let response_data = JSON.parse(data.response);
+            let response_data = JSON.parse(data.target.response);
             if (response_data.error) {
                 console.log(response_data.error);
                 return;

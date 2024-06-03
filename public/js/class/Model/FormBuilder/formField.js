@@ -25,7 +25,7 @@ class FormField {
                         <label class="block text-sm text-gray-700" for="${name}">${label}</label>
                         <${type === 'textarea' ? 'textarea' : 'input'}
                             type="${type}"
-                            class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" 
+                            class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded ${type === 'textarea' ? 'h-48' : ''}" 
                             name="${name}" 
                             value="${value}" 
                             placeholder="${placeholder}" 

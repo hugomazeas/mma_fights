@@ -74,7 +74,6 @@ class Fight {
         modal.show();
     }
     static async submit_form() {
-
         let fight = {
             event_id: $("[name='event_id']").val(),
             fighter1_id: $("[name='fighter1_id']").val(),
