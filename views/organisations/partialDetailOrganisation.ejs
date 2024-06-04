@@ -19,7 +19,7 @@
             onclick="Event.show_modal_form()">
             Add event
         </button>
-        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onclick="">
+        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onclick="Organisation.delete(<%= organisation.organisation_id %>);">
             Delete organisation
         </button>
 
@@ -31,7 +31,7 @@
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div class="overflow-hidden">
-                <h1 class="text-3xl font-bold text-gray-900">Events</h1>
+                <h1 class="text-3xl font-bold text-gray-900">Events: </h1>
                 <div class="flex flex-wrap">
 
                     <% events.forEach(event=> { %>
@@ -60,7 +60,7 @@
                                     <button
                                         class="select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                         type="button"
-                                        onclick="navigator.display_url('/organisations/<%= organisation.organisation_id %>/events/<%= event.event_id %>')">
+                                        onclick="Facade.navigator.display_url('/organisations/<%= organisation.organisation_id %>/events/<%= event.event_id %>')">
                                         More info
                                     </button>
 

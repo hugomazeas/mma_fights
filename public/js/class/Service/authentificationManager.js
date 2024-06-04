@@ -6,9 +6,10 @@ class AuthentificationManager {
         this.is_logged = false;
     }
     is_authenticated() {
-        dataStore.get("token") ? this.is_logged = true : this.is_logged = false;
-        dataStore.get("user") ? this.user = dataStore.get("user") : this.user = null;
-        let datastore_token = dataStore.get("token");
+        
+        Facade.dataStore.get("token") ? this.is_logged = true : this.is_logged = false;
+        Facade.dataStore.get("user") ? this.user = Facade.dataStore.get("user") : this.user = null;
+        let datastore_token = Facade.dataStore.get("token");
         if (datastore_token) {
             this.token = datastore_token;
             this.is_logged = true;
@@ -16,14 +17,14 @@ class AuthentificationManager {
         else {
             this.is_logged = false;
         }
-        AppNavigator.send_ajax_request('/authentification/check_token', 'POST', true, { token: this.token }, function (data) {
+        Facade.send_ajax_request('/authentification/check_token', 'POST', true, { token: this.token }, function (data) {
             let response_data = JSON.parse(data.target.response);
             if (!response_data.valid) {
                 console.log(response_data);
                 return;
             }
-            navigator.display_url(CookieManager.getCookie("last_visited"));
-            navigator.set_current_url(CookieManager.getCookie("last_visited"));
+           Facade.navigator.display_url(CookieManager.getCookie("last_visited"));
+           Facade.navigator.set_current_url(CookieManager.getCookie("last_visited"));
         });
     }
 
@@ -32,7 +33,7 @@ class AuthentificationManager {
         const password = $("#password").val();
         if (email === "" || password === "") return;
         let _this = this;
-        AppNavigator.send_ajax_request('/authentification/login', 'POST', true, { email, password }, function (data) {
+        Facade.send_ajax_request('/authentification/login', 'POST', true, { email, password }, function (data) {
             let response_data = JSON.parse(data.target.response);
             if (response_data.error) {
                 console.log(response_data.error);
@@ -41,9 +42,9 @@ class AuthentificationManager {
             _this.user = response_data.user;
             _this.token = response_data.token;
             _this.is_logged = true;
-            dataStore.set("user", _this.user);
-            dataStore.set("token", _this.token);
-            navigator.go_to("home");
+            Facade.dataStore.set("user", _this.user);
+            Facade.dataStore.set("token", _this.token);
+           Facade.navigator.go_to("home");
         });
     }
     logout() {

@@ -1,6 +1,6 @@
 class Organisation {
     constructor(data) {
-        this.org_id = data.org_id;
+        this.org_id = data.organisation_id;
         this.name = data.name;
         this.headquarter = data.headquarter;
         this.founded_year = data.founded_year;
@@ -32,9 +32,14 @@ class Organisation {
             headquarter: $("[name='headquarter']").val(),
             founded_year: $("[name='founded_year']").val()
         };
-        AppNavigator.send_ajax_request('/api/organisation', 'POST', true, organisation, function () {
+        Facade.send_ajax_request('/api/organisation', 'POST', true, organisation, function () {
             ModalManager.close();
-            Organisation.load_organisations();
+            Facade.refresh_page();
+        });
+    }
+    static async delete(org_id) {
+        Facade.send_ajax_request('/api/organisation/' + org_id, 'DELETE', true, null, function () {
+            Facade.navigator.display_url('/organisations');
         });
     }
 }

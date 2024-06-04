@@ -98,7 +98,7 @@ class Simulation {
         return this.#running;
     }
     get_strike_existing_round(round_id) {
-        let strikesDB = AppNavigator.send_ajax_request('/organisations/' + this.#org_id + '/events/' + this.#event_id + '/fights/' + this.#fight_id + '/strikes', 'GET', false, null, function(){});
+        let strikesDB = Facade.send_ajax_request('/organisations/' + this.#org_id + '/events/' + this.#event_id + '/fights/' + this.#fight_id + '/strikes', 'GET', false, null, function(){});
         let strikes = [];
         strikesDB.forEach(strike => {
             strikes.push(new Strike(strike.striker_id, strike.target_id, strike.strike_code.split('_')[0], strike.strike_code.split('_')[2], strike.sig_strike, strike.fight_status, strike.round_id, strike.round_time_in_s));

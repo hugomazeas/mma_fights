@@ -91,6 +91,22 @@ router.post('/organisation', async function (req, res) {
     await pool.query('INSERT INTO organisation (name, headquarter, founded_year) VALUES ($1, $2, $3)', [organisation.name, organisation.headquarter, organisation.founded_year]);
     res.send(organisation);
 });
+router.delete('/organisation/:org_id', async function (req, res) {
+    const org_id = req.params.org_id;
+    await pool.query('DELETE FROM organisation WHERE organisation_id = $1', [org_id]);
+    res.send('Organisation deleted');
+});
+router.post('/event', async function (req, res) {
+    const event = req.body;
+    const result = await pool.query('INSERT INTO event (organisation_id, name, date, location, description, photo_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING event_id', [parseInt(event.organisation_id), event.name, event.date, event.location, event.description, event?.photo_url]);
+    event.event_id = result.rows[0].event_id;
+    res.send(event);
+});
+router.delete('/event/:event_id', async function (req, res) {
+    const event_id = req.params.event_id;
+    await pool.query('DELETE FROM event WHERE event_id = $1', [event_id]);
+    res.send('Event deleted');
+});
 router.post('/fight', async function (req, res) {
     const fight = req.body;
     const result = await pool.query('INSERT INTO fight (event_id, fighter1_id, fighter2_id, division, round_length, number_round, card_type) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING fight_id', [fight.event_id, fight.fighter1_id, fight.fighter2_id, fight.division, fight.round_length, fight.number_round, fight.card_type]);

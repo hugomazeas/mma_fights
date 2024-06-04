@@ -36,8 +36,8 @@ class Fight {
             this.simulations.push(simulation);
         }
         this.simulations.push(total_simulation);
-        this.fighter1 = AppNavigator.send_ajax_request('/api/fighter/' + this.fighter1_id, 'GET', false, null, function () { });
-        this.fighter2 = AppNavigator.send_ajax_request('/api/fighter/' + this.fighter2_id, 'GET', false, null, function () { });
+        this.fighter1 = Facade.send_ajax_request('/api/fighter/' + this.fighter1_id, 'GET', false, null, function () { });
+        this.fighter2 = Facade.send_ajax_request('/api/fighter/' + this.fighter2_id, 'GET', false, null, function () { });
 
     }
 
@@ -83,7 +83,7 @@ class Fight {
             number_round: $("[name='number_round']").val(),
             card_type: $("[name='card_type']").val(),
         }
-        AppNavigator.send_ajax_request('/api/fight', 'POST', true, fight, function () { ModalManager.close(); AppNavigator.refresh_page();});
+        Facade.send_ajax_request('/api/fight', 'POST', true, fight, function () { ModalManager.close(); Facade.refresh_page();});
         return fight;
     }
 }

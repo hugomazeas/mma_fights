@@ -1,12 +1,12 @@
 $(document).ready(function () {
     $(document).on('click', '#btn_goto_organisations', function () {
-        navigator.go_to("organisations", { org_id: '' });
+       Facade.navigator.go_to("organisations", { org_id: '' });
     });
     $(document).on('click', '#btn_goto_events', function () {
-        navigator.go_to("events", { org_id: 0, event_id: '' });
+       Facade.navigator.go_to("events", { org_id: 0, event_id: '' });
     });
     $(document).on('click', '#btn_goto_fighters', function () {
-        navigator.go_to("fighters");
+       Facade.navigator.go_to("fighters");
     });
     $(document).on('click', '#btn_goto_statistics', function () {
 

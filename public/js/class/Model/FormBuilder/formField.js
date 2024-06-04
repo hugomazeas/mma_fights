@@ -12,10 +12,13 @@ class FormField {
     }
 
     build() { 
-        const { type, name, label, value, placeholder, required, options } = this;
+        const { type, name, label, value, placeholder, required, options, callback } = this;
         let html = '';
 
         switch (type) {
+            case 'hidden':
+                html = `<input type="hidden" name="${name}" value="${value}" placeholder="${placeholder}">`;
+                break;
             case 'text':
             case 'textarea':
             case 'date':
@@ -37,7 +40,7 @@ class FormField {
             case 'button':
                 html = `
                     <div class="mt-4">
-                        <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" onclick="${this.callback}" name="${name}">${label}</button>
+                        <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" onclick="${callback}" name="${name}">${label}</button>
                     </div>
                 `;
                 break;
@@ -66,7 +69,7 @@ class FormField {
             case 'number_round':
             case 'card_type':
             case 'round_length':
-                const data = AppNavigator.send_ajax_request(`/api/${type}`, 'GET', false, null, function (data){});
+                const data = Facade.send_ajax_request(`/api/${type}`, 'GET', false, null, function (data){});
                 if (data) { 
                     html = `
                         <div class="mt-4">
