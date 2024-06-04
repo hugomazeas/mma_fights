@@ -1,6 +1,6 @@
 class Organisation {
     constructor(data) {
-        this.org_id = data.organisation_id;
+        this.organisation_id = data.organisation_id;
         this.name = data.name;
         this.headquarter = data.headquarter;
         this.founded_year = data.founded_year;

@@ -8,10 +8,11 @@ class Event{
         this.description = description;
     }
     static build_form(){
-        let org_id = Facade.dataStore.get('organisation').organisation_id;
+        let org_id = parseInt(Facade.dataStore.get('organisation').organisation_id);
+        debugger;
         console.log(org_id);
         let form = new FormBuilder("Add Event", "event_form", [], 50, 50);
-        let formOrgId = new FormField("hidden", "organisation_id", "", "", "", org_id, true);
+        let formOrgId = new FormField("hidden", "organisation_id", "", org_id, "", org_id, true);
         let formName = new FormField("text", "name", "Name");
         let formDate = new FormField("date", "date", "Date");
         let formLocation = new FormField("text", "location", "Location");
