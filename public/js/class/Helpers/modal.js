@@ -1,4 +1,4 @@
-class ModalManager {
+class Modal {
     static opened_modals = [];
     constructor(title, content, zIndex) {
         this.title = title;
@@ -19,13 +19,13 @@ class ModalManager {
     show() {
         let html = this.build_html();
         let $modal = $(html);
-        ModalManager.opened_modals.push($modal);
+        Modal.opened_modals.push($modal);
         $("body").append($modal);
     }
 
     static close() {
-        if (ModalManager.opened_modals.length > 0) {
-            let $modal = ModalManager.opened_modals.pop();
+        if (Modal.opened_modals.length > 0) {
+            let $modal = Modal.opened_modals.pop();
             $modal.remove();
         }
     }

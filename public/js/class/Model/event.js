@@ -9,8 +9,6 @@ class Event{
     }
     static build_form(){
         let org_id = parseInt(Facade.dataStore.get('organisation').organisation_id);
-        debugger;
-        console.log(org_id);
         let form = new FormBuilder("Add Event", "event_form", [], 50, 50);
         let formOrgId = new FormField("hidden", "organisation_id", "", org_id, "", org_id, true);
         let formName = new FormField("text", "name", "Name");
@@ -30,7 +28,7 @@ class Event{
     }
     static async show_modal_form() {
         let form = await Event.build_form();
-        let modal = new ModalManager("Add event", form, 3);
+        let modal = new Modal("Add event", form, 3);
         modal.show();
     }
     static async submit_form() {
@@ -42,7 +40,7 @@ class Event{
             description: $("[name='description']").val()
         };
         Facade.send_ajax_request('/api/event', 'POST', true, event, function () {
-            ModalManager.close();
+            Modal.close();
             Facade.refresh_page();
         });
     }

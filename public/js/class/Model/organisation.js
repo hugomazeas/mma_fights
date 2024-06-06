@@ -23,7 +23,7 @@ class Organisation {
     }
     static async show_modal_form() {
         let form = await Organisation.build_form();
-        let modal = new ModalManager("Add organisation", form, 3);
+        let modal = new Modal("Add organisation", form, 3);
         modal.show();
     }
     static async submit_form() {
@@ -33,7 +33,7 @@ class Organisation {
             founded_year: $("[name='founded_year']").val()
         };
         Facade.send_ajax_request('/api/organisation', 'POST', true, organisation, function () {
-            ModalManager.close();
+            Modal.close();
             Facade.refresh_page();
         });
     }

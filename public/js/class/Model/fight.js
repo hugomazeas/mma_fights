@@ -70,7 +70,7 @@ class Fight {
     }
     static show_modal_form() {
         let form = Fight.build_form();
-        let modal = new ModalManager("Add Fight", form, 3);
+        let modal = new Modal("Add Fight", form, 3);
         modal.show();
     }
     static async submit_form() {
@@ -83,7 +83,7 @@ class Fight {
             number_round: $("[name='number_round']").val(),
             card_type: $("[name='card_type']").val(),
         }
-        Facade.send_ajax_request('/api/fight', 'POST', true, fight, function () { ModalManager.close(); Facade.refresh_page();});
+        Facade.send_ajax_request('/api/fight', 'POST', true, fight, function () { Modal.close(); Facade.refresh_page();});
         return fight;
     }
 }

@@ -10,9 +10,10 @@ class AppNavigator {
         login: 'login'
     }
     #main_container;
-    #current_url;
+    #urlHistory;
 
     constructor(main_container) {
+        this.#urlHistory = new UrlHistory(10);
         this.#main_container = main_container;
         this.set_current_url(window.location.pathname);
         this.insert_navbar();
@@ -23,13 +24,16 @@ class AppNavigator {
         });
     }
     set_current_url(url) {
+        this.#urlHistory.add_url(url);
+
         current_simulation?.reset();
-        this.#current_url = url;
+        
         CookieManager.setCookie('last_visited', url);
+        
         history.pushState(null, null, url);
     }
     get_current_url() {
-        return this.#current_url;
+        return this.#urlHistory.get_current_url();
     }
     go_to(destination, params = null) {
         let url;

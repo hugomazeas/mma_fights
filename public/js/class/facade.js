@@ -5,12 +5,6 @@ class Facade {
         Facade.dataStore.init();
 
         Facade.navigator = new AppNavigator("main_container");
-
-        
-        Facade.cookieManager = new CookieManager();
-        Facade.modalManager = new ModalManager();
-        Facade.notificationManager = new Notification();
-        Facade.timer = new Timer();
         Facade.breadscrum = new Breadscrum("breadscrum");
         
         Facade.authentificationManager = new AuthentificationManager();
