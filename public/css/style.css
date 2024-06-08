@@ -23,7 +23,10 @@
 .half-width {
     width: 50%;
 }
-
+.selected {
+    background-color: #1b5419;
+    color: white;
+}
 .hit_card_item {
     font-size: 150%;
     padding-top: 3rem;

@@ -16,9 +16,9 @@ class AppNavigator {
         this.#urlHistory = new UrlHistory(10);
         this.#main_container = main_container;
         this.set_current_url(window.location.pathname);
-        this.insert_navbar();
+        this.update_navbar();
     }
-    insert_navbar() {
+    update_navbar() {
         $.get('/api/navbar_item', function (data) {
             $('nav').html(data);
         });
@@ -69,34 +69,6 @@ class AppNavigator {
         CookieManager.setCookie('event_id', params?.event_id);
         CookieManager.setCookie('org_id', params?.org_id);
         Facade.breadscrum.update(params?.org_id, params?.event_id, params?.fight_id);
-        // this.push_info_to_datastore(params?.org_id, params?.event_id, params?.fight_id);
-    }
-    push_info_to_datastore(org_id, event_id, fight_id) {
-        if (!org_id) return;
-        Facade.send_ajax_request('/api/organisation/' + org_id, 'GET', true, null, function (data) {
-            if (data) {
-                Facade.dataStore.set('organisation', new Organisation(data));
-            } else {
-                Facade.dataStore.set('organisation', null);
-            }
-        });
-        if (!event_id) return;
-        Facade.send_ajax_request('/api/event/' + event_id, 'GET', true, null, function (data) {
-            let event = JSON.parse(data.target.responseText);
-            if (event) {
-                Facade.dataStore.set('event', new Event(data));
-            } else {
-                Facade.dataStore.set('event', null);
-            }
-        });
-        if (!fight_id) return;
-        Facade.send_ajax_request('/api/fight/' + fight_id, 'GET', true, null, function (data) {
-            if (data) {
-                Facade.dataStore.set('fight', new Fight(data));
-            } else {
-                Facade.dataStore.set('fight', null);
-            }
-        });
     }
     display_url(url) {
         if (url === '/') {
@@ -119,10 +91,11 @@ class AppNavigator {
         Facade.send_ajax_request(url, 'GET', true, null, callback);
         if (url.startsWith('/organisations/')) {
             let org_id = url.split('/')[2];
-            if (org_id === "") {
+            if (org_id === "" || org_id == 0) {
                 Facade.dataStore.set('organisation', null)
                 return;
             };
+            
             Facade.send_ajax_request('/api/organisation/' + org_id, 'GET', true, null, function (data) {
                 let organisation = JSON.parse(data.target.responseText);
                 if (organisation) {

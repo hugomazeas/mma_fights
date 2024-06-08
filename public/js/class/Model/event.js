@@ -26,12 +26,12 @@ class Event{
         form.form_fields.push(formSubmit);
         return form.build();
     }
-    static async show_modal_form() {
-        let form = await Event.build_form();
+    static show_modal_form() {
+        let form = Event.build_form();
         let modal = new Modal("Add event", form, 3);
         modal.show();
     }
-    static async submit_form() {
+    static submit_form() {
         let event = {
             organisation_id: $("[name='organisation_id']").val(),
             name: $("[name='name']").val(),

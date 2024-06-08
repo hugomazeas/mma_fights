@@ -6,6 +6,8 @@ const public_paths = [
   '/authentification/check_token',
 ]
 const authenticate = (req, res, next) => {
+  return next(); // remove this line to enable authentication
+
   if (req.method === 'GET' && public_paths.includes(req.path))
     return next();
   else if (req.method === 'POST' && req.path === '/authentification/login')
@@ -20,7 +22,6 @@ const authenticate = (req, res, next) => {
         return res.redirect('/authentification/login');
       }
     }
-    // User is logged in, continue with the next middleware
     next();
   })(req, res, next);
 };

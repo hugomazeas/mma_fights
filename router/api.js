@@ -117,4 +117,9 @@ router.post('/fight', async function (req, res) {
     }
     res.send(fight);
 });
+router.post("/fighter", async function (req, res) {
+    const fighter = req.body;
+    await pool.query('INSERT INTO fighter (first_name, last_name, nickname, weight, height, stance, reach, background, behavior_tags, moves_tags, full_name) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [fighter.first_name, fighter.last_name, fighter.nickname, fighter.weight, fighter.height, fighter.stance, fighter.reach, fighter.background, fighter.behavior_tags, fighter.moves_tags, fighter.full_name]);
+    res.send(fighter);
+});
 module.exports = router;

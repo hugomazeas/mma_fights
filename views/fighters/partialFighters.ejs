@@ -1,0 +1,177 @@
+<div class="container mx-auto " style="padding: 8rem 3rem 3rem 3rem;"">
+
+    <div class=" m-4 p-10 bg-white rounded shadow-xl">
+    <p class="text-gray-800 font-medium form_title text-2xl">Add fighter</p>
+    <p class="hidden" id="fighter_id"></p>
+    <div class="form flex">
+        <div class="column m-5 half-width">
+            <div class="mt-4">
+                <label class="block text-sm text-gray-00" for="name">First name</label>
+                <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" id="organisation_name"
+                    name="first_name" placeholder="" aria-label="Name">
+            </div>
+            <div class="mt-4">
+                <label class="block text-sm text-gray-00" for="name">Last name</label>
+                <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" id="organisation_name"
+                    name="last_name" placeholder="" aria-label="Name">
+            </div>
+            <div class="mt-4">
+                <label class="block text-sm text-gray-00" for="name">Nickname</label>
+                <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" id="organisation_name"
+                    name="nickname" placeholder="" aria-label="Name">
+            </div>
+            <div class="mt-4">
+                <label class="block text-sm text-gray-00" for="name">Weight</label>
+                <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" id="organisation_name"
+                    name="weight" placeholder="" aria-label="Name">
+            </div>
+            
+        </div>
+        <div class="column m-5 half-width">
+            <div class="mt-4">
+                <label class="block text-sm text-gray-00" for="name">Height (lbs)</label>
+                <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="text" name="height"
+                    name="name" placeholder="" aria-label="Name">
+            </div>
+            <div class="mt-4">
+                <label class="block text-sm text-gray-00" for="name">Reach ( " )</label>
+                <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" type="number" name="reach"
+                    name="name" placeholder="" aria-label="Name">
+            </div>
+            <div class="mt-4">
+                <label class="block text-sm text-gray-700" for="stance">Stance</label>
+                <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="stance">
+                    <option value="orthodox">Orthodox</option>
+                    <option value="southpaw">Southpaw</option>
+                    <option value="switch">Switch</option>
+                </select>
+            </div>
+            <div class="mt-4">
+                <label class="block text-sm text-gray-700" for="background">Background</label>
+                <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="background">
+                    <% backgrounds.forEach(background=> { %>
+                        <option value="<%= background.name %>">
+                            <%= background.name %>
+                        </option>
+
+                        <% }) %>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="flex">
+        <div class="half-width">
+
+            <h3 class="text-gray-800 font-medium form_title text-2xl">Behaviors tags: </h3>
+            <div class="flex flex-wrap space-y-3 space-x-2 behavior_tags">
+                <% behaviors.forEach(behavior=> { %>
+                    <div data-move-id="<%= behavior.id %>"
+                        class="tags rounded-lg bg-gray-300 px-3 py-2 transition duration-300 hover:bg-gray-400 cursor-pointer">
+                        <%= behavior.name %>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+        <div class="half-width">
+            <h3 class="text-gray-800 font-medium form_title text-2xl">Associated moves: </h3>
+            <div class="flex flex-wrap space-y-3 space-x-2 moves_tags">
+                <% moves.forEach(move=> { %>
+                    <div data-move-id="<%= move.id %>"
+                        class="tags rounded-lg bg-gray-300 px-3 py-2 transition duration-300 hover:bg-gray-400 cursor-pointer">
+                        <%= move.name %>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6">
+        <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" onclick="Fighter.submit_form()">Add
+            Fighter</button>
+    </div>
+</div>
+<div class="container mx-auto " style="padding: 8rem 3rem 3rem 3rem;"">
+    <div class=" flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+                <h1 class="text-3xl font-bold text-gray-900">Fighters</h1>
+                <table class="min-w-full">
+                    <thead class="bg-gray-100 border-b">
+                        <tr>
+                            <!-- <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    ID
+                                </th> -->
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                FIRST
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                LAST
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                NICKNAME
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                HEIGHT
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                WEIGHT
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                REACH
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                STANCE
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                W-L-D
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-gray-100 border-b">
+                        <% fighters.forEach(fighter=> { %>
+                            <tr>
+                                <!-- <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                        <%= fighter.fighter_id %>
+                                    </td> -->
+                                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                    <%= fighter.first_name %>
+                                </td>
+                                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                    <%= fighter.last_name %>
+                                </td>
+                                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                    <%= fighter.nickname %>
+                                </td>
+                                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                    <%= fighter.height %>
+                                </td>
+                                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                    <%= fighter.weight %>
+                                </td>
+                                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                    <%= fighter.reach %>
+                                </td>
+                                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                    <%= fighter.stance %>
+                                </td>
+                                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                    <%= fighter.wins %>-<%= fighter.losses %>-<%= fighter.draws %>
+                                </td>
+                                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                                    <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
+                                        onclick="editOrganisation('<%= fighter.organisation_id %>')">Edit</button>
+                                    <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
+                                        onclick="deleteOrganisation('<%= fighter.organisation_id %>')">Delete</button>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
