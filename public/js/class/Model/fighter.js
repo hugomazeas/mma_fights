@@ -75,4 +75,10 @@ class Fighter {
             Facade.refresh_page();
         });
     }
+    static delete_fighter(fighter_id) {
+        if(confirm("Are you sure you want to delete this fighter?") === false) return;
+        Facade.send_ajax_request('/api/fighter/' + fighter_id, 'DELETE', true, null, function () {
+            Facade.refresh_page();
+        });
+    }
 }

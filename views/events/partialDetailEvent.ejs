@@ -1,85 +1,91 @@
 <div class="container mx-auto " style="padding: 8rem 3rem 3rem 3rem;"">
     <div class="">
-        <div class="m-4 p-10 bg-white rounded shadow-xl">
-            <h2 class="text-2xl font-bold mb-4">Event Details <small><strong>#<span id="event_id">
-                            <%= event.event_id %>
-                        </span></strong></small></h2>
-            <div class="mb-4">
-                <p class="text-gray-600">Name: <%= event.name %>
-                </p>
-                <p class="text-gray-600">Date: <%= event.date %>
-                </p>
-                <p class="text-gray-600">Location: <%= event.location %>
-                </p>
-                <p class="text-gray-600">Organization: <%= event.organization %>
-                </p>
-            </div>
-            <div class="flex  mb-4">
-                <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                    onclick="Fight.show_modal_form()">
-                    Add fight
-                </button>
-            </div>
-        </div>
+        <div class=" m-4 p-10 bg-white rounded shadow-xl">
+    <h2 class="text-2xl font-bold mb-4">Event Details <small><strong>#<span id="event_id">
+                    <%= event.event_id %>
+                </span></strong></small></h2>
+    <div class="mb-4">
+        <p class="text-gray-600">Name: <%= event.name %>
+        </p>
+        <p class="text-gray-600">Date: <%= event.date %>
+        </p>
+        <p class="text-gray-600">Location: <%= event.location %>
+        </p>
+        <p class="text-gray-600">Organization: <%= event.organization %>
+        </p>
     </div>
-    <table class="min-w-full table-auto">
-        <thead class="justify-between">
-            <tr class="bg-gray-800">
-                <th class="px-16 py-2">
-                    <span class="text-gray-300">Fighter 1 (Odds)</span>
-                </th>
-                <th class="px-16 py-2">
-                    <span class="text-gray-300">Fighter 2 (Odds)</span>
-                </th>
-                <th class="px-16 py-2">
-                    <span class="text-gray-300">Winner</span>
-                </th>
-                <th class="px-4 py-2">
-                    <span class="text-gray-300"># Rounds</span>
-                </th>
-                <th class="px-16 py-2">
-                    <span class="text-gray-300">Division</span>
-                </th>
-                <th class="px-16 py-2">
-                    <span class="text-gray-300">Card type</span>
-                </th>
-                <th class="px-16 py-2">
-                    <span class="text-gray-300">Action</span>
-                </th>
+    <div class="flex  mb-4">
+    </div>
+    <div class="flex mb-4 justify-between">
+        <button
+            class="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            onclick="Fight.show_modal_form()">
+            Add fight
+        </button>
+        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+            onclick="Event.delete('<%= event.event_id %>');">
+            Delete event
+        </button>
+    </div>
+</div>
+<table class="min-w-full table-auto">
+    <thead class="justify-between">
+        <tr class="bg-gray-800">
+            <th class="px-16 py-2">
+                <span class="text-gray-300">Fighter 1 (Odds)</span>
+            </th>
+            <th class="px-16 py-2">
+                <span class="text-gray-300">Fighter 2 (Odds)</span>
+            </th>
+            <th class="px-16 py-2">
+                <span class="text-gray-300">Winner</span>
+            </th>
+            <th class="px-4 py-2">
+                <span class="text-gray-300"># Rounds</span>
+            </th>
+            <th class="px-16 py-2">
+                <span class="text-gray-300">Division</span>
+            </th>
+            <th class="px-16 py-2">
+                <span class="text-gray-300">Card type</span>
+            </th>
+            <th class="px-16 py-2">
+                <span class="text-gray-300">Action</span>
+            </th>
 
+        </tr>
+    </thead>
+    <tbody class="bg-gray-200">
+        <% fights_of_event.forEach(fight=> { %>
+            <tr class="bg-white border-4 border-gray-200 pointer"
+                onclick="Facade.navigator.go_to('fights', {org_id: '<%= organisation_id %>', event_id: '<%= fight.event_id %>', fight_id: '<%= fight.fight_id %>'})">
+
+                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                    <%= fight.fighter1_first_name %>
+                        <%= fight.fighter1_last_name %> (<%= fight.fighter1_odds %>)
+                </td>
+                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                    <%= fight.fighter2_first_name %>
+                        <%= fight.fighter2_last_name %> (<%= fight.fighter2_odds %>)
+                </td>
+                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                    <%= fight.winner_first_name %>
+                        <%= fight.winner_last_name %>
+                </td>
+                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                    <%= fight.fight_round %>
+                </td>
+                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                    <%= fight.division %>
+                </td>
+                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                    <%= fight.card_type %>
+                </td>
+                <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
+                    <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                        onclick="Fight.delete_fight('<%= fight.fight_id %>')">Delete</button>
             </tr>
-        </thead>
-        <tbody class="bg-gray-200">
-            <% fights_of_event.forEach(fight=> { %>
-                <tr class="bg-white border-4 border-gray-200 pointer"
-                    onclick="Facade.navigator.go_to('fights', {org_id: '<%= organisation_id %>', event_id: '<%= fight.event_id %>', fight_id: '<%= fight.fight_id %>'})">
-
-                    <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
-                        <%= fight.fighter1_first_name %>
-                            <%= fight.fighter1_last_name %> (<%= fight.fighter1_odds %>)
-                    </td>
-                    <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
-                        <%= fight.fighter2_first_name %>
-                            <%= fight.fighter2_last_name %> (<%= fight.fighter2_odds %>)
-                    </td>
-                    <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
-                        <%= fight.winner_first_name %>
-                            <%= fight.winner_last_name %>
-                    </td>
-                    <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
-                        <%= fight.fight_round %>
-                    </td>
-                    <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
-                        <%= fight.division %>
-                    </td>
-                    <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
-                        <%= fight.card_type %>
-                    </td>
-                    <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
-                        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                            onclick="deleteFight('<%= event.event_id %>', '<%= fight.fight_id %>')">Delete</button>
-                </tr>
-                <% }); %>
-        </tbody>
-    </table>
+            <% }); %>
+    </tbody>
+</table>
 </div>

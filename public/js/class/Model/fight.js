@@ -86,4 +86,8 @@ class Fight {
         Facade.send_ajax_request('/api/fight', 'POST', true, fight, function () { Modal.close(); Facade.refresh_page();});
         return fight;
     }
+    static async delete_fight(fight_id) {
+        if (confirm("Are you sure you want to delete this fight?") === false) return;
+        Facade.send_ajax_request('/api/fight/' + fight_id, 'DELETE', true, null, function () { Facade.refresh_page(); });
+    }
 }

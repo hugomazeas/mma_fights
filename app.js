@@ -11,6 +11,7 @@ const simulationRoutes = require('./router/simulation');
 const apiRoutes = require('./router/api');
 const authRoutes = require('./router/auth');
 
+
 const authenticate = require('./middleware/authenticate');
 const logs = require('./middleware/logs');
 const template_suffix = require('./middleware/template_suffix');
@@ -40,6 +41,7 @@ app.use('/simulations', simulationRoutes);
 app.use('/fighters', fightersRoutes);
 app.use('/api', apiRoutes);
 app.use('/authentification', authRoutes);
+
 
 app.get('*', (req, res) => {
     if (!req.xhr && !req.path.includes('/api/')) {
