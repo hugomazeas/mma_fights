@@ -10,6 +10,7 @@ class Notification{
     }
     static getOptions(){
         return {
+            zIndex: 9999,
             // whether to hide the notification on click
             clickToHide: true,
             // whether to auto-hide the notification

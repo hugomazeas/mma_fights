@@ -19,6 +19,11 @@ router.post('/', async function (req, res) {
 });
 router.delete('/:event_id', async function (req, res) {
     const event_id = req.params.event_id;
+    const fights = (await pool.query('SELECT * FROM fight WHERE event_id = $1', [event_id])).rows;
+    for (let i = 0; i < fights.length; i++) {
+        await pool.query('DELETE FROM round WHERE fight_id = $1', [fights[i].fight_id]);
+        await pool.query('DELETE FROM fight WHERE fight_id = $1', [fights[i].fight_id]);
+    }
     await pool.query('DELETE FROM event WHERE event_id = $1', [event_id]);
     res.send('Event deleted');
 });

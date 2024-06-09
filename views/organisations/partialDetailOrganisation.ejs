@@ -34,12 +34,12 @@
                 <div class="flex flex-wrap">
 
                     <% events.forEach(event=> { %>
-                        <div class="px-6" style="max-width: 30%;">
-                            <div
-                                class="relative flex max-w-[20rem] flex-col overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+                        <div class="px-6 py-2">
+                            <div style="max-width: 25rem; height: 45rem;"
+                                class="relative flex flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md" >
                                 <div
                                     class="relative m-0 overflow-hidden text-gray-700 bg-transparent rounded-none shadow-none bg-clip-border">
-                                    <img src="<%= event.photo_url %>" />
+                                    <img src="https://via.placeholder.com/400x500" />
                                 </div>
                                 <div class="p-6">
                                     <h4
@@ -50,7 +50,7 @@
                                     </h4>
                                     <p
                                         class="block mt-3 font-sans text-xl antialiased font-normal leading-relaxed text-gray-700">
-                                        <%= event.description %>
+                                        <%= event.description.substring(0, 50) %>...
                                     </p>
                                     <p
                                         class="block mt-3 font-sans text-xl antialiased font-normal leading-relaxed text-gray-700">

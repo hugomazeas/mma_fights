@@ -42,12 +42,14 @@ class Event{
         Facade.send_ajax_request('/api/event', 'POST', true, event, function () {
             Modal.close();
             Facade.refresh_page();
+            Notification.success("Event added successfully");
         });
     }
     static async delete(event_id) {
         if (confirm("Are you sure you want to delete this event and all it's fight?") === false) return;
         Facade.send_ajax_request('/api/event/' + event_id, 'DELETE', true, null, function () {
-            Facade.navigator.display_url('/events');
+            Facade.navigator.display_url('/organisations');
+            Notification.success("Event deleted successfully");
         });
     }
 }

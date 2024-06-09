@@ -57,8 +57,7 @@
     </thead>
     <tbody class="bg-gray-200">
         <% fights_of_event.forEach(fight=> { %>
-            <tr class="bg-white border-4 border-gray-200 pointer"
-                onclick="Facade.navigator.go_to('fights', {org_id: '<%= organisation_id %>', event_id: '<%= fight.event_id %>', fight_id: '<%= fight.fight_id %>'})">
+            <tr class="bg-white border-4 border-gray-200">
 
                 <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
                     <%= fight.fighter1_first_name %>
@@ -84,6 +83,10 @@
                 <td class="text-sm text-gray-900 px-6 py-4 whitespace-nowrap">
                     <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
                         onclick="Fight.delete_fight('<%= fight.fight_id %>')">Delete</button>
+                    <button
+                        class="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        onclick="Facade.navigator.go_to('fights', {org_id: '<%= organisation_id %>', event_id: '<%= fight.event_id %>', fight_id: '<%= fight.fight_id %>'})">See
+                        fight</button>
             </tr>
             <% }); %>
     </tbody>

@@ -21,7 +21,7 @@ router.get('/:org_id', async function (req, res) {
                             FROM organisation AS o where organisation_id = $1;`, [id])).rows;
         events = (await pool.query('SELECT * FROM event WHERE organisation_id = $1', [id])).rows;
     }
-
+    
     if (id == 0) {
         res.render('events/' + template_suffix + 'Events', { organisation: organisation[0], events: events });
     } else {
