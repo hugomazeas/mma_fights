@@ -15,14 +15,13 @@
                     <div class="text-center">
                         <div class="items-center">
                             <h4 class="text-lg font-semibold text-blue-gray-900 underline">
-                                <%= capitalize_first_letter(fight.division) %> Bout
+                                <%= capitalize_first_letter(fight.division_name) %> Bout
                             </h4>
                         </div>
                         <div class="flex items-center justify-between space-inbetween">
                             <div class="w-60 text-left">
                                 <h4 class="text-lg font-semibold text-blue-gray-900">
-                                    <%= fight.fighter1_first_name %>
-                                        <%= fight.fighter1_last_name %>
+                                    <%= fight.fighter1_full_name %>
                                 </h4>
                             </div>
                             <div class="w-50 text-center">
@@ -32,14 +31,18 @@
                             </div>
                             <div class="w-60 text-right">
                                 <h4 class="text-lg font-semibold text-blue-gray-900">
-                                    <%= fight.fighter2_first_name %>
-                                        <%= fight.fighter2_last_name %>
+                                    <%= fight.fighter2_full_name %>
                                 </h4>
                             </div>
                         </div>
 
                         <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700">
-                            <%= capitalize_first_letter(fight.card_type) %> - <%= fight.number_round %> Rounds
+                            <%= capitalize_first_letter(fight.card_tcard_type_nameype) %> - <%= fight.number_round %> Rounds
+
+                        </p>
+                        <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700">
+                            
+                            <%= fight.event_date.toISOString().split('T')[0] %>
 
                         </p>
                     </div>
