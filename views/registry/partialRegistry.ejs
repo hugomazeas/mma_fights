@@ -1,0 +1,54 @@
+<div class="container mx-auto" style="padding: 8rem 3rem 3rem 3rem">
+    <h1 class="text-3xl font-bold text-gray-900">Registry</h1>
+    <div class="registry_form">
+
+    </div>
+    <div class="flex flex-col text-gray-700 bg-white shadow-md rounded-xl bg-clip-border" style="max-width: 50%;">
+        <nav class="flex flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
+            <% fights.forEach(fight=> { %>
+                <div role="button"
+                    class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start border-b border-gray-300">
+                    <div class="grid mr-4 place-items-center">
+                        <img alt="candice" src="https://via.placeholder.com/100x100"
+                            class="relative inline-block h-12 w-12 !rounded-full  object-cover object-center" />
+                    </div>
+                    <div class="text-center">
+                        <div class="items-center">
+                            <h4 class="text-lg font-semibold text-blue-gray-900 underline">
+                                <%= capitalize_first_letter(fight.division) %> Bout
+                            </h4>
+                        </div>
+                        <div class="flex items-center justify-between space-inbetween">
+                            <div class="w-60 text-left">
+                                <h4 class="text-lg font-semibold text-blue-gray-900">
+                                    <%= fight.fighter1_first_name %>
+                                        <%= fight.fighter1_last_name %>
+                                </h4>
+                            </div>
+                            <div class="w-50 text-center">
+                                <h4 class="text-lg font-semibold text-blue-gray-900">
+                                    VS.
+                                </h4>
+                            </div>
+                            <div class="w-60 text-right">
+                                <h4 class="text-lg font-semibold text-blue-gray-900">
+                                    <%= fight.fighter2_first_name %>
+                                        <%= fight.fighter2_last_name %>
+                                </h4>
+                            </div>
+                        </div>
+
+                        <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700">
+                            <%= capitalize_first_letter(fight.card_type) %> - <%= fight.number_round %> Rounds
+
+                        </p>
+                    </div>
+
+                    <div class="flex ml-auto space-x-2">
+                    </div>
+                </div>
+
+                <% }) %>
+        </nav>
+    </div>
+</div>

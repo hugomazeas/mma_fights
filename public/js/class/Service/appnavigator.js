@@ -5,6 +5,7 @@ class AppNavigator {
         organisations: 'organisations',
         events: 'events',
         fights: 'fights',
+        registry: 'registry',
         fighters: 'fighters',
         statistics: 'statistics',
         login: 'login'
@@ -58,6 +59,9 @@ class AppNavigator {
                 break;
             case this.#destinations.login:
                 url = '/authentification/login';
+                break;
+            case this.#destinations.registry:
+                url = '/registry';
                 break;
             default:
                 console.error('Unknown destination');

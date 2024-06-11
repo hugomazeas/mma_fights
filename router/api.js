@@ -3,7 +3,6 @@ const router = express.Router({ mergeParams: true });
 const pool = require('./db');
 
 const Navbar = require('../models/navbar.js');
-const { QueryError } = require('sequelize');
 
 const organisationRouter = require('./API/api_organisation');
 const eventRouter = require('./API/api_event');

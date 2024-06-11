@@ -10,11 +10,13 @@ const roundsRoutes = require('./router/rounds');
 const simulationRoutes = require('./router/simulation');
 const apiRoutes = require('./router/api');
 const authRoutes = require('./router/auth');
+const registryRoutes = require('./router/registry');
 
 
 const authenticate = require('./middleware/authenticate');
 const logs = require('./middleware/logs');
 const template_suffix = require('./middleware/template_suffix');
+const utility = require('./middleware/utility');
 
 require('./config/passport')(passport);
 
@@ -32,6 +34,8 @@ app.use(passport.initialize());
 app.use(logs);
 app.use(template_suffix);
 app.use(authenticate);
+app.use(utility);
+
 
 app.use('/organisations', organisationsRoutes);
 app.use('/organisations/:org_id/events', eventsRoutes);
@@ -41,7 +45,10 @@ app.use('/simulations', simulationRoutes);
 app.use('/fighters', fightersRoutes);
 app.use('/api', apiRoutes);
 app.use('/authentification', authRoutes);
-
+app.use('/registry', registryRoutes);
+app.get('/registry', async function (req, res) {
+    res.render('registry');
+});
 
 app.get('*', (req, res) => {
     if (!req.xhr && !req.path.includes('/api/')) {

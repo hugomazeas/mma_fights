@@ -11,6 +11,9 @@ $(document).ready(function () {
     $(document).on('click', '#btn_goto_statistics', function () {
 
     });
+    $(document).on('click', '#btn_goto_registry', function () {
+         Facade.navigator.go_to("registry");
+     });
 
     $(document).on('click', '#btn_remove_fight', function () {
         let fight_id = $("#fight_id").val();
