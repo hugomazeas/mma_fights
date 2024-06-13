@@ -21,7 +21,7 @@ class AppNavigator {
     }
     update_navbar() {
         $.get('/api/navbar_item', function (data) {
-            $('nav').html(data);
+            $('.nav-bar').html(data);
         });
     }
     set_current_url(url) {
@@ -38,6 +38,7 @@ class AppNavigator {
     }
     go_to(destination, params = null) {
         let url;
+        let callbacks_on_load = [];
         switch (destination) {
             case this.#destinations.home:
                 url = '/';
@@ -50,6 +51,7 @@ class AppNavigator {
                 break;
             case this.#destinations.fights:
                 url = '/organisations/' + params.org_id + '/events/' + params.event_id + '/fights/' + params.fight_id;
+                callbacks_on_load.push(initiate_simulation);
                 break;
             case this.#destinations.fighters:
                 url = '/fighters';
@@ -62,6 +64,7 @@ class AppNavigator {
                 break;
             case this.#destinations.registry:
                 url = '/registry';
+                callbacks_on_load.push(init_page);
                 break;
             default:
                 console.error('Unknown destination');
@@ -73,26 +76,21 @@ class AppNavigator {
         CookieManager.setCookie('event_id', params?.event_id);
         CookieManager.setCookie('org_id', params?.org_id);
         Facade.breadscrum.update(params?.org_id, params?.event_id, params?.fight_id);
+        callbacks_on_load.forEach(callback => callback());
     }
     display_url(url) {
-        if (url === '/') {
-            $('.' + this.#main_container).html('');
-            return;
-        }
         let _this = this;
         let callback = function (data, xhr) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 let main_container = xhr.responseText.replace(/\\n/g, '');
                 $('.' + _this.#main_container).html(main_container);
-                if (url.includes("fight")) {
-                    initiate_simulation();
-                }
             } else {
                 Facade.navigator.go_to('login');
             }
         };
+
         this.set_current_url(url);
-        Facade.send_ajax_request(url, 'GET', true, null, callback);
+        Facade.send_ajax_request(url, 'GET', false, null, callback);
         if (url.startsWith('/organisations/')) {
             let org_id = url.split('/')[2];
             if (org_id === "" || org_id == 0) {

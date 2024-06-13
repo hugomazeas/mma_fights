@@ -8,7 +8,6 @@ class Facade {
         Facade.breadscrum = new Breadscrum("breadscrum");
         
         Facade.authentificationManager = new AuthentificationManager();
-        Facade.authentificationManager.is_authenticated();
     }
     static send_ajax_request(url, method, async, data, callback) {
         let xhr = new XMLHttpRequest();

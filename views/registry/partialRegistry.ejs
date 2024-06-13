@@ -1,56 +1,55 @@
-<div class="container mx-auto" style="padding: 8rem 3rem 3rem 3rem">
-    <h1 class="text-3xl font-bold text-gray-900">Registry</h1>
+<div class="container mx-auto p-8">
+    <h1 class="text-3xl font-bold text-gray-900 mt-10">Registry</h1>
     <div class="registry_form">
-
+        
     </div>
-    <div class="flex flex-col text-gray-700 bg-white shadow-md rounded-xl bg-clip-border" style="max-width: 50%;">
-        <nav class="flex flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
+    <div class="flex flex-col text-gray-700 bg-white shadow-md rounded-xl bg-clip-border mt-6">
+        <nav class="flex flex-col gap-1 p-4 font-sans text-base font-normal text-blue-gray-700">
             <% fights.forEach(fight=> { %>
                 <div role="button"
-                    class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start border-b border-gray-300">
-                    <div class="grid mr-4 place-items-center">
-                        <img alt="candice" src="https://via.placeholder.com/100x100"
-                            class="relative inline-block h-12 w-12 !rounded-full  object-cover object-center" />
+                    class="flex items-center w-full p-4 leading-tight transition-all rounded-lg outline-none text-start border-b border-gray-300 hover:bg-gray-100">
+                    <div class="flex-none mr-4">
                     </div>
-                    <div class="text-center">
-                        <div class="items-center">
-                            <h4 class="text-lg font-semibold text-blue-gray-900 underline">
-                                <%= capitalize_first_letter(fight.division_name) %> Bout
-                            </h4>
-                        </div>
-                        <div class="flex items-center justify-between space-inbetween">
-                            <div class="w-60 text-left">
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <!-- Fighter 1 Information -->
+                            <div class="flex-1 text-left">
                                 <h4 class="text-lg font-semibold text-blue-gray-900">
                                     <%= fight.fighter1_full_name %>
                                 </h4>
+                                <h6 class="text-sm font-semibold text-blue-gray-900">
+                                    <%= fight.fighter1_wins %>-<%= fight.fighter1_losses %>-<%= fight.fighter1_draws %>
+                                </h6>
                             </div>
-                            <div class="w-50 text-center">
+                            <!-- VS Text -->
+                            <div class="flex-none text-center mx-4">
                                 <h4 class="text-lg font-semibold text-blue-gray-900">
                                     VS.
                                 </h4>
                             </div>
-                            <div class="w-60 text-right">
+                            <!-- Fighter 2 Information -->
+                            <div class="flex-1 text-right">
                                 <h4 class="text-lg font-semibold text-blue-gray-900">
                                     <%= fight.fighter2_full_name %>
                                 </h4>
+                                <h6 class="text-sm font-semibold text-blue-gray-900">
+                                    <%= fight.fighter2_wins %> - <%= fight.fighter2_losses %> - <%= fight.fighter2_draws
+                                                %>
+                                </h6>
                             </div>
                         </div>
-
-                        <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700">
-                            <%= capitalize_first_letter(fight.card_tcard_type_nameype) %> - <%= fight.number_round %> Rounds
-
-                        </p>
-                        <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700">
-                            
-                            <%= fight.event_date.toISOString().split('T')[0] %>
-
-                        </p>
+                        <div class="text-center items-center justify-between">
+                            <p class="text-sm font-normal leading-normal text-gray-700 mt-2">
+                                <%= capitalize_first_letter(fight.card_type_name) %> - <%= fight.number_round %> Rounds
+                            </p>
+                            <p class="text-sm font-normal leading-normal text-gray-700">
+                                <%= fight.event_date.toISOString().split('T')[0] %>
+                            </p>
+                        </div>
                     </div>
-
-                    <div class="flex ml-auto space-x-2">
-                    </div>
+                    <!-- Action Buttons or Additional Info -->
+                    <div class="flex ml-auto space-x-2"></div>
                 </div>
-
                 <% }) %>
         </nav>
     </div>

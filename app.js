@@ -23,7 +23,9 @@ require('./config/passport')(passport);
 
 const app = express();
 const port = 3000;
-
+app.get('/', (req, res) => {
+    if(res.xhr) res.send(''); else res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -46,9 +48,6 @@ app.use('/fighters', fightersRoutes);
 app.use('/api', apiRoutes);
 app.use('/authentification', authRoutes);
 app.use('/registry', registryRoutes);
-app.get('/registry', async function (req, res) {
-    res.render('registry');
-});
 
 app.get('*', (req, res) => {
     if (!req.xhr && !req.path.includes('/api/')) {
