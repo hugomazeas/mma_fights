@@ -21,6 +21,7 @@ class Fight {
         checkField(division, "Division");
         checkField(round_length, "Round Length");
         checkField(card_type, "Card Type");
+        
         this.fight_id = fight_id;
         this.event_id = event_id;
         this.fighter1_id = fighter1_id;
@@ -39,7 +40,7 @@ class Fight {
         this.ufc_number = ufc_number;
     }
     init_simulations() {
-        let total_simulation = new Simulation(0, this.fight_id);
+        let total_simulation = new Simulation(this.fight_id, 0);
         for (let i = 0; i < this.number_rounds; i++) {
             let simulation = new Simulation(this.fight_id, this.round_ids[i]);
             simulation.initialize();

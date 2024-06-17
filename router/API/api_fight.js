@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const pool = require('../db');
+const Fight = require('../../models/fight');
 
 router.get('/', async function (req, res) {
     const fights = (await pool.query('SELECT * FROM fight')).rows;
@@ -10,7 +11,7 @@ router.post('/', async function (req, res) {
     const fight = req.body;
     const result = await pool.query('INSERT INTO fight (event_id, fighter1_id, fighter2_id, division, round_length, number_round, card_type, ufc_number, winner_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING fight_id', [fight.event_id, fight.fighter1_id, fight.fighter2_id, fight.division, fight.round_length, fight.number_rounds, fight.card_type, fight.ufc_number, fight.winner_id]);
     fight.fight_id = result.rows[0].fight_id;
-    for (let i = 0; i < fight.number_round; i++) {
+    for (let i = 0; i < fight.number_rounds; i++) {
         await pool.query('INSERT INTO round (fight_id, round_number, max_duration) VALUES ($1, $2, $3)', [fight.fight_id, i + 1, fight.round_length]);
     }
     res.send(fight);
@@ -45,7 +46,7 @@ router.get('/:fight_id/strikes', async function (req, res) {
 });
 router.get('/:fight_id/details', async function (req, res) {
     const fight_id = parseInt(req.params.fight_id);
-    let fight = (await pool.query('SELECT * FROM fight WHERE fight_id = $1', [fight_id])).rows[0];
+    let fight = (await Fight.get_fight(fight_id)).rows[0];
     let rounds = (await pool.query('SELECT * FROM round WHERE fight_id = $1', [fight_id])).rows;
     fight.rounds = [];
     for (let i = 0; i < rounds.length; i++) {
