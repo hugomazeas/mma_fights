@@ -10,6 +10,7 @@ class AppNavigator {
         statistics: 'statistics',
         login: 'login'
     }
+    
     #main_container;
     #urlHistory;
 
@@ -18,6 +19,8 @@ class AppNavigator {
         this.#main_container = main_container;
         this.set_current_url(window.location.pathname);
         this.update_navbar();
+    }
+    landed_on_page() {
     }
     update_navbar() {
         $.get('/api/navbar_item', function (data) {
@@ -36,7 +39,7 @@ class AppNavigator {
     get_current_url() {
         return this.#urlHistory.get_current_url();
     }
-    go_to(destination, params = null) {
+    go_to(destination, params = null, decoy = false) {
         let url;
         let callbacks_on_load = [];
         switch (destination) {
@@ -70,7 +73,9 @@ class AppNavigator {
                 console.error('Unknown destination');
                 break;
         }
-
+        if (decoy) {
+            return callbacks_on_load;
+        }
         this.display_url(url);
         CookieManager.setCookie('fight_id', params?.fight_id);
         CookieManager.setCookie('event_id', params?.event_id);

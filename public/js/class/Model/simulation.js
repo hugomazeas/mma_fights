@@ -3,19 +3,15 @@ class Simulation {
     #strikes;
     #running;
     #round_id;
-    #org_id;
-    #event_id;
     #fight_id;
     #time_speed_factor;
     #fight;
     timer;
     simulation_panel;
 
-    constructor(round_id, org_id, event_id, fight_id) {
+    constructor(fight_id, round_id) {
         this.#round_id = round_id;
         this.#running = false;
-        this.#event_id = event_id;
-        this.#org_id = org_id;
         this.#fight_id = fight_id;
         this.#time_speed_factor = 1;
         this.timer = new Timer(300);
@@ -98,7 +94,7 @@ class Simulation {
         return this.#running;
     }
     get_strike_existing_round(round_id) {
-        let strikesDB = Facade.send_ajax_request('/organisations/' + this.#org_id + '/events/' + this.#event_id + '/fights/' + this.#fight_id + '/strikes', 'GET', false, null, function(){});
+        let strikesDB = Facade.send_ajax_request(`/api/fight/${this.#fight_id}/strikes`, 'GET', false, null, function(){});
         let strikes = [];
         strikesDB.forEach(strike => {
             strikes.push(new Strike(strike.striker_id, strike.target_id, strike.strike_code.split('_')[0], strike.strike_code.split('_')[2], strike.sig_strike, strike.fight_status, strike.round_id, strike.round_time_in_s));

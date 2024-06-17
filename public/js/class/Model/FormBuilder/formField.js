@@ -4,7 +4,7 @@ class FormField {
         this.name = name;
         this.label = label ? label : '';
         this.value = value ? value : '';
-        this.options = options;
+        this.options = options ? options : [];
         this.placeholder = placeholder ? placeholder : '';
         this.required = required;
         this.callback = callback;
@@ -75,6 +75,7 @@ class FormField {
                         <div class="mt-4">
                             <label class="block text-sm text-gray-700" for="${name}">${label}</label>
                             <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="${name}" ${required ? 'required' : ''}>
+                                <option value="">Select options</option>
                                 ${data.map(item => `<option value="${item[`${type}_id`]}">${item.length || item.name || item.full_name || `${item.division} (${item.max_weight} lbs)`}</option>`).join('')} 
                             </select>
                         </div>

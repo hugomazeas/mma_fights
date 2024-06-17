@@ -6,39 +6,25 @@ class Fighter {
         if (!last_name || last_name === "") {
             throw new Error("Last name is required");
         }
-        if (!nickname || nickname === "") {
-            throw new Error("Nickname is required");
-        }
+
+        this.weight = weight;
+        this.height = height; 
+        this.reach = reach;
         if (!weight || weight === "") {
-            throw new Error("Weight is required");
+            this.weight = 0;
         }
         if (!height || height === "") {
-            throw new Error("Height is required");
-        }
-        if (!stance || stance === "") {
-            throw new Error("Stance is required");
+            this.height = 0;
         }
         if (!reach || reach === "") {
-            throw new Error("Reach is required");
-        }
-        if (!background || background === "") {
-            throw new Error("Background is required");
-        }
-        if (isNaN(weight)) {
-            throw new Error("Weight must be a number");
-        }
-        if (isNaN(reach)) {
-            throw new Error("Reach must be a number");
+            this.reach = 0;
         }
 
         this.fighter_id = fighter_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.nickname = nickname;
-        this.weight = weight;
-        this.height = height;
         this.stance = stance;
-        this.reach = reach;
         this.background = background;
         this.behavior_tags = behavior_tags;
         this.moves_tags = moves;
@@ -76,7 +62,7 @@ class Fighter {
         });
     }
     static delete_fighter(fighter_id) {
-        if(confirm("Are you sure you want to delete this fighter?") === false) return;
+        if (confirm("Are you sure you want to delete this fighter?") === false) return;
         Facade.send_ajax_request('/api/fighter/' + fighter_id, 'DELETE', true, null, function () {
             Facade.refresh_page();
         });

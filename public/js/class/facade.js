@@ -5,8 +5,9 @@ class Facade {
         Facade.dataStore.init();
 
         Facade.navigator = new AppNavigator("main_container");
+        Facade.navigator.landed_on_page();
         Facade.breadscrum = new Breadscrum("breadscrum");
-        
+
         Facade.authentificationManager = new AuthentificationManager();
     }
     static send_ajax_request(url, method, async, data, callback) {
@@ -30,6 +31,9 @@ class Facade {
         }
         xhr.send(data);
         if (xhr.responseText) {
+            if (xhr.responseText.startsWith('<')) {
+                return xhr.responseText;
+            }
             return JSON.parse(xhr.responseText);
         }
         return xhr.responseText;
