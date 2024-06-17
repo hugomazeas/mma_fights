@@ -43,4 +43,19 @@ router.get('/:fight_id/strikes', async function (req, res) {
     const strikes = strikesResponse.rows;
     res.send(strikes);
 });
+router.get('/:fight_id/details', async function (req, res) {
+    const fight_id = parseInt(req.params.fight_id);
+    let fight = (await pool.query('SELECT * FROM fight WHERE fight_id = $1', [fight_id])).rows[0];
+    let rounds = (await pool.query('SELECT * FROM round WHERE fight_id = $1', [fight_id])).rows;
+    fight.rounds = [];
+    for (let i = 0; i < rounds.length; i++) {
+        fight.rounds.push(rounds[i].round_id);
+    }
+    fight.strikes = [];
+    for (let i = 0; i < fight.rounds.length; i++) {
+        let strikes = (await pool.query('SELECT * FROM relation_strike_round WHERE round_id = $1', [fight.rounds[i]])).rows;
+        fight.strikes.push(strikes);
+    }
+    res.render('fights/detailFightRegistry.ejs', { fight: fight });
+});
 module.exports = router;

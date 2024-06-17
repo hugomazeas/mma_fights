@@ -123,4 +123,9 @@ class Fight {
             Notification.success("Fight deleted successfully");
         });
     }
+    static async show_fight_details(fight_id) {
+        let fight = Facade.send_ajax_request('/api/fight/' + fight_id + '/details', 'GET', false, null, function () { });
+        let modal = new Modal("Fight Details", fight, 3);
+        modal.show();
+    }
 }
