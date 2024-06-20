@@ -6,7 +6,7 @@ class AuthentificationManager {
         this.is_logged = false;
     }
     is_authenticated() {
-        
+
         Facade.dataStore.get("token") ? this.is_logged = true : this.is_logged = false;
         Facade.dataStore.get("user") ? this.user = Facade.dataStore.get("user") : this.user = null;
         let datastore_token = Facade.dataStore.get("token");
@@ -23,8 +23,7 @@ class AuthentificationManager {
                 console.log(response_data);
                 return;
             }
-           Facade.navigator.display_url(CookieManager.getCookie("last_visited"));
-           Facade.navigator.set_current_url(CookieManager.getCookie("last_visited"));
+            Facade.navigator.set_current_url(CookieManager.getCookie("last_visited"));
         });
     }
 
@@ -44,7 +43,7 @@ class AuthentificationManager {
             _this.is_logged = true;
             Facade.dataStore.set("user", _this.user);
             Facade.dataStore.set("token", _this.token);
-           Facade.navigator.go_to("home");
+            Facade.navigator.go_to_home();
         });
     }
     logout() {

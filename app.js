@@ -2,17 +2,17 @@ const express = require('express');
 const passport = require('passport');
 const path = require('path');
 const sequelize = require('./config/database');
-const organisationsRoutes = require('./router/organisations');
-const eventsRoutes = require('./router/events');
+
+// Routes declaration
 const fightersRoutes = require('./router/fighter');
-const fightsRoutes = require('./router/fights');
-const roundsRoutes = require('./router/rounds');
 const simulationRoutes = require('./router/simulation');
 const apiRoutes = require('./router/api');
 const authRoutes = require('./router/auth');
 const registryRoutes = require('./router/registry');
+const viewRoutes = require('./router/view');
 
 
+// Middlewares declaration
 const authenticate = require('./middleware/authenticate');
 const logs = require('./middleware/logs');
 const template_suffix = require('./middleware/template_suffix');
@@ -21,6 +21,7 @@ const utility = require('./middleware/utility');
 require('./config/passport')(passport);
 
 
+//Config
 const app = express();
 const port = 3000;
 app.get('/', (req, res) => {
@@ -33,19 +34,17 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use(passport.initialize());
 
+// Middlewares initailization
 app.use(logs);
 app.use(template_suffix);
 app.use(authenticate);
 app.use(utility);
 
-
-app.use('/organisations', organisationsRoutes);
-app.use('/organisations/:org_id/events', eventsRoutes);
-app.use('/organisations/:org_id/events/:event_id/fights', fightsRoutes);
-app.use('/organisations/:org_id/events/:event_id/fights/:fight_id/rounds', roundsRoutes);
+//Routes initialization
 app.use('/simulations', simulationRoutes);
 app.use('/fighters', fightersRoutes);
 app.use('/api', apiRoutes);
+app.use('/views', viewRoutes);
 app.use('/authentification', authRoutes);
 app.use('/registry', registryRoutes);
 
@@ -54,7 +53,7 @@ app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, 'public', 'index.html'));
     }
 });
-sequelize.sync().then(() => {
+sequelize.sync({ logging: false }).then(() => {
     app.listen(port, () => {
         console.log(`Server listening at http://localhost:${port}`);
     });

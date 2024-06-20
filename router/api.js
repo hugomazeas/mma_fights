@@ -23,7 +23,7 @@ router.get('/navbar_item', async function (req, res) {
     let navbar = new Navbar();
     let db_navbar = (await pool.query('SELECT * FROM navbar')).rows;
     db_navbar.forEach(element => {
-        navbar.addItem(element.name, element.onClick, element.icon);
+        navbar.addItem(element.name, element.onClickCallback, element.icon);
     });
     res.render('partials/navBar', { navbar: navbar.getItems() });
 });

@@ -14,16 +14,20 @@
         </button>
       </div>
       <!-- Logo and title -->
-      <a class="text-white text-lg font-semibold" onclick="Facade.navigator.go_to('home')">MMA Statistics</a>
+       <div>
+         <i class="bi bi-chevron-left pointer" style="color: white;" onclick="Facade.navigator.go_back()"></i>
+         <a class="text-white text-lg font-semibold" onclick="Facade.navigator.go_to_home()">MMA Statistics</a>
+       </div>
       <!-- Navigation Links -->
       <div class="hidden sm:ml-6 sm:flex sm:space-x-4">
         <% navbar.forEach(item=> { %>
           <a href="#"
             class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium navbar-item"
-            id="btn_goto_<%= item.name %>"><i class="<%= item.icon %>"></i>
-            <%= item.name.charAt(0).toUpperCase() + item.name.slice(1) %>
-          </a>
-          <% }) %>
+            onclick="Facade.navigator.<%= item.onClick %>()" id="navbar_item_<%= item.id %>">
+            <i class="<%= item.icon %>"></i>
+            <%= capitalize_first_letter(item.name) %>
+              </a>
+              <% }) %>
       </div>
       <!-- Mobile menu, show/hide based on menu state. -->
       <div class="sm:hidden" id="mobile-menu">
@@ -32,7 +36,7 @@
           <% navbar.forEach(item=> { %>
             <a href="#"
               class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-              onclick="Facade.navigator.go_to('<%= item.onclick %>')" id="navbar_item_<%= item.id %>">
+              onclick="Facade.navigator.<%= item.onClick %>()" id="navbar_item_<%= item.id %>">
               <%= item.name %>
             </a>
             <% }) %>

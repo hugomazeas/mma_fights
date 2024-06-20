@@ -1,3 +1,7 @@
-<%- include('../partials/header.ejs') %>
+<% if (!xhr) { %>
+    <%- include('../partials/header.ejs') %>
+<% } %>
 <%- include('../fights/partialDetailFight.ejs') %>
-<%- include('../partials/footer.ejs') %>
+<% if (!xhr) { %>
+    <%- include('../partials/footer.ejs') %>
+<% } %>

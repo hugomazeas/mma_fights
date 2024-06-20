@@ -1,16 +1,5 @@
 class AppNavigator {
 
-    #destinations = {
-        home: 'home',
-        organisations: 'organisations',
-        events: 'events',
-        fights: 'fights',
-        registry: 'registry',
-        fighters: 'fighters',
-        statistics: 'statistics',
-        login: 'login'
-    }
-    
     #main_container;
     #urlHistory;
 
@@ -19,8 +8,6 @@ class AppNavigator {
         this.#main_container = main_container;
         this.set_current_url(window.location.pathname);
         this.update_navbar();
-    }
-    landed_on_page() {
     }
     update_navbar() {
         $.get('/api/navbar_item', function (data) {
@@ -39,50 +26,6 @@ class AppNavigator {
     get_current_url() {
         return this.#urlHistory.get_current_url();
     }
-    go_to(destination, params = null, decoy = false) {
-        let url;
-        let callbacks_on_load = [];
-        switch (destination) {
-            case this.#destinations.home:
-                url = '/';
-                break;
-            case this.#destinations.organisations:
-                url = '/organisations/' + params.org_id;
-                break;
-            case this.#destinations.events:
-                url = '/organisations/' + params.org_id + '/events/' + params.event_id;
-                break;
-            case this.#destinations.fights:
-                url = '/organisations/' + params.org_id + '/events/' + params.event_id + '/fights/' + params.fight_id;
-                callbacks_on_load.push(initiate_simulation);
-                break;
-            case this.#destinations.fighters:
-                url = '/fighters';
-                break;
-            case this.#destinations.statistics:
-                url = '/statistics';
-                break;
-            case this.#destinations.login:
-                url = '/authentification/login';
-                break;
-            case this.#destinations.registry:
-                url = '/registry';
-                callbacks_on_load.push(init_page);
-                break;
-            default:
-                console.error('Unknown destination');
-                break;
-        }
-        if (decoy) {
-            return callbacks_on_load;
-        }
-        this.display_url(url);
-        CookieManager.setCookie('fight_id', params?.fight_id);
-        CookieManager.setCookie('event_id', params?.event_id);
-        CookieManager.setCookie('org_id', params?.org_id);
-        Facade.breadscrum.update(params?.org_id, params?.event_id, params?.fight_id);
-        callbacks_on_load.forEach(callback => callback());
-    }
     display_url(url) {
         let _this = this;
         let callback = function (data, xhr) {
@@ -90,40 +33,73 @@ class AppNavigator {
                 let main_container = xhr.responseText.replace(/\\n/g, '');
                 $('.' + _this.#main_container).html(main_container);
             } else {
-                Facade.navigator.go_to('login');
+                console.error('Error loading page: ', xhr.status, xhr.responseText);
+                Facade.navigator.go_to_login();
             }
         };
 
         this.set_current_url(url);
         Facade.send_ajax_request(url, 'GET', false, null, callback);
-        if (url.startsWith('/organisations/')) {
-            let org_id = url.split('/')[2];
-            if (org_id === "" || org_id == 0) {
-                Facade.dataStore.set('organisation', null)
-                return;
-            };
+        // if (url.startsWith('/organisations/')) {
+        //     let org_id = url.split('/')[2];
+        //     if (org_id === "" || org_id == 0) {
+        //         Facade.dataStore.set('organisation', null)
+        //         return;
+        //     };
             
-            Facade.send_ajax_request('/api/organisation/' + org_id, 'GET', true, null, function (data) {
-                let organisation = JSON.parse(data.target.responseText);
-                if (organisation) {
-                    Facade.dataStore.set('organisation', new Organisation(organisation));
-                } else {
-                    Facade.dataStore.set('organisation', null);
-                }
-            });
-        }
-        if (url.includes('/events/')) {
-            let event_id = url.split('/')[4];
-            if (event_id === "") {
-                Facade.dataStore.set('event', null)
-                return;
-            };
-            Facade.send_ajax_request('/api/event/' + event_id, 'GET', true, null, function (data) {
-                let event = JSON.parse(data.target.responseText);
-                if (event) {
-                    Facade.dataStore.set('event', new Event(event));
-                }
-            });
-        }
+        //     Facade.send_ajax_request('/api/organisation/' + org_id, 'GET', true, null, function (data) {
+        //         let organisation = JSON.parse(data.target.responseText);
+        //         if (organisation) {
+        //             Facade.dataStore.set('organisation', new Organisation(organisation));
+        //         } else {
+        //             Facade.dataStore.set('organisation', null);
+        //         }
+        //     });
+        // }
+        // if (url.includes('/events/')) {
+        //     let event_id = url.split('/')[4];
+        //     if (event_id === "" || event_id == "#") {
+        //         Facade.dataStore.set('event', null)
+        //         return;
+        //     };
+        //     Facade.send_ajax_request('/api/event/' + event_id, 'GET', true, null, function (data) {
+        //         let event = JSON.parse(data.target.responseText);
+        //         if (event) {
+        //             Facade.dataStore.set('event', new Event(event));
+        //         }
+        //     });
+        // }
+    }
+    go_to_organisations() {
+        this.display_url('/views/organisations');
+    }
+    go_to_organisations_details(org_id) {
+        this.display_url('/views/organisations/' + org_id);
+    }
+    go_to_events() {
+        this.display_url('/views/events');
+    }
+    go_to_event_detail(event_id) {
+        this.display_url('/views/events/' + event_id);
+    }
+    go_to_fights() {
+        this.display_url('/views/fights/');
+        init_page();
+    }
+    go_to_fight_detail(fight_id) {
+        this.display_url('/views/fights/' + fight_id);
+        initiate_simulation();
+    }
+    go_to_fighters() {
+        this.display_url('/views/fighters/');
+    }
+    go_to_home() {
+        this.display_url('/');
+    }
+    go_to_login() {
+        // this.display_url('/views/login');
+    }
+    go_back() {
+        this.display_url(this.#urlHistory.get_previous_url());
     }
 }

@@ -40,7 +40,7 @@ class Organisation {
     static async delete(org_id) {
         if (confirm("Are you sure you want to delete this organisation and all it's events and fights?") === false) return;
         Facade.send_ajax_request('/api/organisation/' + org_id, 'DELETE', true, null, function () {
-            Facade.navigator.display_url('/organisations');
+            Facade.navigator.go_to_organisations();
             Notification.success("Organisation deleted successfully");
         });
     }

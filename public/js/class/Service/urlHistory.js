@@ -18,4 +18,8 @@ class UrlHistory {
     get_current_url() {
         return this.queue[this.queue.length - 1];
     }
+    get_previous_url() {
+        this.queue.pop();
+        return this.queue[this.queue.length - 1];
+    }
 }

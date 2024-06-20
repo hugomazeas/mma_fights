@@ -1,3 +1,7 @@
-<%- include('../partials/header.ejs') %>
-<%- include('../organisations/partialDetailOrganisation.ejs') %>
-<%- include('../partials/footer.ejs') %>
+<% if (!xhr) { %>
+    <%- include('../partials/header.ejs') %>
+<% } %>
+<%- include('../organisations/partials/detailOrganisation.ejs') %>
+<% if (!xhr) { %>
+    <%- include('../partials/footer.ejs') %>
+<% } %>

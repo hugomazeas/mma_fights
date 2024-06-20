@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const pool = require('../db');
+const Event = require('../../models/event');
 
+router.get('/', async function (req, res) {
+    const events = await Event.get_all_events();
+    res.send(events);
+});
 router.get('/:event_id', async function (req, res) {
     const event_id = req.params.event_id;
-    const event = (await pool.query('SELECT * FROM event WHERE event_id = $1', [event_id])).rows
+    const event = await Event.get_event(event_id);
     res.send(event[0]);
-});
-router.get('/', async function (req, res) {
-    const events = (await pool.query('SELECT * FROM event')).rows;
-    res.send(events);
 });
 router.post('/', async function (req, res) {
     const event = req.body;

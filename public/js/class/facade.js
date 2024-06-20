@@ -5,7 +5,6 @@ class Facade {
         Facade.dataStore.init();
 
         Facade.navigator = new AppNavigator("main_container");
-        Facade.navigator.landed_on_page();
         Facade.breadscrum = new Breadscrum("breadscrum");
 
         Facade.authentificationManager = new AuthentificationManager();
@@ -23,7 +22,7 @@ class Facade {
         }
 
         xhr.onerror = function () {
-            Facade.navigator.go_to('login');
+            Facade.navigator.go_to_login();
         };
 
         if (data && typeof data === 'object') {
@@ -31,7 +30,7 @@ class Facade {
         }
         xhr.send(data);
         if (xhr.responseText) {
-            if (xhr.responseText.startsWith('<')) {
+            if (xhr.responseText.trim().startsWith('<')) {
                 return xhr.responseText;
             }
             return JSON.parse(xhr.responseText);
