@@ -32,7 +32,7 @@ class Fight {
             number_of_rounds = parseInt(number_of_rounds);
         }
             
-        this.number_rounds = number_of_rounds;
+        this.number_round = number_of_rounds;
         this.round_ids = rounds_ids;
         this.round_length = round_length;
         this.card_type = card_type;
@@ -41,7 +41,7 @@ class Fight {
     }
     init_simulations() {
         let total_simulation = new Simulation(this.fight_id, 0);
-        for (let i = 0; i < this.number_rounds; i++) {
+        for (let i = 0; i < this.number_round; i++) {
             let simulation = new Simulation(this.fight_id, this.round_ids[i]);
             simulation.initialize();
 

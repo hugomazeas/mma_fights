@@ -4,7 +4,6 @@ const path = require('path');
 const sequelize = require('./config/database');
 
 // Routes declaration
-const fightersRoutes = require('./router/fighter');
 const simulationRoutes = require('./router/simulation');
 const apiRoutes = require('./router/api');
 const authRoutes = require('./router/auth');
@@ -42,7 +41,6 @@ app.use(utility);
 
 //Routes initialization
 app.use('/simulations', simulationRoutes);
-app.use('/fighters', fightersRoutes);
 app.use('/api', apiRoutes);
 app.use('/views', viewRoutes);
 app.use('/authentification', authRoutes);

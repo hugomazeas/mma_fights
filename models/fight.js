@@ -27,13 +27,16 @@ class Fight {
             LEFT JOIN fighter fw ON f.winner_id = fw.fighter_id;
             `)).rows;
     }
+    static async get_all_fights_raw(){
+        return (await this.#pool.query('SELECT * FROM fight')).rows;
+    }
     static async get_fight(fight_id) {
         const fights = await Fight.get_all_fights();
-        return fights.filter(fight => fight.fight_id == fight_id);
+        return fights.find(fight => fight.fight_id == fight_id);
     }
     static async add_fight(fight) {
         const values = [fight.fight_round, fight.number_round, fight.round_length, fight.ufc_number, fight.event_id, fight.division, fight.card_type, fight.fighter1_id, fight.fighter2_id, fight.winner_id];
-        return await this.#pool.query('INSERT INTO fight (fight_round, number_round, round_length, ufc_number, event_id, division, card_type, fighter1_id, fighter2_id, winner_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', values);
+        return (await this.#pool.query('INSERT INTO fight (fight_round, number_round, round_length, ufc_number, event_id, division, card_type, fighter1_id, fighter2_id, winner_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *', values)).rows[0];
     }
     static async update_fight(fight_id, fight) {
         const values = [fight.fight_round, fight.number_round, fight.round_length, fight.ufc_number, fight.event_id, fight.division, fight.card_type, fight.fighter1_id, fight.fighter2_id, fight.winner_id, fight_id];

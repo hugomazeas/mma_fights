@@ -14,7 +14,7 @@ router.get('/:event_id', async function (req, res) {
 
     let event = await Event.get_event(id);
     let fights = await Fight.get_fights_by_event(id);
-   
+    
     handleResponse('events/detailEvent', req, res, { event: event, fights_of_event: fights });
 });
 router.post('/', async function (req, res) {

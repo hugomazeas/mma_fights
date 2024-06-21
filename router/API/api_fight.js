@@ -2,61 +2,57 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 const pool = require('../db');
 const Fight = require('../../models/fight');
+const Round = require('../../models/round');    
+const Strike = require('../../models/strike');
 
 router.get('/', async function (req, res) {
-    const fights = (await pool.query('SELECT * FROM fight')).rows;
+    const fights = Fight.get_all_fights_raw();
     res.send(fights);
 });
 router.post('/', async function (req, res) {
     const fight = req.body;
-    const result = await pool.query('INSERT INTO fight (event_id, fighter1_id, fighter2_id, division, round_length, number_round, card_type, ufc_number, winner_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING fight_id', [fight.event_id, fight.fighter1_id, fight.fighter2_id, fight.division, fight.round_length, fight.number_rounds, fight.card_type, fight.ufc_number, fight.winner_id]);
-    fight.fight_id = result.rows[0].fight_id;
-    for (let i = 0; i < fight.number_rounds; i++) {
-        await pool.query('INSERT INTO round (fight_id, round_number, max_duration) VALUES ($1, $2, $3)', [fight.fight_id, i + 1, fight.round_length]);
-    }
-    res.send(fight);
-});
-router.get('/:fight_id', async function (req, res) {
-    const fight_id = parseInt(req.params.fight_id);
-    let fight = (await pool.query('SELECT * FROM fight WHERE fight_id = $1', [fight_id])).rows[0];
-    fight.rounds = [];
-    let rounds = (await pool.query('SELECT * FROM round WHERE fight_id = $1', [fight_id])).rows;
-    for (let i = 0; i < rounds.length; i++) {
-        fight.rounds.push(rounds[i].round_id);
+    const result = (await Fight.add_fight(fight));
+    result.rounds = [];
+    for(let i = 0; i < result.number_round; i++) {
+        result.rounds.push((await Round.add_round({round_number: i + 1, fight_id: result.fight_id, round_length: 0, max_duration: fight.round_length})).rows[0]);
     }
     res.status(201).send(fight);
 });
-router.delete('/:fight_id', async function (req, res) {
+router.get('/:fight_id', async function (req, res) {
     const fight_id = parseInt(req.params.fight_id);
-    await pool.query('DELETE FROM round WHERE fight_id = $1', [fight_id]);
-    await pool.query('DELETE FROM fight WHERE fight_id = $1', [fight_id]);
-    res.send('Fight deleted');
-});
-router.get('/:fight_id/strikes', async function (req, res) {
-    let rounds_ids = (await pool.query('SELECT round_id FROM public.round WHERE fight_id = $1;', [req.params.fight_id])).rows;
-    const roundIds = rounds_ids.map(row => row.round_id);
-    const placeholders = roundIds.map((_, index) => `$${index + 1}`).join(',');
-    if(placeholders === '') {
-        res.send([]);
-        return;
-    }
-    const strikesResponse = await pool.query(`SELECT * FROM relation_strike_round WHERE round_id IN (${placeholders});`, roundIds);
-    const strikes = strikesResponse.rows;
-    res.send(strikes);
-});
-router.get('/:fight_id/details', async function (req, res) {
-    const fight_id = parseInt(req.params.fight_id);
-    let fight = (await Fight.get_fight(fight_id)).rows[0];
-    let rounds = (await pool.query('SELECT * FROM round WHERE fight_id = $1', [fight_id])).rows;
+    let fight = (await Fight.get_fight(fight_id));
     fight.rounds = [];
+    let rounds = (await Round.get_rounds_by_fight(fight_id));
     for (let i = 0; i < rounds.length; i++) {
         fight.rounds.push(rounds[i].round_id);
     }
-    fight.strikes = [];
-    for (let i = 0; i < fight.rounds.length; i++) {
-        let strikes = (await pool.query('SELECT * FROM relation_strike_round WHERE round_id = $1', [fight.rounds[i]])).rows;
-        fight.strikes.push(strikes);
-    }
-    res.render('fights/detailFightRegistry.ejs', { fight: fight });
+    console.log(fight);
+    res.status(204).send(fight[0]);
 });
+router.delete('/:fight_id', async function (req, res) {
+    const fight_id = parseInt(req.params.fight_id);
+    await Fight.delete_fight(fight_id);
+    await Round.delete_rounds_by_fight(fight_id);
+    res.status(202).send('Fight deleted');
+});
+router.get('/:fight_id/strikes', async function (req, res) {
+    const fight_id = parseInt(req.params.fight_id);
+    const strikes = (await Strike.get_strikes_by_fight_id(fight_id));
+    res.send(strikes);
+});
+// router.get('/:fight_id/details', async function (req, res) {
+//     const fight_id = parseInt(req.params.fight_id);
+//     let fight = (await Fight.get_fight(fight_id)).rows[0];
+//     let rounds = (await pool.query('SELECT * FROM round WHERE fight_id = $1', [fight_id])).rows;
+//     fight.rounds = [];
+//     for (let i = 0; i < rounds.length; i++) {
+//         fight.rounds.push(rounds[i].round_id);
+//     }
+//     fight.strikes = [];
+//     for (let i = 0; i < fight.rounds.length; i++) {
+//         let strikes = (await pool.query('SELECT * FROM relation_strike_round WHERE round_id = $1', [fight.rounds[i]])).rows;
+//         fight.strikes.push(strikes);
+//     }
+//     res.render('fights/detailFightRegistry.ejs', { fight: fight });
+// });
 module.exports = router;
