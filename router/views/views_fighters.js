@@ -17,35 +17,4 @@ router.get('/:fighter_id', async function (req, res) {
     res.send("Not implemented yet");
     handleResponse('fighters/detailFighter', req, res, { fighter: fighter[0] });
 });
-router.post('/', async function (req, res) {
-    try {
-        const fighter = req.body.fighter;
-        let result_fighter = await Fighter.add_fighter(fighter);
-        res.status(201).send(result_fighter);
-    } catch (error) {
-        console.error("Error inserting data: ", error);
-        res.status(500).send(error.toString());
-    }
-});
-router.put('/:id', async function (req, res) {
-    try {
-        const id = req.params.id;
-        const fighter = req.body.fighter;
-        let result_fighter = await Fighter.update_fighter(id, fighter);
-        res.status(200).send(result_fighter);
-    } catch (error) {
-        console.error("Error updating data: ", error);
-        res.status(500).send(error.toString());
-    }
-});
-router.delete('/:id', async function (req, res) {
-    try {
-        const id = req.params.id;
-        await Fighter.delete_fighter(id);
-        res.status(200).send("Fighter deleted successfully");
-    } catch (error) {
-        console.error("Error deleting data: ", error);
-        res.status(500).send(error.toString());
-    }
-});
 module.exports = router;

@@ -17,35 +17,4 @@ router.get('/:event_id', async function (req, res) {
     
     handleResponse('events/detailEvent', req, res, { event: event, fights_of_event: fights });
 });
-router.post('/', async function (req, res) {
-    try {
-        const event = req.body.event;
-        let result_event = await Event.add_event(event);
-        res.status(201).send(result_event);
-    } catch (error) {
-        console.error("Error inserting data: ", error);
-        res.status(500).send(error.toString());
-    }
-});
-router.put('/:id', async function (req, res) {
-    try {
-        const id = req.params.id;
-        const event = req.body.event;
-        let result_event = await Event.update_event(id, event);
-        res.status(200).send(result_event);
-    } catch (error) {
-        console.error("Error updating data: ", error);
-        res.status(500).send(error.toString());
-    }
-});
-router.delete('/:id', async function (req, res) {
-    try {
-        const id = req.params.id;
-        await Event.delete_event(id);
-        res.status(200).send("Event deleted successfully");
-    } catch (error) {
-        console.error("Error deleting data: ", error);
-        res.status(500).send(error.toString());
-    }
-});
 module.exports = router;

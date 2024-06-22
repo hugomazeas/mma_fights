@@ -8,8 +8,8 @@ class Organisation {
         return (await this.#pool.query(`SELECT * FROM organisation WHERE organisation_id = ${organisation_id};`)).rows[0];
     }
     static async add_organisation(organisation) {
-        const values = [organisation.name, organisation.headquarters, organisation.foundedYear];
-        return await this.#pool.query('INSERT INTO organisation (name, headquarters, founded_year) VALUES ($1, $2, $3)', values);
+        const values = [organisation.name, organisation.headquarter, organisation.founded_year];
+        return await this.#pool.query('INSERT INTO organisation (name, headquarter, founded_year) VALUES ($1, $2, $3)', values);
     }
     static async update_organisation(organisation_id, organisation) {
         const values = [organisation.name, organisation.headquarters, organisation.foundedYear, organisation_id];

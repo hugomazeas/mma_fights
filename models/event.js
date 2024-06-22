@@ -11,8 +11,8 @@ class Event {
         return (await this.#pool.query(`SELECT * FROM event WHERE organisation_id = ${organisation_id};`)).rows;
     }
     static async add_event(event) {
-        const values = [event.name, event.date, event.organisation_id];
-        return await this.#pool.query('INSERT INTO event (name, date, organisation_id) VALUES ($1, $2, $3)', values);
+        const values = [event.name, event.date, event.organisation_id, location, description, photo_url];
+        return (await this.#pool.query('INSERT INTO event (name, date, organisation_id, location, description, photo_url) VALUES ($1, $2, $3, $4)', values)).rows[0];
     }
     static async update_event(event_id, event) {
         const values = [event.name, event.date, event.organisation_id, event_id];

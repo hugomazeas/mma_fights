@@ -9,7 +9,7 @@ class Fighter {
     }
     static async add_fighter(fighter) {
         const values = [fighter.first_name, fighter.last_name, fighter?.nickname, fighter?.height, fighter?.weight, fighter?.reach, fighter?.stance, fighter?.wins, fighter?.losses, fighter?.draws, fighter?.background, fighter?.behavior_targs, fighter?.moves_tags]
-        return await this.#pool.query('INSERT INTO fighter (first_name, last_name, nickname, height, weight, reach, stance, wins, losses, draws, background, behavior_tags, moves_tags) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)', values);
+        return (await this.#pool.query('INSERT INTO fighter (first_name, last_name, nickname, height, weight, reach, stance, wins, losses, draws, background, behavior_tags, moves_tags) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)', values));
     }
     static async update_fighter(fighter_id, fighter) {
         const values = [fighter.first_name, fighter.last_name, fighter.nickname, fighter?.height, fighter?.weight, fighter?.reach, fighter?.stance, fighter?.wins, fighter?.losses, fighter?.draws, fighter?.background, fighter?.behavior_tags, fighter?.moves_tags, fighter_id];
