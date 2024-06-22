@@ -5,7 +5,7 @@ const Round = require('../../models/round');
 const Strike = require('../../models/strike');
 
 router.get('/', async function (req, res) {
-    const fights = Fight.get_all_fights_raw();
+    const fights = (await Fight.get_all_fights_raw());
     res.send(fights);
 });
 router.post('/', async function (req, res) {

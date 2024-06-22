@@ -1,10 +1,11 @@
-class Fight {
-    static #pool = require('../router/db.js');
+const Model = require('./model.js');
+
+class Fight extends Model {
     static async get_fights_by_event(event_id) {
         return (await Fight.get_all_fights()).filter(fight => fight.event_id == event_id);
     }
     static async get_all_fights() {
-        return (await this.#pool.query(`
+        return (await Model.pool.query(`
             SELECT 
             f.event_id,
             f.fight_id,
@@ -28,7 +29,7 @@ class Fight {
             `)).rows;
     }
     static async get_all_fights_raw(){
-        return (await this.#pool.query('SELECT * FROM fight')).rows;
+        return (await Model.pool.query('SELECT * FROM fight')).rows;
     }
     static async get_fight(fight_id) {
         const fights = await Fight.get_all_fights();
@@ -36,14 +37,14 @@ class Fight {
     }
     static async add_fight(fight) {
         const values = [fight.fight_round, fight.number_round, fight.round_length, fight.ufc_number, fight.event_id, fight.division, fight.card_type, fight.fighter1_id, fight.fighter2_id, fight.winner_id];
-        return (await this.#pool.query('INSERT INTO fight (fight_round, number_round, round_length, ufc_number, event_id, division, card_type, fighter1_id, fighter2_id, winner_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *', values)).rows[0];
+        return (await Model.pool.query('INSERT INTO fight (fight_round, number_round, round_length, ufc_number, event_id, division, card_type, fighter1_id, fighter2_id, winner_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *', values)).rows[0];
     }
     static async update_fight(fight_id, fight) {
         const values = [fight.fight_round, fight.number_round, fight.round_length, fight.ufc_number, fight.event_id, fight.division, fight.card_type, fight.fighter1_id, fight.fighter2_id, fight.winner_id, fight_id];
-        return await this.#pool.query('UPDATE fight SET fight_round = $1, number_round = $2, round_length = $3, ufc_number = $4, event_id = $5, division = $6, card_type = $7, fighter1_id = $8, fighter2_id = $9, winner_id = $10 WHERE fight_id = $11', values);
+        return await Model.pool.query('UPDATE fight SET fight_round = $1, number_round = $2, round_length = $3, ufc_number = $4, event_id = $5, division = $6, card_type = $7, fighter1_id = $8, fighter2_id = $9, winner_id = $10 WHERE fight_id = $11', values);
     }
     static async delete_fight(fight_id) {
-        return await this.#pool.query('DELETE FROM fight WHERE fight_id = $1', [fight_id]);
+        return await Model.pool.query('DELETE FROM fight WHERE fight_id = $1', [fight_id]);
     }
 }
 module.exports = Fight;
