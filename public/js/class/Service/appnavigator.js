@@ -88,7 +88,7 @@ class AppNavigator {
     }
     go_to_fight_detail(fight_id) {
         this.display_url('/views/fights/' + fight_id);
-        initiate_simulation();
+        initiate_simulation(fight_id);
     }
     go_to_fighters() {
         this.display_url('/views/fighters/');
