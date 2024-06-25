@@ -29,7 +29,7 @@ class Organisation {
         let formFoundedYear = new FormField("number", "founded_year", "Founded Year", organisation.founded_year);
         let formDescription = new FormField("textarea", "description", "Description", organisation.description);
         let formCancel = new FormField("cancel_button", "cancel", "Cancel");
-        let formSubmit = new FormField("button", "submit", "Submit", "", "", "", "", "Organisation.submit_form()");
+        let formSubmit = new FormField("button", "submit", "Submit", "", "", "", "", "Organisation.submit_edit_form()");
 
         form.form_fields.push(formName);
         form.form_fields.push(formHeadquarter);
@@ -45,7 +45,7 @@ class Organisation {
         modal.show();
     }
     static async show_modal_edit_organisation() {
-        let organisation = CookieManager.decode_cookie(CookieManager.get_cookie('organisation'))
+        let organisation = CookieManager.decode_cookie(CookieManager.get_cookie('organisation'));
         let form = await Organisation.build_form_prefilled(organisation);
         let modal = new Modal("Edit organisation", form, 3);
         modal.show();
@@ -56,7 +56,7 @@ class Organisation {
             headquarter: $("[name='headquarter']").val(),
             founded_year: $("[name='founded_year']").val()
         };
-        let org_id = Facade.dataStore.get('organisation').organisation_id;
+        let org_id = CookieManager.decode_cookie(CookieManager.get_cookie('organisation')).organisation_id;
         Facade.send_ajax_request('/api/organisation/' + org_id, 'PUT', true, organisation, function () {
             Modal.close();
             Notification.success("Organisation edited successfully");

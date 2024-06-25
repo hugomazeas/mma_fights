@@ -11,6 +11,12 @@ router.get('/', async function (req, res) {
     const organisations = (await Organisation.get_all_organisations());
     res.send(organisations);
 });
+router.put('/:org_id', async function (req, res) {
+    const org_id = req.params.org_id;
+    const organisation = req.body;
+    await Organisation.update_organisation(org_id, organisation);
+    res.send('Organisation updated');
+});
 router.post('/', async function (req, res) {
     const organisation = req.body;
     const result = await Organisation.add_organisation(organisation);
