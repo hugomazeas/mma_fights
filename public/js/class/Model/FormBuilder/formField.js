@@ -90,16 +90,4 @@ class FormField {
 
         return html; 
     }
-
-    fetchDataSync(url) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', url, false); // Third parameter 'false' makes it synchronous
-        xhr.send();
-
-        if (xhr.status === 200) {
-            return JSON.parse(xhr.responseText);
-        } else {
-            return null;
-        }
-    }
 }

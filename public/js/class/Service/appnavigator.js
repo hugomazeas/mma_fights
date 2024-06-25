@@ -19,7 +19,7 @@ class AppNavigator {
 
         current_simulation?.reset();
         
-        CookieManager.setCookie('last_visited', url);
+        CookieManager.set_cookie('last_visited', url);
         
         history.pushState(null, null, url);
     }
@@ -40,35 +40,6 @@ class AppNavigator {
 
         this.set_current_url(url);
         Facade.send_ajax_request(url, 'GET', false, null, callback);
-        // if (url.startsWith('/organisations/')) {
-        //     let org_id = url.split('/')[2];
-        //     if (org_id === "" || org_id == 0) {
-        //         Facade.dataStore.set('organisation', null)
-        //         return;
-        //     };
-            
-        //     Facade.send_ajax_request('/api/organisation/' + org_id, 'GET', true, null, function (data) {
-        //         let organisation = JSON.parse(data.target.responseText);
-        //         if (organisation) {
-        //             Facade.dataStore.set('organisation', new Organisation(organisation));
-        //         } else {
-        //             Facade.dataStore.set('organisation', null);
-        //         }
-        //     });
-        // }
-        // if (url.includes('/events/')) {
-        //     let event_id = url.split('/')[4];
-        //     if (event_id === "" || event_id == "#") {
-        //         Facade.dataStore.set('event', null)
-        //         return;
-        //     };
-        //     Facade.send_ajax_request('/api/event/' + event_id, 'GET', true, null, function (data) {
-        //         let event = JSON.parse(data.target.responseText);
-        //         if (event) {
-        //             Facade.dataStore.set('event', new Event(event));
-        //         }
-        //     });
-        // }
     }
     go_to_organisations() {
         this.display_url('/views/organisations');

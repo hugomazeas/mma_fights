@@ -1,13 +1,13 @@
 class CookieManager {
-    static setCookie(name, value) {
-        if(value === "/authentification/login") return;
+    static set_cookie(name, value) {
+        if (value === "/authentification/login") return;
         if (!value)
             value = "";
         var expires = "; expires=Fri, 31 Dec 9999 23:59:59 GMT"; // Expires far in the future
         document.cookie = name + "=" + value + expires + "; path=/";
     }
 
-    static getCookie(name) {
+    static get_cookie(name) {
         var nameEQ = name + "=";
         var ca = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
@@ -17,8 +17,14 @@ class CookieManager {
         }
         return null;
     }
+    static decode_cookie(string) {
+        if(string == "undefined") return null;
+        var decodedString = decodeURIComponent(string);
 
-    static eraseCookie(name) {
-        document.cookie = name + '=; Max-Age=-99999999;';
+        if (decodedString.startsWith('j:')) {
+            decodedString = decodedString.substring(2);
+        }
+        var jsonObject = JSON.parse(decodedString);
+        return jsonObject;
     }
 }

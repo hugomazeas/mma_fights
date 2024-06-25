@@ -19,10 +19,17 @@
             onclick="Event.show_modal_form()">
             Add event
         </button>
-        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-            onclick="Organisation.delete('<%= organisation.organisation_id %>');">
-            Delete organisation
-        </button>
+        <div>
+            <button
+                class="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                onclick="Organisation.show_modal_edit_organisation()">
+                Edit Organisation
+            </button>
+            <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                onclick="Organisation.delete('<%= organisation.organisation_id %>');">
+                Delete organisation
+            </button>
+        </div>
     </div>
 </div>
 <div class="container mx-auto " style="padding: 8rem 3rem 3rem 3rem;"">
@@ -36,7 +43,7 @@
                     <% events.forEach(event=> { %>
                         <div class="px-6 py-2">
                             <div style="max-width: 25rem; height: 45rem;"
-                                class="relative flex flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md" >
+                                class="relative flex flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
                                 <div
                                     class="relative m-0 overflow-hidden text-gray-700 bg-transparent rounded-none shadow-none bg-clip-border">
                                     <img src="/img/400x500.png" />

@@ -23,7 +23,7 @@ class AuthentificationManager {
                 console.log(response_data);
                 return;
             }
-            Facade.navigator.set_current_url(CookieManager.getCookie("last_visited"));
+            Facade.navigator.set_current_url(CookieManager.get_cookie("last_visited"));
         });
     }
 
