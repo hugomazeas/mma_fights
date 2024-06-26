@@ -11,38 +11,38 @@ class Organisation {
         let formHeadquarter = new FormField("text", "headquarter", "Headquarter");
         let formFoundedYear = new FormField("number", "founded_year", "Founded Year");
         let formDescription = new FormField("textarea", "description", "Description", this.description);
-        let formCancel = new FormField("cancel_button", "cancel", "Cancel");
-        let formSubmit = new FormField("button", "submit", "Submit", "", "", "", "", "Organisation.submit_form()");
-
         form.form_fields.push(formName);
         form.form_fields.push(formHeadquarter);
         form.form_fields.push(formFoundedYear);
         form.form_fields.push(formDescription);
-        form.form_fields.push(formCancel);
-        form.form_fields.push(formSubmit);
         return form.build();
     }
-    static build_form_prefilled(organisation){
+    static build_form_prefilled(organisation) {
         let form = new FormBuilder("Edit Organisation", "organisation_form", [], 50, 50);
         let formName = new FormField("text", "name", "Name", organisation.name);
         let formHeadquarter = new FormField("text", "headquarter", "Headquarter", organisation.headquarter);
         let formFoundedYear = new FormField("number", "founded_year", "Founded Year", organisation.founded_year);
         let formDescription = new FormField("textarea", "description", "Description", organisation.description);
-        let formCancel = new FormField("cancel_button", "cancel", "Cancel");
-        let formSubmit = new FormField("button", "submit", "Submit", "", "", "", "", "Organisation.submit_edit_form()");
 
         form.form_fields.push(formName);
         form.form_fields.push(formHeadquarter);
         form.form_fields.push(formFoundedYear);
         form.form_fields.push(formDescription);
-        form.form_fields.push(formCancel);
-        form.form_fields.push(formSubmit);
         return form.build();
     }
-    static async show_modal_form() {
-        let form = await Organisation.build_form();
-        let modal = new Modal("Add organisation", form, 3);
-        modal.show();
+    static show_modal_form() {
+        let form = Organisation.build_form();
+        let modal = new Modal();
+
+        let callback = function () {
+            Organisation.submit_form();
+            Modal.close();
+        };
+        modal.add_title("Add Organisation").
+            add_content(form).
+            add_submit_button("Submit", callback).
+            add_close_button("Close").
+            show();
     }
     static async show_modal_edit_organisation() {
         let organisation = CookieManager.decode_cookie(CookieManager.get_cookie('organisation'));

@@ -7,25 +7,11 @@ class FormBuilder {
         this.height = height;
     }
     build() {
-
         let field_html = "";
-        let button_html = "";
         this.form_fields.forEach(field => {
-            if (field.type == "cancel_button" || field.type == "button")
-                button_html += field.build();
-            else
-                field_html += field.build();
+            field_html += field.build();
         });
-        let form = `<div class="max-w-xl m-4 p-10 bg-white rounded shadow-xl" style="width=${this.width}%;height=${this.height}">
-                        <h1 class="text-2xl font-semibold text-gray-900">${this.display_title}</h1>
-                        <div id="${this.form_id}" class="mt-8 space-y-6">
-                            ${field_html}
-                            <div class="flex items-center justify-between">
-                                ${button_html}
-                            </div>
-                        </div>
-                    </div>`;
-        return form;
+        return field_html;
     }
     extract_data() {
         let data = {};

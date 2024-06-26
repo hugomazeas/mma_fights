@@ -8,10 +8,10 @@ class FormField {
         this.placeholder = placeholder ? placeholder : '';
         this.required = required;
         this.callback = callback;
-       
+
     }
 
-    build() { 
+    build() {
         const { type, name, label, value, placeholder, required, options, callback } = this;
         let html = '';
 
@@ -24,17 +24,13 @@ class FormField {
             case 'date':
             case 'number':
                 html = `
-                    <div class="mt-4">
-                        <label class="block text-sm text-gray-700" for="${name}">${label}</label>
-                        <${type === 'textarea' ? 'textarea' : 'input'}
-                            type="${type}"
-                            class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded ${type === 'textarea' ? 'h-48' : ''}" 
-                            name="${name}" 
-                            value="${value}" 
-                            placeholder="${placeholder}" 
-                            ${required ? 'required' : ''}
-                            ${type === 'textarea' ? `>${value}</textarea>` : type === 'button' ? `>${label}</${type === 'textarea' ? 'textarea' : 'input'}>` : ''}>
-                    </div>
+                <div class="mt-4">
+                    <label class="block text-sm text-gray-700" for="${name}">${label}</label>
+                    ${type === 'textarea' ?
+                        `<textarea class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded h-48" name="${name}" placeholder="${placeholder}" ${required ? 'required' : ''}>${value}</textarea>` :
+                        `<input type="${type}" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="${name}" value="${value}" placeholder="${placeholder}" ${required ? 'required' : ''}/>`
+                    }
+                </div>
                 `;
                 break;
             case 'button':
@@ -69,8 +65,8 @@ class FormField {
             case 'number_round':
             case 'card_type':
             case 'round_length':
-                const data = Facade.send_ajax_request(`/api/${type}`, 'GET', false, null, function (data){});
-                if (data) { 
+                const data = Facade.send_ajax_request(`/api/${type}`, 'GET', false, null, function (data) { });
+                if (data) {
                     html = `
                         <div class="mt-4">
                             <label class="block text-sm text-gray-700" for="${name}">${label}</label>
@@ -88,6 +84,6 @@ class FormField {
                 break;
         }
 
-        return html; 
+        return html;
     }
 }
