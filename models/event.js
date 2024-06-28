@@ -1,6 +1,6 @@
 const Model = require('./model.js');
 
-class Event extends Model{
+class Event extends Model {
 
     static async get_all_events() {
         return (await (Model.pool.query('SELECT * FROM event'))).rows;
@@ -12,8 +12,8 @@ class Event extends Model{
         return (await Model.pool.query(`SELECT * FROM event WHERE organisation_id = ${organisation_id};`)).rows;
     }
     static async add_event(event) {
-        const values = [event.name, event.date, event.organisation_id, location, description, photo_url];
-        return (await Model.pool.query('INSERT INTO event (name, date, organisation_id, location, description, photo_url) VALUES ($1, $2, $3, $4)', values)).rows[0];
+        const values = [event.name, event.date, event.organisation_id, event?.location, event?.description, event?.photo_url];
+        return (await Model.pool.query('INSERT INTO event (name, date, organisation_id, location, description, photo_url) VALUES ($1, $2, $3, $4, $5, $6)', values)).rows[0];
     }
     static async update_event(event_id, event) {
         const values = [event.name, event.date, event.organisation_id, event_id];

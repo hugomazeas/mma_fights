@@ -5,38 +5,26 @@ class Organisation {
         this.headquarter = data.headquarter;
         this.founded_year = data.founded_year;
     }
-    static build_form() {
-        let form = new FormBuilder("Add Organisation", "organisation_form", [], 50, 50);
-        let formName = new FormField("text", "name", "Name");
-        let formHeadquarter = new FormField("text", "headquarter", "Headquarter");
-        let formFoundedYear = new FormField("number", "founded_year", "Founded Year");
-        let formDescription = new FormField("textarea", "description", "Description", this.description);
-        form.form_fields.push(formName);
-        form.form_fields.push(formHeadquarter);
-        form.form_fields.push(formFoundedYear);
-        form.form_fields.push(formDescription);
-        return form.build();
-    }
-    static build_form_prefilled(organisation) {
-        let form = new FormBuilder("Edit Organisation", "organisation_form", [], 50, 50);
-        let formName = new FormField("text", "name", "Name", organisation.name);
-        let formHeadquarter = new FormField("text", "headquarter", "Headquarter", organisation.headquarter);
-        let formFoundedYear = new FormField("number", "founded_year", "Founded Year", organisation.founded_year);
-        let formDescription = new FormField("textarea", "description", "Description", organisation.description);
 
-        form.form_fields.push(formName);
-        form.form_fields.push(formHeadquarter);
-        form.form_fields.push(formFoundedYear);
-        form.form_fields.push(formDescription);
+    static build_form(organisation) {
+        const action = organisation ? 'Edit' : 'Add';
+        const fields = [
+            new FormField("text", "name", "Name", organisation ? organisation.name : ''),
+            new FormField("text", "headquarter", "Headquarter", organisation ? organisation.headquarter : ''),
+            new FormField("number", "founded_year", "Founded Year", organisation ? organisation.founded_year : ''),
+            new FormField("textarea", "description", "Description", organisation ? organisation.description : '')
+        ];
+        const form = new FormBuilder(`${action} Organisation`, "organisation_form", fields);
         return form.build();
     }
-    static show_modal_form() {
+    static show_modal_create_form() {
         let form = Organisation.build_form();
         let modal = new Modal();
 
-        let callback = function () {
-            Organisation.submit_form();
+        let callback = async function () {
+            await Organisation.submit_create_form();
             Modal.close();
+            Facade.refresh_page();
         };
         modal.add_title("Add Organisation").
             add_content(form).
@@ -44,37 +32,46 @@ class Organisation {
             add_close_button("Close").
             show();
     }
-    static async show_modal_edit_organisation() {
+    static show_modal_edit_form() {
         let organisation = CookieManager.decode_cookie(CookieManager.get_cookie('organisation'));
-        let form = await Organisation.build_form_prefilled(organisation);
-        let modal = new Modal("Edit organisation", form, 3);
-        modal.show();
+        let form = Organisation.build_form(organisation);
+        let modal = new Modal();
+        let callback = async function () {
+            await Organisation.submit_edit_form();
+            Modal.close();
+            Facade.refresh_page();
+        }
+        modal.add_title("Edit Organisation").
+            add_content(form).
+            add_submit_button("Submit", callback).
+            add_close_button("Close").
+            show();
     }
     static async submit_edit_form() {
-        let organisation = {
-            name: $("[name='name']").val(),
-            headquarter: $("[name='headquarter']").val(),
-            founded_year: $("[name='founded_year']").val()
-        };
+        let organisation = Organisation.fetch_form_data();
         let org_id = CookieManager.decode_cookie(CookieManager.get_cookie('organisation')).organisation_id;
         Facade.send_ajax_request('/api/organisation/' + org_id, 'PUT', true, organisation, function () {
             Modal.close();
             Notification.success("Organisation edited successfully");
         });
     }
-    static async submit_form() {
-        let organisation = {
-            name: $("[name='name']").val(),
-            headquarter: $("[name='headquarter']").val(),
-            founded_year: $("[name='founded_year']").val()
-        };
+    static async submit_create_form() {
+        let organisation = Organisation.fetch_form_data();
         Facade.send_ajax_request('/api/organisation', 'POST', true, organisation, function () {
             Modal.close();
             Notification.success("Organisation added successfully");
         });
     }
+    static fetch_form_data() {
+        let organisation = {
+            name: $("[name='name']").val(),
+            headquarter: $("[name='headquarter']").val(),
+            founded_year: $("[name='founded_year']").val()
+        };
+        return organisation;
+    }
     static async delete(org_id) {
-        if (confirm("Are you sure you want to delete this organisation and all it's events and fights?") === false) return;
+        if (!confirm("Are you sure you want to delete this organisation and all it's events and fights?")) return;
         Facade.send_ajax_request('/api/organisation/' + org_id, 'DELETE', true, null, function () {
             Facade.navigator.go_to_organisations();
             Notification.success("Organisation deleted successfully");
