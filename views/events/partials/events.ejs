@@ -38,7 +38,8 @@
                         <div class="flex items-center justify-between p-6">
                             <button
                                 class="select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                type="button">
+                                type="button"
+                                onclick="Facade.navigator.go_to_event_detail(<%= event.organisation_id %>)">
                                 More info
                             </button>
 

@@ -11,7 +11,7 @@ class Event {
     static build_form(event) {
         const action = event ? 'Edit' : 'Add';
         const fields = [
-            new FormField("hidden", "organisation_id", "", event ? event.organisation_id : ""),
+            new FormField("organisation", "organisation_id", "Organisation", event ? event.organisation_id : ""),
             new FormField("text", "name", "Name", event ? event.name : ""),
             new FormField("date", "date", "Date", event ? event.date : ""),
             new FormField("text", "location", "Location", event ? event.location : ""),

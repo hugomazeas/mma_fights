@@ -16,8 +16,9 @@ router.get('/:event_id', async function (req, res) {
 });
 router.post('/', async function (req, res) {
     const event = req.body;
-    const result = (await Event.add_event(event));    
-    event.event_id = result.rows[0].event_id;
+    const result = (await Event.add_event(event));
+    console.log(result);
+    event.event_id = result.event_id;
     res.send(event);
 });
 router.delete('/:event_id', async function (req, res) {
