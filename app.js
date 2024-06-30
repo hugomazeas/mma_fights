@@ -24,7 +24,7 @@ require('./config/passport')(passport);
 const app = express();
 const port = 3000;
 app.get('/', (req, res) => {
-    if(res.xhr) res.send(''); else res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    if (res.xhr) res.send(''); else res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 app.use(express.static('public'));
 app.use(express.json());
@@ -47,9 +47,7 @@ app.use('/authentification', authRoutes);
 app.use('/registry', registryRoutes);
 
 app.get('*', (req, res) => {
-    if (!req.xhr && !req.path.includes('/api/')) {
-        res.sendFile(path.join(__dirname, 'public', 'index.html'));
-    }
+    console.log('REQUEST NOT FOUND');
 });
 sequelize.sync({ logging: false }).then(() => {
     app.listen(port, () => {

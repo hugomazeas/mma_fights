@@ -77,7 +77,7 @@ class Event {
     static delete(event_id) {
         if (confirm("Are you sure you want to delete this event and all it's fight?") === false) return;
         Facade.send_ajax_request('/api/event/' + event_id, 'DELETE', true, null, function () {
-            Facade.navigator.go_to_organisations();
+            Facade.navigator.go_to_events();
             Notification.success("Event deleted successfully");
         });
     }

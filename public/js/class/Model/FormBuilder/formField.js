@@ -65,6 +65,7 @@ class FormField {
             case 'number_round':
             case 'card_type':
             case 'round_length':
+            case 'win_type':
                 const data = Facade.send_ajax_request(`/api/${type}`, 'GET', false, null, function (data) { });
                 if (data) {
                     html = `

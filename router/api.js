@@ -43,7 +43,12 @@ router.get('/round_length', async function (req, res) {
     const round_lengths = (await pool.query('SELECT * FROM round_length')).rows;
     res.send(round_lengths);
 });
+router.get('/win_type', async function (req, res) {
+    const win_types = (await pool.query('SELECT * FROM win_type')).rows;
+    res.send(win_types);
+});
 router.get('/fighter_form', async function (req, res) {
     res.render('partials/fighter_form');
 });
+
 module.exports = router;

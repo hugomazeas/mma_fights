@@ -148,7 +148,7 @@ function display_round_data(round_id) {
 function import_fight(fight_id) {
     Facade.send_ajax_request('/api/fight/' + fight_id, 'GET', false, null, function (data) {
         let parsed_data = JSON.parse(data.target.response);
-        fight = new Fight(parsed_data?.fight_id, parsed_data?.event_id, parsed_data?.fighter1_id, parsed_data?.fighter2_id, parsed_data?.winner_id, parsed_data?.division, parsed_data?.round_length, parsed_data?.card_type, parsed_data?.card_title, parsed_data?.rounds, parsed_data?.ufc_number, parsed_data?.number_round);
+        fight = new Fight(parsed_data?.fight_id, parsed_data?.event_id, parsed_data?.fighter1_id, parsed_data?.fighter2_id, parsed_data?.winner_id, parsed_data?.division, parsed_data?.round_length, parsed_data?.card_type, parsed_data?.card_title, parsed_data?.rounds, parsed_data?.ufc_number, parsed_data?.number_round, parsed_data?.win_type);
     });
 }
 function rollback_seconds(seconds) {
