@@ -20,8 +20,14 @@ class Modal {
             callback = Modal.close;
         }
         this.close_button_id = getRandomNumber();
-        this.close_button = `<button id="${this.close_button_id}" class="p-2 bg-red-400 rounded-lg hover:bg-red-700 text-white">${text}</button>`;
+        this.close_button = `<button id="${this.close_button_id}" class="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">${text}</button>`;
         this.close_callback = callback;
+        return this;
+    }
+    add_supporting_button(text, callback) {
+        this.supporting_button_id = getRandomNumber();
+        this.supporting_button = `<button id="${this.supporting_button_id}" class="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">${text}</button>`;
+        this.supporting_callback = callback;
         return this;
     }
     add_content(content) {
@@ -47,8 +53,9 @@ class Modal {
                                 </div>
                             </div>
                             <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 justify-between">
-                            ${this.submit_button ? this.submit_button : ''}
                             ${this.close_button ? this.close_button : ''}
+                            ${this.supporting_button ? this.supporting_button : ''}
+                            ${this.submit_button ? this.submit_button : ''}
                             </div>
                         </div>
                     </div>
@@ -67,6 +74,7 @@ class Modal {
         $("body").append(html);
         $(`#${this.submit_button_id}`).click(this.submit_callback);
         $(`#${this.close_button_id}`).click(this.close_callback);
+        $(`#${this.supporting_button_id}`).click(this.supporting_callback);
         Modal.opened_modals.push(this);
     }
 }

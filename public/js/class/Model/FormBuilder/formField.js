@@ -73,7 +73,7 @@ class FormField {
                             <label class="block text-sm text-gray-700" for="${name}">${label}</label>
                             <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="${name}" ${required ? 'required' : ''}>
                                 <option value="">Select options</option>
-                                ${data.map(item => `<option value="${item[`${type}_id`]}">${item.length || item.name || item.full_name || `${item.division} (${item.max_weight} lbs)`}</option>`).join('')} 
+                                ${data.map(item => `<option ${item[`${type}_id`] === value ? 'selected' : ''} value="${item[`${type}_id`]}">${item.length || item.name || item.full_name || `${item.division} (${item.max_weight} lbs)`}</option>`).join('')} 
                             </select>
                         </div>
                     `;

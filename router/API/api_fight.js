@@ -19,13 +19,13 @@ router.post('/', async function (req, res) {
 });
 router.get('/:fight_id', async function (req, res) {
     const fight_id = parseInt(req.params.fight_id);
-    let fight = (await Fight.get_fight(fight_id));
+    let fight = (await Fight.get_all_fights_raw()).find(fight => fight.fight_id === fight_id);
     fight.rounds = [];
     let rounds = (await Round.get_rounds_by_fight(fight_id));
     for (let i = 0; i < rounds.length; i++) {
         fight.rounds.push(rounds[i].round_id);
     }
-    res.status(200).send(fight[0]);
+    res.status(200).send(fight);
 });
 router.delete('/:fight_id', async function (req, res) {
     const fight_id = parseInt(req.params.fight_id);

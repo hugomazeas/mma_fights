@@ -89,10 +89,10 @@ class Fight {
             add_submit_button("Submit", callback).
             add_close_button("Close").
             show();
-        update_winner_options()
+        update_winner_options();
 
         $('select[name="fighter1_id"], select[name="fighter2_id"]').change(function () {
-            update_winner_options()
+            update_winner_options();
         });
     }
     static show_modal_edit_form() {
@@ -109,10 +109,10 @@ class Fight {
             add_submit_button("Submit", callback).
             add_close_button("Close").
             show();
-        update_winner_options()
+        update_winner_options();
 
         $('select[name="fighter1_id"], select[name="fighter2_id"]').change(function () {
-            update_winner_options()
+            update_winner_options();
         });
     }
     static async submit_edit_form() {
@@ -154,12 +154,17 @@ class Fight {
     static async show_fight_details(fight_id) {
         Facade.send_ajax_request(`/views/fights/${fight_id}/details`, 'GET', false, null, function (response) {
             const fight = response.target.response;
-            CookieManager.set_cookie('fight', fight);
+            CookieManager.set_cookie('fight', { fight_id: fight_id })
             let modal = new Modal();
             modal.
                 add_content(fight).
                 add_close_button("Close").
+                add_supporting_button("Edit", function () { Fight.show_modal_edit_form() }).
                 show();
+        });
+        Facade.send_ajax_request(`/api/fight/${fight_id}`, 'GET', false, null, function (response) {
+            const fight = JSON.parse(response.target.response);
+            CookieManager.set_cookie('fight', JSON.stringify(fight));
         });
     }
 }

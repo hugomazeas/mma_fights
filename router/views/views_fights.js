@@ -33,7 +33,6 @@ router.get('/:fight_id/details', async function (req, res) {
         element.fighter2_accuracy = element.fighter2_strikes.filter(strike => strike.round_id === element.round_id && strike.sig_strike === true).length / element.fighter2_strikes.length;
 
     });
-    console.log(fight);
     handleResponse('fights/detailFightRegistry', req, res, { fight: fight });
 });
 module.exports = router;
