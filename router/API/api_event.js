@@ -31,4 +31,10 @@ router.delete('/:event_id', async function (req, res) {
     await Event.delete_event(event_id);
     res.send('Event deleted');
 });
+router.put('/:event_id', async function (req, res) {
+    const event_id = req.params.event_id;
+    const event = req.body;
+    await Event.update_event(event_id, event);
+    res.send(event);
+});
 module.exports = router;

@@ -27,6 +27,12 @@ router.get('/:fight_id', async function (req, res) {
     }
     res.status(200).send(fight);
 });
+router.put('/:fight_id', async function (req, res) {
+    const fight_id = parseInt(req.params.fight_id);
+    const fight = req.body;
+    await Fight.update_fight(fight_id, fight);
+    res.status(204).send('Fight updated');
+});
 router.delete('/:fight_id', async function (req, res) {
     const fight_id = parseInt(req.params.fight_id);
     await Fight.delete_fight(fight_id);

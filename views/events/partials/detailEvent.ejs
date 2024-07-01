@@ -22,55 +22,21 @@
             onclick="Fight.show_modal_create_form();">
             Add fight
         </button>
-        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-            onclick="Event.delete('<%= event.event_id %>');">
-            Delete event
-        </button>
+        <div>
+            <button
+                class="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                onclick="Event.show_modal_edit_form()">
+                Edit Event
+            </button>
+            <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                onclick="Event.delete('<%= event.event_id %>');">
+                Delete event
+            </button>
+        </div>
     </div>
 </div>
 <nav class="flex flex-col text-gray-700 bg-white shadow-md rounded-xl bg-clip-border mt-6">
-
     <% fights_of_event.forEach(fight=> { %>
-        <div role="button" data-fight-id="<%= fight.fight_id %>"
-            onclick="Fight.show_fight_details('<%= fight.fight_id %>')"
-            class="flex items-center w-full p-4 leading-tight transition-all rounded-lg outline-none text-start border-b border-gray-300 hover:bg-gray-100">
-            <div class="flex-none mr-4">
-            </div>
-            <div class="flex-1">
-                <div class="flex items-center justify-between">
-                    <!-- Fighter 1 Information -->
-                    <div class="flex-1 text-left">
-                        <h4 class="text-lg font-semibold text-blue-gray-900">
-                            <%= fight.fighter1_full_name %>
-                        </h4>
-                        <h6 class="text-sm font-semibold text-blue-gray-900">
-                            <%= fight.fighter1_wins %>-<%= fight.fighter1_losses %>-<%= fight.fighter1_draws %>
-                        </h6>
-                    </div>
-                    <!-- VS Text -->
-                    <div class="flex-none text-center mx-4">
-                        <h4 class="text-lg font-semibold text-blue-gray-900">
-                            VS.
-                        </h4>
-                    </div>
-                    <!-- Fighter 2 Information -->
-                    <div class="flex-1 text-right">
-                        <h4 class="text-lg font-semibold text-blue-gray-900">
-                            <%= fight.fighter2_full_name %>
-                        </h4>
-                        <h6 class="text-sm font-semibold text-blue-gray-900">
-                            <%= fight.fighter2_wins %>-<%= fight.fighter2_losses %>-<%= fight.fighter2_draws %>
-                        </h6>
-                    </div>
-                </div>
-                <div class="text-center items-center justify-between">
-                    <p class="text-sm font-normal leading-normal text-gray-700 mt-2">
-                        <%= capitalize_first_letter(fight.card_type_name) %> - <%= fight.number_round %> Rounds
-                    </p>
-                </div>
-            </div>
-            <!-- Action Buttons or Additional Info -->
-            <div class="flex ml-auto space-x-2"></div>
-        </div>
-        <% }) %>
+        <%- include('../../partials/fightRow', {fight: fight} ); -%>
+            <% }); %>
 </nav>

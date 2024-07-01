@@ -1,0 +1,45 @@
+<div role="button" data-fight-id="<%= fight.fight_id %>" onclick="Fight.show_fight_details('<%= fight.fight_id %>')"
+    class="flex items-center w-full p-4 leading-tight transition-all rounded-lg outline-none text-start border-b border-gray-300 hover:bg-gray-100">
+    <div class="flex-none mr-4">
+    </div>
+    <div class="flex-1">
+        <div class="flex items-center justify-between">
+            <!-- Fighter 1 Information -->
+            <div class="flex-1 text-left">
+                <h4
+                    class="<%= fight.winner_full_name === fight.fighter1_full_name ? 'text-green-600' : 'text-red-600' %> text-lg font-semibold text-blue-gray-900">
+                    <%= fight.fighter1_full_name %>
+                </h4>
+                <h6 class="text-sm font-semibold text-blue-gray-900">
+                    <%= fight.fighter1_wins ?? 0 %>-<%= fight.fighter1_losses ?? 0 %>-<%= fight.fighter1_draws ?? 0 %>
+                </h6>
+
+            </div>
+            <!-- VS Text -->
+            <div class="flex-none text-center mx-4">
+                <h4 class="text-lg font-semibold text-blue-gray-900">
+                    VS.
+                </h4>
+            </div>
+            <!-- Fighter 2 Information -->
+            <div class="flex-1 text-right">
+                <h4
+                    class="<%= fight.winner_full_name === fight.fighter2_full_name ? 'text-green-600' : 'text-red-600' %> text-lg font-semibold text-blue-gray-900">
+                    <%= fight.fighter2_full_name %>
+                </h4>
+                <h6 class="text-sm font-semibold text-blue-gray-900">
+                    <%= fight.fighter2_wins ?? 0 %>-<%= fight.fighter2_losses ?? 0 %>-<%= fight.fighter2_draws ?? 0 %>
+                </h6>
+            </div>
+        </div>
+        <div class="text-center items-center justify-between">
+            <p class="text-sm font-normal leading-normal text-gray-700 mt-2">
+                <%= fight.number_round %> Rounds
+                    <br>
+                    <%= fight.win_type_name %>
+            </p>
+        </div>
+    </div>
+    <!-- Action Buttons or Additional Info -->
+    <div class="flex ml-auto space-x-2"></div>
+</div>

@@ -4,9 +4,7 @@ const utility = (req, res, next) => {
     res.locals.format_seconds = format_seconds;
     res.locals.getRandomNumber = getRandomNumber;
     next();
-    
 };
-
 function capitalize_first_letter(str) {
     if (!str) return str;
     return str.charAt(0).toUpperCase() + str.slice(1);

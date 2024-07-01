@@ -12,24 +12,29 @@ class FormField {
     }
 
     build() {
-        const { type, name, label, value, placeholder, required, options, callback } = this;
+        let { type, name, label, value, placeholder, required, options, callback } = this;
         let html = '';
 
         switch (type) {
             case 'hidden':
                 html = `<input type="hidden" name="${name}" value="${value}" placeholder="${placeholder}">`;
                 break;
-            case 'text':
             case 'textarea':
+                html = `
+                    <div class="mt-4">
+                        <label class="block text-sm text-gray-700" for="${name}">${label}</label>
+                        <textarea class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded h-48" name="${name}" placeholder="${placeholder}" ${required ? 'required' : ''}>${value}</textarea>
+                    </div>
+                `;
+                break;
+            case 'text':
             case 'date':
             case 'number':
+                if (type === 'date') value = value.split('T')[0];
                 html = `
                 <div class="mt-4">
                     <label class="block text-sm text-gray-700" for="${name}">${label}</label>
-                    ${type === 'textarea' ?
-                        `<textarea class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded h-48" name="${name}" placeholder="${placeholder}" ${required ? 'required' : ''}>${value}</textarea>` :
-                        `<input type="${type}" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="${name}" value="${value}" placeholder="${placeholder}" ${required ? 'required' : ''}/>`
-                    }
+                    <input type="${type}" class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="${name}" value="${value}" placeholder="${placeholder}" ${required ? 'required' : ''}/>
                 </div>
                 `;
                 break;
@@ -52,7 +57,19 @@ class FormField {
                     <div class="mt-4">
                         <label class="block text-sm text-gray-700" for="${name}">${label}</label>
                         <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="${name}" ${required ? 'required' : ''}>
-                            ${options.map(option => `<option value="${option.value}">${option.label}</option>`).join('')}
+                            ${options.map(option => `<option ${option[`${type}_id`] === value ? 'selected' : ''} value="${option.value}">${option.label}</option>`).join('')}
+                        </select>
+                    </div>
+                `;
+                break;
+            case 'winner_select':
+                html = `
+                    <div class="mt-4">
+                        <label class="block text-sm text-gray-700" for="${name}">${label}</label>
+                        <select class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="${name}" ${required ? 'required' : ''}>
+                            <option value="">Select Winner</option>
+                            ${options.map(option => `<option ${option.fighter_id === value ? 'selected' : ''} value="${option.fighter_id}">${option.fighter_name}</option>`).join('')}
+                            <option ${options[1].fighter_id === value ? 'selected' : ''} value="${options[1].fighter_id}">${options[1].fighter_name}</option>
                         </select>
                     </div>
                 `;

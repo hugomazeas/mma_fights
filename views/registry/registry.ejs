@@ -1,3 +1,6 @@
-<%- include('../partials/header.ejs') %>
-<%- include('../registry/partialRegistry.ejs') %>
-<%- include('../partials/footer.ejs') %>
+<% if (!xhr) { %>
+    <%- include('../partials/header.ejs') %>
+        <% } %><%- include('../registry/partialRegistry.ejs') %>
+                <% if (!xhr) { %>
+                    <%- include('../partials/footer.ejs') %>
+                        <% } %>

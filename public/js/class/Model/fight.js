@@ -61,11 +61,17 @@ class Fight {
     }
     static build_form(fight) {
         const action = fight ? 'Edit' : 'Add';
+        let winner_options = [];
+        if (fight) {
+            this.fighter1_full_name = Facade.send_ajax_request('/api/fighter/' + fight.fighter1_id, 'GET', false, null, function () { }).full_name;
+            this.fighter2_full_name = Facade.send_ajax_request('/api/fighter/' + fight.fighter2_id, 'GET', false, null, function () { }).full_name;
+            winner_options = [{ fighter_id: fight.fighter1_id, fighter_name: this.fighter1_full_name }, { fighter_id: fight.fighter2_id, fighter_name: this.fighter2_full_name }];
+        }
         const fields = [
             new FormField("event", "event_id", "Event", fight ? fight.event_id : ''),
             new FormField("fighter", "fighter1_id", "Blue Fighter", fight ? fight.fighter1_id : ''),
             new FormField("fighter", "fighter2_id", "Red Fighter", fight ? fight.fighter2_id : ''),
-            new FormField("select", "winner_id", "Winner", fight ? fight.winner_id : ''),
+            new FormField("winner_select", "winner_id", "Winner", fight ? fight.winner_id : '', winner_options),
             new FormField("division", "division", "Division", fight ? fight.division : ''),
             new FormField("win_type", "win_type", "Win Type", fight ? fight.win_type : ''),
             new FormField("round_length", "round_length", "Round Length", fight ? fight.round_length : ''),
@@ -89,7 +95,7 @@ class Fight {
             add_submit_button("Submit", callback).
             add_close_button("Close").
             show();
-        update_winner_options();
+        // update_winner_options();
 
         $('select[name="fighter1_id"], select[name="fighter2_id"]').change(function () {
             update_winner_options();
@@ -102,6 +108,8 @@ class Fight {
         let callback = async function () {
             await Fight.submit_edit_form();
             Modal.close();
+            Modal.close();
+            Fight.show_fight_details(fight.fight_id);
             Facade.refresh_page();
         }
         modal.add_title("Edit Fight").
@@ -109,7 +117,7 @@ class Fight {
             add_submit_button("Submit", callback).
             add_close_button("Close").
             show();
-        update_winner_options();
+        // update_winner_options();
 
         $('select[name="fighter1_id"], select[name="fighter2_id"]').change(function () {
             update_winner_options();
