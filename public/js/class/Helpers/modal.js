@@ -1,9 +1,11 @@
 class Modal {
     static opened_modals = [];
+
     constructor() {
         this.width = 50;
         this.height = 50;
         this.modal_id = getRandomNumber();
+        this.supporting_button = [];
     }
     add_title(title) {
         this.title = title;
@@ -25,9 +27,14 @@ class Modal {
         return this;
     }
     add_supporting_button(text, callback) {
-        this.supporting_button_id = getRandomNumber();
-        this.supporting_button = `<button id="${this.supporting_button_id}" class="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">${text}</button>`;
-        this.supporting_callback = callback;
+        let supporting_button = {};
+
+        supporting_button.button_id = getRandomNumber();
+        supporting_button.html = `<button id="${supporting_button.button_id}" class="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">${text}</button>`;
+        supporting_button.callback = callback;
+
+        this.supporting_button.push(supporting_button);
+
         return this;
     }
     add_content(content) {
@@ -35,6 +42,10 @@ class Modal {
         return this;
     }
     build_html() {
+        let supporting_buttons = '';
+        for (let i = 0; i < this.supporting_button.length; i++) {
+            supporting_buttons += this.supporting_button[i].html;
+        }
         let html = `
             <div class="relative z-10" id="modal_${this.modal_id}"aria-labelledby="modal-title" role="dialog" aria-modal="true">
                 <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -52,10 +63,12 @@ class Modal {
                                     </div>
                                 </div>
                             </div>
-                            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 justify-between">
-                            ${this.close_button ? this.close_button : ''}
-                            ${this.supporting_button ? this.supporting_button : ''}
-                            ${this.submit_button ? this.submit_button : ''}
+                            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex sm:px-6 justify-between">
+                                ${supporting_buttons}
+                                <div class="mt-3 sm:mt-0 sm:ml-4 sm:flex sm:flex-row-reverse">
+                                    ${this.submit_button ? this.submit_button : ''}
+                                    ${this.close_button ? this.close_button : ''}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,7 +87,9 @@ class Modal {
         $("body").append(html);
         $(`#${this.submit_button_id}`).click(this.submit_callback);
         $(`#${this.close_button_id}`).click(this.close_callback);
-        $(`#${this.supporting_button_id}`).click(this.supporting_callback);
+        for (let i = 0; i < this.supporting_button.length; i++) {
+            $(`#${this.supporting_button[i].button_id}`).click(this.supporting_button[i].callback);
+        }
         Modal.opened_modals.push(this);
     }
 }

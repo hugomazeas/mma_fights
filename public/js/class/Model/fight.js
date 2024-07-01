@@ -168,6 +168,11 @@ class Fight {
                 add_content(fight).
                 add_close_button("Close").
                 add_supporting_button("Edit", function () { Fight.show_modal_edit_form() }).
+                add_supporting_button("Delete", function () {
+                    Fight.delete(fight_id);
+                    Modal.close();
+                    Facade.refresh_page();
+                }).
                 show();
         });
         Facade.send_ajax_request(`/api/fight/${fight_id}`, 'GET', false, null, function (response) {
